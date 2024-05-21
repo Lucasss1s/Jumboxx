@@ -13,7 +13,7 @@ public class Almacenista  extends Usuario{
     	JOptionPane.showMessageDialog(null,"El almacenista está gestionando el inventario.");
     }
 
-        
+	
     public void mostrarMenu() {
     	boolean salir = false;
     	do {	
