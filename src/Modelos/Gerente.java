@@ -1,17 +1,20 @@
 package Modelos;
+import java.time.LocalDate;
+
 import javax.swing.JOptionPane;
+import controladores.DatabaseConnection;
+import controladores.UsuarioControlador;
 
 public class Gerente extends Usuario {
-	
-	
-    public Gerente(int id_persona, String nombre, String apellido) {
-        super(id_persona, nombre, apellido);
-    }
 
-    public void mostrarMenu() {
+    public Gerente(int id_usuario, String nombreCompleto, String user, String puesto, LocalDate fechaRegistro) {
+		super(id_usuario, nombreCompleto, user, puesto, fechaRegistro);
+	}
+
+	public void mostrarMenu() {
     	boolean salir = false;
     	do {	
-        String[] opciones = { "Pedidos", "Stock", "Reportes", "Almacenes" ,  "Salir"};
+        String[] opciones = { "Pedidos", "Stock", "Reportes", "Almacenes" , "Usuarios" ,"Salir"};
         int opcionSeleccionada = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones, opciones[0]);
 
         	
@@ -71,6 +74,12 @@ public class Gerente extends Usuario {
      		JOptionPane.showMessageDialog(null, "Almacenes");
      		break;
      	case 4:
+     		UsuarioControlador controlador = new UsuarioControlador();
+     		
+     		JOptionPane.showMessageDialog(null, controlador.getAllUsers());
+     		
+     		break;	
+     	case 5:
      		System.exit(0);
      		break;
         }

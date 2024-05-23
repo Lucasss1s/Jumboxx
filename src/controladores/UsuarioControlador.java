@@ -1,4 +1,3 @@
-
 package controladores;
 import interfaz.UserRepository;
 import java.sql.Connection;
@@ -23,11 +22,12 @@ public class UsuarioControlador implements UserRepository {
     public List<Usuario> getAllUsers() {
         List<Usuario> users = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users ");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM usuario ");
             ResultSet resultSet = statement.executeQuery();
        
             while (resultSet.next()) {
-            	Usuario user = new Usuario(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"));
+            	Usuario user = new Usuario(resultSet.getInt("UsuarioID"), resultSet.getString("NombreCompleto"), resultSet.getString("User"), 
+            			resultSet.getString("Puesto"), resultSet.getDate("").toLocalDate());
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -46,7 +46,8 @@ public class UsuarioControlador implements UserRepository {
             ResultSet resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-                user = new Usuario (resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("email"));
+                user = new Usuario (resultSet.getInt("UsuarioID"), resultSet.getString("NombreCompleto"), resultSet.getString("User"), 
+            			resultSet.getString("Puesto"), resultSet.getDate("").toLocalDate());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -57,9 +58,11 @@ public class UsuarioControlador implements UserRepository {
 	@Override
     public void addUser (Usuario usuario) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (name, email) VALUES (?, ?)");
-            statement.setString(1, usuario.getNombre());
-//            statement.setString(2, usuario.getEmail());
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (name, user, puesto, fechaRegistro) VALUES (?, ?, ?, ?)");
+            statement.setString(1, usuario.getNombreCompleto());
+            statement.setString(2, usuario.getUser());
+            statement.setString(3, usuario.getPuesto());
+            statement.setDate(4, java.sql.Date.valueOf(usuario.getFechaRegistro()));
             
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -73,10 +76,12 @@ public class UsuarioControlador implements UserRepository {
 	@Override
     public void updateUser(Usuario usuario) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE users SET name = ?, email = ? WHERE id = ?");
-            statement.setString(1, usuario.getNombre());
-//            statement.setString(2, usuario.getEmail());
-//            statement.setInt(3, usuario.getId());
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (name, user, puesto, fechaRegistro) VALUES (?, ?, ?, ?, ?)");
+            statement.setString(1, usuario.getNombreCompleto());
+            statement.setString(2, usuario.getUser());
+            statement.setString(3, usuario.getPuesto());
+            statement.setDate(4, java.sql.Date.valueOf(usuario.getFechaRegistro()));
+            statement.setInt(5, usuario.getId_usuario());
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
@@ -101,9 +106,38 @@ public class UsuarioControlador implements UserRepository {
             e.printStackTrace();
         }
     }
-
-	
-
+    
+    @Override
+    public Usuario getUserByUsernameAndPassword(String username, String password) {
+        Usuario user = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM usuario WHERE User = ? AND Contraseña = ?");
+            statement.setString(1, username);
+            statement.setString(2, password);
+            ResultSet resultSet = statement.executeQuery();
+            
+            if (resultSet.next()) {
+                user = new Usuario(
+                    resultSet.getInt("UsuarioID"),
+                    resultSet.getString("NombreCompleto"),
+                    resultSet.getString("User"),
+                    resultSet.getString("Puesto"),
+                    resultSet.getDate("FechaRegistro").toLocalDate()
+                );
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+    
+    
+    public void cerrarConexion() throws SQLException {
+        if (connection != null && !connection.isClosed()) {
+            connection.close();
+        }
+    }
 
 
   
