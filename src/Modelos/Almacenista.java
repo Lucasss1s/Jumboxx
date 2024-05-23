@@ -1,13 +1,17 @@
 package Modelos;
+import java.time.LocalDate;
+
 import javax.swing.JOptionPane;
 
 public class Almacenista  extends Usuario{
 	  
-    public Almacenista(int id_persona, String nombre, String apellido) {
-		super(id_persona, nombre, apellido);
-	}
-    
+  
 	
+	public Almacenista(int id_usuario, String nombreCompleto, String user, String puesto, LocalDate fechaRegistro) {
+		super(id_usuario, nombreCompleto, user, puesto, fechaRegistro);
+	}
+
+
 	public void gestionarInventario() {
     	
     	JOptionPane.showMessageDialog(null,"El almacenista está gestionando el inventario.");

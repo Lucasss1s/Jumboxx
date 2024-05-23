@@ -1,6 +1,11 @@
 package vista;
+import java.sql.SQLException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+
+import com.mysql.jdbc.Connection;
+
 import Modelos.Administrador;
 import Modelos.Almacenista;
 import Modelos.BaseDatos;
@@ -9,8 +14,10 @@ import Modelos.Deposito;
 import Modelos.Gerente;
 import Modelos.Producto;
 import Modelos.Sucursal;
+import Modelos.Usuario;
 import Modelos.Venta;
 import controladores.UsuarioControlador;
+import controladores.DatabaseConnection;
 
 public class Main {
 
@@ -20,10 +27,7 @@ public class Main {
 		BaseDatos bd = new BaseDatos();
 		UsuarioControlador controlador = new UsuarioControlador();
 		
-		bd.getAlmacenistas().add(new Almacenista(2, "Ana", "López"));
-		bd.getAdministrador().add(new Administrador(3, "Elena", "García"));
-		
-		Gerente gerente = new Gerente(1, "Carlos", "Martínez");
+	
 		Cliente cliente1 = new Cliente(4, "Juan", "Gomez", "Moreno 850", 44661122);
 		
 		Venta venta1 = new Venta(1, cliente1, null, null, 1000);            
@@ -36,39 +40,40 @@ public class Main {
 		JOptionPane.showMessageDialog(null, "¡Bienvenido \n         a               \n  Mayorista      \n  Jumbox!", "Hola",
 				JOptionPane.INFORMATION_MESSAGE, icon);
      
-        int selecId = Integer.parseInt(JOptionPane.showInputDialog("Ingrese su ID:"));
-		Almacenista almacenistaSelec = bd.BuscarAlmacenista(selecId);
-		Administrador administradorSelec = bd.BuscarAdministrador(selecId);
-		
-        if (almacenistaSelec != null) {
-        	JOptionPane.showMessageDialog(null, "Bienvenid@: " + almacenistaSelec.getNombre());
+    
+//		String username = "Lucass"; // Nombre de usuario ingresado
+//        String password = "123"; // Contraseña ingresada
+//
+//        Usuario usuarioAutenticado = controlador.getUserByUsernameAndPassword(username, password);
+//        JOptionPane.showMessageDialog(null, usuarioAutenticado.getUser() + " " + usuarioAutenticado.getPuesto());
      
-        	almacenistaSelec.mostrarMenu();
-        	
-		} 
-        
-        
-        
-        if (administradorSelec != null) {
-        	JOptionPane.showMessageDialog(null, "Bienvenid@: " + administradorSelec.getNombre());
-     
-        	administradorSelec.mostrarMenu();
-    	    
-		}
-        
-        
-        
-        
-        if (selecId == gerente.getId_persona()) {
-        	JOptionPane.showMessageDialog(null, "Bienvenid@: " + gerente.getNombre());
-        	
-        	gerente.mostrarMenu();
-        	
-		}
-        
-        //
-     
-        System.out.println("a");
-        
+		try {
+            JOptionPane.showMessageDialog(null, "Bienvenido a Jumbox");
+
+            String username = Usuario.pedirInputNoVacio("Ingrese su nombre de usuario:");
+            String password = Usuario.pedirInputNoVacio("Ingrese su contraseña:");
+
+            Usuario usuarioAutenticado = controlador.getUserByUsernameAndPassword(username, password);
+
+            if (usuarioAutenticado != null) {
+                JOptionPane.showMessageDialog(null,
+                        "Bienvenido, " + usuarioAutenticado.getNombreCompleto() + "!\n"
+                        + "Usuario: " + usuarioAutenticado.getUser() + "\n"
+                        + "Puesto: " + usuarioAutenticado.getPuesto());
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos.");
+            }
+
+        } finally {
+            if (controlador != null) {
+                try {
+                    controlador.cerrarConexion();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
+
+
 }

@@ -23,7 +23,7 @@ public class BaseDatos {
 	
 	public Almacenista BuscarAlmacenista(int id_persona) {
 		for (Almacenista almacenista : almacenista) {
-            if (almacenista.getId_persona() ==  id_persona) {
+            if (almacenista.getId_usuario() ==  id_persona) {
                 return almacenista;
             }
 		}
@@ -32,7 +32,7 @@ public class BaseDatos {
 
 	public Administrador BuscarAdministrador(int id_persona) {
 		for (Administrador administrador : administrador) {
-            if (administrador.getId_persona() ==  id_persona) {
+            if (administrador.getId_usuario() ==  id_persona) {
                 return administrador;
             }
 		}

@@ -14,4 +14,6 @@ public interface UserRepository {
     
     void deleteUser(int id); //eliminar usuarios de la bdd
 
+	Usuario getUserByUsernameAndPassword(String username, String password);
+
 }

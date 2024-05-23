@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/prueba";
+    private static final String URL = "jdbc:mysql://localhost:3306/supermercado";
     private static final String USER = "root";
     private static final String PASSWORD = "";
     
@@ -15,7 +15,7 @@ public class DatabaseConnection {
     private Connection connection;
     
     //genera la bdd cuanto usa el constructor
-    private DatabaseConnection() {
+    public DatabaseConnection() {
         try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD); 
         } catch (SQLException e) {
@@ -33,5 +33,8 @@ public class DatabaseConnection {
     public Connection getConnection() {
         return connection;
     }
+    
+    
+
 }
   
