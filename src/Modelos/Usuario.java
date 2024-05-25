@@ -76,22 +76,11 @@ public class Usuario {
     }
 	
     
-    
-    
 	@Override
 	public String toString() {
 		return "Usuario [id_usuario=" + id_usuario + ", nombreCompleto=" + nombreCompleto + ", user=" + user
 				+ ", puesto=" + puesto + ", fechaRegistro=" + fechaRegistro + "]";
 	}
 
-	
-
-
-
-
-
-	
-
-	
 
 }

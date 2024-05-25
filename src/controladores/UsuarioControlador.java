@@ -27,7 +27,7 @@ public class UsuarioControlador implements UserRepository {
        
             while (resultSet.next()) {
             	Usuario user = new Usuario(resultSet.getInt("UsuarioID"), resultSet.getString("NombreCompleto"), resultSet.getString("User"), 
-            			resultSet.getString("Puesto"), resultSet.getDate("").toLocalDate());
+            			resultSet.getString("Puesto"), resultSet.getDate("FechaRegistro").toLocalDate());
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -47,7 +47,7 @@ public class UsuarioControlador implements UserRepository {
             
             if (resultSet.next()) {
                 user = new Usuario (resultSet.getInt("UsuarioID"), resultSet.getString("NombreCompleto"), resultSet.getString("User"), 
-            			resultSet.getString("Puesto"), resultSet.getDate("").toLocalDate());
+            			resultSet.getString("Puesto"), resultSet.getDate("FechaRegistro").toLocalDate());
             }
         } catch (SQLException e) {
             e.printStackTrace();

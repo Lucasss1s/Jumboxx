@@ -1,5 +1,6 @@
 package Modelos;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import controladores.DatabaseConnection;
@@ -11,7 +12,7 @@ public class Gerente extends Usuario {
 		super(id_usuario, nombreCompleto, user, puesto, fechaRegistro);
 	}
 
-	public void mostrarMenu() {
+	public static void mostrarMenu() {
     	boolean salir = false;
     	do {	
         String[] opciones = { "Pedidos", "Stock", "Reportes", "Almacenes" , "Usuarios" ,"Salir"};
@@ -76,7 +77,42 @@ public class Gerente extends Usuario {
      	case 4:
      		UsuarioControlador controlador = new UsuarioControlador();
      		
-     		JOptionPane.showMessageDialog(null, controlador.getAllUsers());
+     		 String[] users = { "Ver usuarios", "Agregar usuarios", "Actualizar usuarios", "Salir"};
+             int opcUsers = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, users, users[0]);
+     		
+             
+             switch (opcUsers) {
+			case 0:
+				
+				break;
+			case 1:
+				
+				break;
+			case 2:
+				
+				break;
+			case 3:
+				
+				break;
+			default:
+				
+				break;
+			}
+            List<Usuario> usuarios = controlador.getAllUsers();
+            
+            // Crear una cadena de texto para mostrar los usuarios
+            StringBuilder usuariosTexto = new StringBuilder();
+            for (Usuario usuario : usuarios) {
+                usuariosTexto.append("ID: ").append(usuario.getId_usuario()).append("\n")
+                             .append("Nombre Completo: ").append(usuario.getNombreCompleto()).append("\n")
+                             .append("Usuario: ").append(usuario.getUser()).append("\n")
+                             .append("Puesto: ").append(usuario.getPuesto()).append("\n")
+                             .append("Fecha de Registro: ").append(usuario.getFechaRegistro()).append("\n")
+                             .append("----------------------------\n");
+            }
+            
+            // Mostrar los usuarios en un JOptionPane
+            JOptionPane.showMessageDialog(null, usuariosTexto.toString());
      		
      		break;	
      	case 5:

@@ -59,6 +59,24 @@ public class Main {
 				JOptionPane.showMessageDialog(null,
 						"Bienvenido, " + usuarioAutenticado.getNombreCompleto() + "!\n" + "Usuario: "
 								+ usuarioAutenticado.getUser() + "\n" + "Puesto: " + usuarioAutenticado.getPuesto());
+				
+				
+				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Gerente") ) {
+					Gerente.mostrarMenu();
+				}
+				
+				
+				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Administrador") ) {
+					Administrador.mostrarMenu();
+				}
+				
+				
+				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Almacenista") ) {
+					Almacenista.mostrarMenu();
+				}
+				
+								
+				
 			} else {
 				JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos.");
 			}
@@ -73,35 +91,35 @@ public class Main {
 			}
 		}
 
-		try {
-			// Agregar un producto
-			Producto nuevoProducto = new Producto(11, "Leche", 10, 2.5);
-			Producto.agregarProducto(nuevoProducto);
-			System.out.println("Producto agregado correctamente.");
-
-		//	Obtener un producto por su ID
-		//	Producto productoObtenido = Producto.obtenerProducto(11);
-		//	System.out.println("Producto obtenido: " + productoObtenido);
-
-			// Actualizar el producto
-		//	productoObtenido.setNombre("Cargador");
-		//	Producto.actualizarProducto(productoObtenido);
-		//	System.out.println("Producto actualizado correctamente.");
-
-			// Obtener todos los productos
-		//	List<Producto> todosLosProductos = Producto.obtenerTodosLosProductos();
-		//	System.out.println("Todos los productos:");
-		//	for (Producto p : todosLosProductos) {
-		//		//System.out.println(p);
-		//	}
-
-			// Eliminar el producto
-		//	Producto.eliminarProducto(11);
-		//	System.out.println("Producto eliminado correctamente.");
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			// Agregar un producto
+//			Producto nuevoProducto = new Producto(11, "Leche", 10, 2.5);
+//			Producto.agregarProducto(nuevoProducto);
+//			System.out.println("Producto agregado correctamente.");
+//
+//		//	Obtener un producto por su ID
+//		//	Producto productoObtenido = Producto.obtenerProducto(11);
+//		//	System.out.println("Producto obtenido: " + productoObtenido);
+//
+//			// Actualizar el producto
+//		//	productoObtenido.setNombre("Cargador");
+//		//	Producto.actualizarProducto(productoObtenido);
+//		//	System.out.println("Producto actualizado correctamente.");
+//
+//			// Obtener todos los productos
+//		//	List<Producto> todosLosProductos = Producto.obtenerTodosLosProductos();
+//		//	System.out.println("Todos los productos:");
+//		//	for (Producto p : todosLosProductos) {
+//		//		//System.out.println(p);
+//		//	}
+//
+//			// Eliminar el producto
+//		//	Producto.eliminarProducto(11);
+//		//	System.out.println("Producto eliminado correctamente.");
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 
 	}
 

@@ -18,7 +18,7 @@ public class Almacenista  extends Usuario{
     }
 
         
-    public void mostrarMenu() {
+    public static void mostrarMenu() {
     	boolean salir = false;
     	do {	
         String[] opciones = { "Pedidos", "Stock", "Reportes", "Salir"};

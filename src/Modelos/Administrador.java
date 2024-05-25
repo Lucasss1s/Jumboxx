@@ -10,7 +10,7 @@ public class Administrador extends Usuario {
 		super(id_usuario, nombreCompleto, user, puesto, fechaRegistro);
 	}
 
-	public void mostrarMenu() {
+	public static void mostrarMenu() {
     	boolean salir = false;
     	do {	
         String[] opciones = { "Pedidos", "Stock", "Reportes", "Salir"};
