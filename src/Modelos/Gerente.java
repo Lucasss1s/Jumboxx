@@ -1,6 +1,7 @@
 package Modelos;
 import java.time.LocalDate;
 
+
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -11,8 +12,9 @@ import controladores.UsuarioControlador;
 
 public class Gerente extends Usuario {
 
-    public Gerente(int id_usuario, String nombreCompleto, String user, String puesto, LocalDate fechaRegistro) {
-		super(id_usuario, nombreCompleto, user, puesto, fechaRegistro);
+	public Gerente(int id_usuario, String nombreCompleto, String user, String contraseña, String puesto,
+			LocalDate fechaRegistro) {
+		super(id_usuario, nombreCompleto, user, contraseña, puesto, fechaRegistro);
 	}
 
 	public static void mostrarMenu() {
@@ -78,98 +80,115 @@ public class Gerente extends Usuario {
      		JOptionPane.showMessageDialog(null, "Almacenes");
      		break;
      	case 4:
-     		UsuarioControlador controlador = new UsuarioControlador();
-     		
-     		 String[] users = { "Ver usuarios", "Agregar usuarios", "Actualizar usuarios", "Atrás"};
-             int opcUsers = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, users, users[0]);
-     		
-             
-             switch (opcUsers) {
-			case 0:
-				
-	     		 String[] usersID = { "Ver todos los usuarios", "Buscar usuario", "Atrás"};
-	             int opcUsersID = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, usersID, usersID[0]);
-	             
-	             switch (opcUsersID) {
-				case 0:
-		            List<Usuario> usuarios = controlador.getAllUsers();
-		            
-		            // Crear una cadena de texto para mostrar los usuarios
-		            StringBuilder usuariosTexto = new StringBuilder();
-		            for (Usuario usuario : usuarios) {
-		                usuariosTexto.append("ID: ").append(usuario.getId_usuario()).append("\n")
-		                             .append("Nombre Completo: ").append(usuario.getNombreCompleto()).append("\n")
-		                             .append("Usuario: ").append(usuario.getUser()).append("\n")
-		                             .append("Puesto: ").append(usuario.getPuesto()).append("\n")
-		                             .append("Fecha de Registro: ").append(usuario.getFechaRegistro()).append("\n")
-		                             .append("----------------------------\n");
-		            }
-		            
-		            JOptionPane.showMessageDialog(null, usuariosTexto.toString());
-					break;
-				case 1:		
-//					String[] usuariosArray = new String[controlador.getAllUsers().size()];	
-//					for (int i = 0; i < controlador.getAllUsers().size(); i++) {
-//						usuariosArray[i] =  Integer.toString(controlador.getAllUsers().get(i).getId_usuario());
-//					}
-//					String seleccion = (String) JOptionPane.showInputDialog(null, "Usuarios", "Elija un usuario", 0, null, usuariosArray, usuariosArray[0]);
-//					
-//					Usuario usuarioSeleccionado = controlador.getUserById(Integer.parseInt(seleccion));
-//					
-//					JOptionPane.showMessageDialog(null, usuarioSeleccionado);
-					
-			        while (true) {
-			            try {
-			                String inputId = Usuario.pedirInputNoVacio("Ingrese el ID del usuario:");
-			                int idUsuario = Integer.parseInt(inputId);
+     	    UsuarioControlador controlador = new UsuarioControlador();
 
-			                Usuario usuario = controlador.getUserById(idUsuario);
-			                
-			                if (usuario != null) {
-			                    StringBuilder usuarioTexto = new StringBuilder();
-			                    usuarioTexto.append("ID: ").append(usuario.getId_usuario()).append("\n")
-			                                 .append("Nombre Completo: ").append(usuario.getNombreCompleto()).append("\n")
-			                                 .append("Usuario: ").append(usuario.getUser()).append("\n")
-			                                 .append("Puesto: ").append(usuario.getPuesto()).append("\n")
-			                                 .append("Fecha de Registro: ").append(usuario.getFechaRegistro()).append("\n");
+     	    boolean salirUsuarios = false;
+     	    while (!salirUsuarios) {
+     	        String[] users = { "Ver usuario", "Agregar usuario", "Actualizar usuario", "Eliminar usuario", "Atrás" };
+     	        int opcUsers = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, users, users[0]);
 
-			                    JOptionPane.showMessageDialog(null, usuarioTexto.toString(), "Usuario Encontrado", JOptionPane.INFORMATION_MESSAGE);
-			                    break; // Salir del bucle si se encuentra el usuario
-			                } else {
-			                    JOptionPane.showMessageDialog(null, "Usuario no encontrado. Por favor, ingrese un ID válido.", "Error", JOptionPane.ERROR_MESSAGE);
-			                }
-			            } catch (NumberFormatException e) {
-			                JOptionPane.showMessageDialog(null, "ID inválido. Por favor, ingrese un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
-			            } catch (Exception e) {
-			                JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-			            }
-			        }
-							
-					break;
-				case 2:
-					
-					break;
-				default:
-					break;
-				}
-				
-				break;
-			case 1:
-				
-				break;
-			case 2:
-				
-				break;
-			case 3:
-				
-				break;
-			default:
-				
-				break;
-			}
+     	        switch (opcUsers) {
+     	            case 0:
+     	                boolean salirVerUsuarios = false;
+     	                while (!salirVerUsuarios) {
+     	                    String[] usersID = { "Ver todos los usuarios", "Buscar usuario", "Atrás" };
+     	                    int opcUsersID = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, usersID, usersID[0]);
 
-   	
-     		break;	
+     	                    switch (opcUsersID) {
+     	                        case 0:
+     	                            List<Usuario> usuarios = controlador.getAllUsers();
+
+     	                            // Crear una cadena de texto para mostrar los usuarios
+     	                            StringBuilder usuariosTexto = new StringBuilder();
+     	                            for (Usuario usuario : usuarios) {
+     	                                usuariosTexto.append("ID: ").append(usuario.getId_usuario()).append("\n")
+     	                                    .append("Nombre Completo: ").append(usuario.getNombreCompleto()).append("\n")
+     	                                    .append("Usuario: ").append(usuario.getUser()).append("\n")
+     	                                    .append("Puesto: ").append(usuario.getPuesto()).append("\n")
+     	                                    .append("Fecha de Registro: ").append(usuario.getFechaRegistro()).append("\n")
+     	                                    .append("----------------------------\n");
+     	                            }
+
+     	                            JOptionPane.showMessageDialog(null, usuariosTexto.toString());
+     	                            break;
+     	                        case 1:
+     	                            while (true) {
+     	                                try {
+     	                                    String inputId = Usuario.pedirInputNoVacio("Ingrese el ID del usuario:");
+     	                                    int idUsuario = Integer.parseInt(inputId);
+
+     	                                    Usuario usuario = controlador.getUserById(idUsuario);
+
+     	                                    if (usuario != null) {
+     	                                        StringBuilder usuarioTexto = new StringBuilder();
+     	                                        usuarioTexto.append("ID: ").append(usuario.getId_usuario()).append("\n")
+     	                                            .append("Nombre Completo: ").append(usuario.getNombreCompleto()).append("\n")
+     	                                            .append("Usuario: ").append(usuario.getUser()).append("\n")
+     	                                            .append("Puesto: ").append(usuario.getPuesto()).append("\n")
+     	                                            .append("Fecha de Registro: ").append(usuario.getFechaRegistro()).append("\n");
+
+     	                                        JOptionPane.showMessageDialog(null, usuarioTexto.toString(), "Usuario Encontrado", JOptionPane.INFORMATION_MESSAGE);
+     	                                        break; // Salir del bucle si se encuentra el usuario
+     	                                    } else {
+     	                                        JOptionPane.showMessageDialog(null, "Usuario no encontrado. Por favor, ingrese un ID válido.", "Error", JOptionPane.ERROR_MESSAGE);
+     	                                    }
+     	                                } catch (NumberFormatException e) {
+     	                                    JOptionPane.showMessageDialog(null, "ID inválido. Por favor, ingrese un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
+     	                                } catch (Exception e) {
+     	                                    JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+     	                                }
+     	                            }
+     	                            break;
+     	                        case 2:
+     	                            salirVerUsuarios = true;
+     	                            break;
+    
+     	                    }
+     	                }
+     	                break;
+     	            case 1:
+     	            	JOptionPane.showMessageDialog(null, "Para agregar un nuevo usuario se solicitaran los siguientes datos: "
+     	            			+ "\nNombre Completo (Obligatorio) "
+     	            			+ "\nNombre de usuario(Obligatorio), se refiere al nombre que se le pedira al usuario para ingresar al sistema "
+     	            			+ "\nPuesto (Obligatorio), esto determinara los permisos del usuario");
+
+     	            	String nombreCompleto = Usuario.pedirInputNoVacio("Ingrese el nombre completo");
+
+     	            	String user;
+     	            	boolean userExiste;
+     	            	do {
+     	            	    user = Usuario.pedirInputNoVacio("Ingrese nombre de usuario");
+     	            	    userExiste = controlador.usernameExists(user);
+     	            	    if (userExiste) {
+     	            	        JOptionPane.showMessageDialog(null, "El nombre de usuario ingresado ya existe. Por favor, elija otro nombre de usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+     	            	    }
+     	            	} while (userExiste);
+
+     	            	String[] puestos = { "Almacenista", "Administrador", "Gerente" };
+     	            	int opcionPuesto = JOptionPane.showOptionDialog(null, "Seleccione el puesto en la empresa:", "Seleccionar Puesto",
+     	            	        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, puestos, puestos[0]); 	            	
+
+     	            	String puesto = puestos[opcionPuesto];
+     	            	int id_usuario = controlador.getLastUserId() + 1;
+     	            	LocalDate fechaRegistro = LocalDate.now();
+     	            	String contraseña = user;
+
+     	            	controlador.addUser(new Usuario(id_usuario, nombreCompleto, user, contraseña, puesto, fechaRegistro));
+     	            	
+     	                break;
+     	            case 2:
+     	                // Implementar actualizar usuario
+     	                break;
+     	           case 3:
+    	               // Implementar eliminar usuario
+    	                break;
+     	            case 4:
+     	                salirUsuarios = true;
+     	                break;
+     	        }
+     	    }
+     	    break;
+
      	case 5:
      		System.exit(0);
      		break;

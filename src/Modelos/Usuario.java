@@ -10,14 +10,18 @@ public class Usuario {
 	private int id_usuario;
 	private String nombreCompleto;
 	private String user;
+	private String contraseña;
 	private String puesto;
 	private LocalDate fechaRegistro;
 
-	public Usuario(int id_usuario, String nombreCompleto, String user, String puesto, LocalDate fechaRegistro) {
+	
+	public Usuario(int id_usuario, String nombreCompleto, String user, String contraseña, String puesto,
+			LocalDate fechaRegistro) {
 		super();
 		this.id_usuario = id_usuario;
 		this.nombreCompleto = nombreCompleto;
 		this.user = user;
+		this.contraseña = contraseña;
 		this.puesto = puesto;
 		this.fechaRegistro = fechaRegistro;
 	}
@@ -45,7 +49,15 @@ public class Usuario {
 	public void setUser(String user) {
 		this.user = user;
 	}
-	
+
+	public String getContraseña() {
+		return contraseña;
+	}
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
+
 	public String getPuesto() {
 		return puesto;
 	}
@@ -61,6 +73,7 @@ public class Usuario {
 	public void setFechaRegistro(LocalDate fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
+
 
 	
     public static String pedirInputNoVacio(String mensaje) {

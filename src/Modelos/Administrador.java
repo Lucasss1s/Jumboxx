@@ -3,11 +3,11 @@ import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
 
-public class Administrador extends Usuario {
-	     
-    
-    public Administrador(int id_usuario, String nombreCompleto, String user, String puesto, LocalDate fechaRegistro) {
-		super(id_usuario, nombreCompleto, user, puesto, fechaRegistro);
+public class Administrador extends Usuario {     
+
+	public Administrador(int id_usuario, String nombreCompleto, String user, String contraseña, String puesto,
+			LocalDate fechaRegistro) {
+		super(id_usuario, nombreCompleto, user, contraseña, puesto, fechaRegistro);
 	}
 
 	public static void mostrarMenu() {

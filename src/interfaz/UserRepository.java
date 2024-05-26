@@ -1,5 +1,7 @@
 package interfaz;
 import Modelos.Usuario;
+
+import java.sql.SQLException;
 import java.util.List;
 
 public interface UserRepository {
@@ -15,5 +17,11 @@ public interface UserRepository {
     void deleteUser(int id); //eliminar usuarios de la bdd
 
 	Usuario getUserByUsernameAndPassword(String username, String password);
+
+	int getLastUserId();
+
+	boolean usernameExists(String username);
+
+	void cerrarConexion() throws SQLException;
 
 }

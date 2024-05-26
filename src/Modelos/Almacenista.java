@@ -5,10 +5,9 @@ import javax.swing.JOptionPane;
 
 public class Almacenista  extends Usuario{
 	  
-  
-	
-	public Almacenista(int id_usuario, String nombreCompleto, String user, String puesto, LocalDate fechaRegistro) {
-		super(id_usuario, nombreCompleto, user, puesto, fechaRegistro);
+	public Almacenista(int id_usuario, String nombreCompleto, String user, String contraseña, String puesto,
+			LocalDate fechaRegistro) {
+		super(id_usuario, nombreCompleto, user, contraseña, puesto, fechaRegistro);
 	}
 
 
