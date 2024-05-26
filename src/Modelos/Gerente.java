@@ -1,8 +1,11 @@
 package Modelos;
 import java.time.LocalDate;
+
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+
 import controladores.DatabaseConnection;
 import controladores.UsuarioControlador;
 
@@ -77,12 +80,78 @@ public class Gerente extends Usuario {
      	case 4:
      		UsuarioControlador controlador = new UsuarioControlador();
      		
-     		 String[] users = { "Ver usuarios", "Agregar usuarios", "Actualizar usuarios", "Salir"};
+     		 String[] users = { "Ver usuarios", "Agregar usuarios", "Actualizar usuarios", "Atrás"};
              int opcUsers = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, users, users[0]);
      		
              
              switch (opcUsers) {
 			case 0:
+				
+	     		 String[] usersID = { "Ver todos los usuarios", "Buscar usuario", "Atrás"};
+	             int opcUsersID = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, usersID, usersID[0]);
+	             
+	             switch (opcUsersID) {
+				case 0:
+		            List<Usuario> usuarios = controlador.getAllUsers();
+		            
+		            // Crear una cadena de texto para mostrar los usuarios
+		            StringBuilder usuariosTexto = new StringBuilder();
+		            for (Usuario usuario : usuarios) {
+		                usuariosTexto.append("ID: ").append(usuario.getId_usuario()).append("\n")
+		                             .append("Nombre Completo: ").append(usuario.getNombreCompleto()).append("\n")
+		                             .append("Usuario: ").append(usuario.getUser()).append("\n")
+		                             .append("Puesto: ").append(usuario.getPuesto()).append("\n")
+		                             .append("Fecha de Registro: ").append(usuario.getFechaRegistro()).append("\n")
+		                             .append("----------------------------\n");
+		            }
+		            
+		            JOptionPane.showMessageDialog(null, usuariosTexto.toString());
+					break;
+				case 1:		
+//					String[] usuariosArray = new String[controlador.getAllUsers().size()];	
+//					for (int i = 0; i < controlador.getAllUsers().size(); i++) {
+//						usuariosArray[i] =  Integer.toString(controlador.getAllUsers().get(i).getId_usuario());
+//					}
+//					String seleccion = (String) JOptionPane.showInputDialog(null, "Usuarios", "Elija un usuario", 0, null, usuariosArray, usuariosArray[0]);
+//					
+//					Usuario usuarioSeleccionado = controlador.getUserById(Integer.parseInt(seleccion));
+//					
+//					JOptionPane.showMessageDialog(null, usuarioSeleccionado);
+					
+			        while (true) {
+			            try {
+			                String inputId = Usuario.pedirInputNoVacio("Ingrese el ID del usuario:");
+			                int idUsuario = Integer.parseInt(inputId);
+
+			                Usuario usuario = controlador.getUserById(idUsuario);
+			                
+			                if (usuario != null) {
+			                    StringBuilder usuarioTexto = new StringBuilder();
+			                    usuarioTexto.append("ID: ").append(usuario.getId_usuario()).append("\n")
+			                                 .append("Nombre Completo: ").append(usuario.getNombreCompleto()).append("\n")
+			                                 .append("Usuario: ").append(usuario.getUser()).append("\n")
+			                                 .append("Puesto: ").append(usuario.getPuesto()).append("\n")
+			                                 .append("Fecha de Registro: ").append(usuario.getFechaRegistro()).append("\n");
+
+			                    JOptionPane.showMessageDialog(null, usuarioTexto.toString(), "Usuario Encontrado", JOptionPane.INFORMATION_MESSAGE);
+			                    break; // Salir del bucle si se encuentra el usuario
+			                } else {
+			                    JOptionPane.showMessageDialog(null, "Usuario no encontrado. Por favor, ingrese un ID válido.", "Error", JOptionPane.ERROR_MESSAGE);
+			                }
+			            } catch (NumberFormatException e) {
+			                JOptionPane.showMessageDialog(null, "ID inválido. Por favor, ingrese un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
+			            } catch (Exception e) {
+			                JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			            }
+			        }
+							
+					break;
+				case 2:
+					
+					break;
+				default:
+					break;
+				}
 				
 				break;
 			case 1:
@@ -98,22 +167,8 @@ public class Gerente extends Usuario {
 				
 				break;
 			}
-            List<Usuario> usuarios = controlador.getAllUsers();
-            
-            // Crear una cadena de texto para mostrar los usuarios
-            StringBuilder usuariosTexto = new StringBuilder();
-            for (Usuario usuario : usuarios) {
-                usuariosTexto.append("ID: ").append(usuario.getId_usuario()).append("\n")
-                             .append("Nombre Completo: ").append(usuario.getNombreCompleto()).append("\n")
-                             .append("Usuario: ").append(usuario.getUser()).append("\n")
-                             .append("Puesto: ").append(usuario.getPuesto()).append("\n")
-                             .append("Fecha de Registro: ").append(usuario.getFechaRegistro()).append("\n")
-                             .append("----------------------------\n");
-            }
-            
-            // Mostrar los usuarios en un JOptionPane
-            JOptionPane.showMessageDialog(null, usuariosTexto.toString());
-     		
+
+   	
      		break;	
      	case 5:
      		System.exit(0);

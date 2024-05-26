@@ -40,7 +40,7 @@ public class UsuarioControlador implements UserRepository {
     public Usuario getUserById(int id) {
     	Usuario user = null;
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM usuario WHERE UsuarioID = ?");
             statement.setInt(1, id);
             
             ResultSet resultSet = statement.executeQuery();
@@ -58,7 +58,7 @@ public class UsuarioControlador implements UserRepository {
 	@Override
     public void addUser (Usuario usuario) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (name, user, puesto, fechaRegistro) VALUES (?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO usuario (NombreCompleto, User, Puesto, FechaRegistro) VALUES (?, ?, ?, ?)");
             statement.setString(1, usuario.getNombreCompleto());
             statement.setString(2, usuario.getUser());
             statement.setString(3, usuario.getPuesto());
@@ -76,7 +76,7 @@ public class UsuarioControlador implements UserRepository {
 	@Override
     public void updateUser(Usuario usuario) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (name, user, puesto, fechaRegistro) VALUES (?, ?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO usuario (name, user, puesto, fechaRegistro) VALUES (?, ?, ?, ?, ?)");
             statement.setString(1, usuario.getNombreCompleto());
             statement.setString(2, usuario.getUser());
             statement.setString(3, usuario.getPuesto());
@@ -95,7 +95,7 @@ public class UsuarioControlador implements UserRepository {
     @Override
     public void deleteUser(int id) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM usuario WHERE id = ?");
             statement.setInt(1, id);
             
             int rowsDeleted = statement.executeUpdate();

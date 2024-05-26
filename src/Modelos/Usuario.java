@@ -68,7 +68,7 @@ public class Usuario {
         do {
             input = JOptionPane.showInputDialog(mensaje);
             if (input == null || input.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Error: Este campo no puede estar vacío.");
+                JOptionPane.showMessageDialog(null, "Error: Este campo no puede estar vacío", "Error", JOptionPane.INFORMATION_MESSAGE);                
             }
         } while (input == null || input.trim().isEmpty());
         return input.trim();
