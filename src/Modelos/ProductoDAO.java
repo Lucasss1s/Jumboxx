@@ -7,8 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductoDAO {
-
     public boolean crearProducto(Producto producto) {
+        if (producto == null) {
+            return false;
+        }
+
+        if (producto.getNombre() == null || producto.getNombre().isEmpty()) {
+            return false;
+        }
+
+        if (producto.getCantidad() < 0) {
+            return false;
+        }
+
+        if (producto.getPrecio() < 0) {
+            return false;
+        }
+
         String sql = "INSERT INTO productos (id_producto, nombre, cantidad, precio) VALUES (?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -25,6 +40,10 @@ public class ProductoDAO {
     }
 
     public Producto obtenerProductoPorId(int id) {
+        if (id <= 0) {
+            return null;
+        }
+
         String sql = "SELECT * FROM productos WHERE id_producto = ?";
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -37,11 +56,13 @@ public class ProductoDAO {
                         rs.getInt("cantidad"),
                         rs.getDouble("precio")
                 );
+            } else {
+                return null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public List<Producto> obtenerTodosLosProductos() {
@@ -58,13 +79,34 @@ public class ProductoDAO {
                         rs.getDouble("precio")
                 ));
             }
+            return productos;
         } catch (SQLException e) {
             e.printStackTrace();
+            return productos;
         }
-        return productos;
     }
 
     public boolean actualizarProducto(Producto producto) {
+        if (producto == null) {
+            return false;
+        }
+
+        if (producto.getId_producto() <= 0) {
+            return false;
+        }
+
+        if (producto.getNombre() == null || producto.getNombre().isEmpty()) {
+            return false;
+        }
+
+        if (producto.getCantidad() < 0) {
+            return false;
+        }
+
+        if (producto.getPrecio() < 0) {
+            return false;
+        }
+
         String sql = "UPDATE productos SET nombre = ?, cantidad = ?, precio = ? WHERE id_producto = ?";
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -81,15 +123,20 @@ public class ProductoDAO {
     }
 
     public boolean eliminarProducto(int id) {
+        if (id <= 0) {
+            return false;
+        }
+
         String sql = "DELETE FROM productos WHERE id_producto = ?";
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
-            stmt.executeUpdate();
-            return true;
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
 }
+

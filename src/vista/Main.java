@@ -1,6 +1,7 @@
 package vista;
 
 import javax.swing.ImageIcon;
+
 import javax.swing.JOptionPane;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import controladores.UsuarioControlador;
 public class Main {
 
     public static void main(String[] args) {
-        // Inicialización de base de datos y controlador
+        
         BaseDatos bd = new BaseDatos();
         UsuarioControlador controlador = new UsuarioControlador();
 
@@ -171,4 +172,3 @@ public class Main {
         }
     }
 }
-

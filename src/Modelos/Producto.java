@@ -1,7 +1,6 @@
 package Modelos;
 
 public class Producto {
-
     private int id_producto;
     private String nombre;
     private int cantidad;
@@ -45,10 +44,6 @@ public class Producto {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-
-    @Override
-    public String toString() {
-        return "Producto [id_producto=" + id_producto + ", nombre=" + nombre + ", cantidad=" + cantidad + ", precio=" + precio + "]";
-    }
 }
+
 
