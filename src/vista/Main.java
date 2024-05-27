@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 
 import Modelos.Administrador;
 import Modelos.Almacenista;
