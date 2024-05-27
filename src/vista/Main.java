@@ -1,7 +1,7 @@
 package vista;
 
 import java.sql.SQLException;
-
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -19,7 +19,9 @@ import Modelos.Producto;
 import Modelos.Sucursal;
 import Modelos.Usuario;
 import Modelos.Venta;
+import Modelos.Reporte;
 import controladores.UsuarioControlador;
+import controladores.ReporteControlador;
 import controladores.DatabaseConnection;
 
 public class Main {
@@ -39,6 +41,49 @@ public class Main {
 //        Usuario usuarioAutenticado = controlador.getUserByUsernameAndPassword(username, password);
 //        JOptionPane.showMessageDialog(null, usuarioAutenticado.getUser() + " " + usuarioAutenticado.getPuesto());
 
+		ReporteControlador ReportControlador = new ReporteControlador();
+		
+		
+		String[] menu = { 
+				"Crear Reporte","Ver Reporte","Editar usuario","Eliminar","Salir"
+		};
+		int opcionMenu = 0;
+		do {
+			
+		opcionMenu = JOptionPane.showOptionDialog(null, "Elija una opcion", null, 0, 0, null, menu, menu[0]);
+		
+		
+		switch (opcionMenu) {
+		case 0:
+			String descripcion = JOptionPane.showInputDialog("Ingrese el problema");
+			LocalDate fecha = LocalDate.of(2024, 05, 27);
+			ReportControlador.addReport(new Reporte(1,descripcion,fecha));
+			
+			break;
+		case 1:
+			
+			JOptionPane.showMessageDialog(null, ReportControlador.getAllReport());
+			break;
+		case 2:
+		  Reporte nuevo = SeleccionarReporte(ReportControlador);
+		  String nuevaDescripcion = JOptionPane.showInputDialog("Ingrese el nombre a cambiar por: " + nuevo.getDescripcion());
+		  nuevo.setDescripcion(nuevaDescripcion);
+		  ReportControlador.updateReport(nuevo);
+		break;
+		case 3: 
+			Reporte otro = SeleccionarReporte(ReportControlador);
+			controlador.deleteUser(otro.getId_reporte());
+			break;
+		case 4: 
+			 JOptionPane.showMessageDialog(null, "Finalizar");
+			break;
+		default:
+			break;
+		}
+		
+		
+		} while (opcionMenu!=4);
+		
 		try {
 			JOptionPane.showMessageDialog(null, "Bienvenido a Jumbox");
 
@@ -83,6 +128,9 @@ public class Main {
 			}
 		}
 
+		
+		
+		
 //		try {
 //			// Agregar un producto
 //			Producto nuevoProducto = new Producto(11, "Leche", 10, 2.5);
@@ -113,6 +161,11 @@ public class Main {
 //			e.printStackTrace();
 //		}
 
+	}
+
+	private static Reporte SeleccionarReporte(ReporteControlador reportControlador) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
