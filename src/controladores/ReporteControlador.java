@@ -56,9 +56,11 @@ public class ReporteControlador implements ReportRepository{
 		@Override
 	    public void addReport(Reporte Reporte) {
 	        try {
-	            PreparedStatement statement = connection.prepareStatement("INSERT INTO reporte (descripcion, fecha) VALUES (?, ?)");
-	            statement.setString(1, Reporte.getDescripcion());
-	            statement.setDate(2, java.sql.Date.valueOf(Reporte.getFecha()));
+	            PreparedStatement statement = connection.prepareStatement("INSERT INTO reporte (id_reporte, descripcion, fecha) VALUES (?, ?, ?)");
+	            statement.setInt(1, Reporte.getId_reporte());
+	            statement.setString(2, Reporte.getDescripcion());
+	            statement.setDate(3, java.sql.Date.valueOf(Reporte.getFecha()));
+	     
 	            
 	            int rowsInserted = statement.executeUpdate();
 	            if (rowsInserted > 0) {
