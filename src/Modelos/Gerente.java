@@ -177,7 +177,69 @@ public class Gerente extends Usuario {
      	            	
      	                break;
      	            case 2:
-     	                // Implementar actualizar usuario
+     	            	while (true) {
+                            try {
+                                String idStr = Usuario.pedirInputNoVacio("Ingrese el ID del usuario que desea actualizar:");
+                                int idUsuario = Integer.parseInt(idStr);
+                                Usuario usuarioExistente = controlador.getUserById(idUsuario);
+
+                                if (usuarioExistente == null) {
+                                    JOptionPane.showMessageDialog(null, "Usuario no encontrado. Por favor, ingrese un ID válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                                    continue;
+                                }
+
+                                boolean actualizar = true;
+                                while (actualizar) {
+                                    String[] opcionesActualizar = { "Actualizar Nombre Completo", "Actualizar Nombre de Usuario", "Actualizar Puesto", "Atrás" };
+                                    int opcionActualizar = JOptionPane.showOptionDialog(null, "Seleccione el campo a actualizar:", "Actualizar Usuario",
+                                            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesActualizar, opcionesActualizar[0]);
+
+                                    switch (opcionActualizar) {
+                                        case 0:
+                                            String nuevoNombreCompleto = Usuario.pedirInputNoVacio("Ingrese el nuevo nombre completo:");
+                                            usuarioExistente.setNombreCompleto(nuevoNombreCompleto);
+                                            controlador.updateUser(usuarioExistente);
+                                            JOptionPane.showMessageDialog(null, "Nombre completo actualizado exitosamente.");
+                                            break;
+                                        case 1:
+                                            String nuevoUser;
+                                            boolean nuevoUserExiste;
+                                            do {
+                                                nuevoUser = Usuario.pedirInputNoVacio("Ingrese el nuevo nombre de usuario:");
+                                                nuevoUserExiste = controlador.usernameExists(nuevoUser);
+                                                if (nuevoUserExiste && !nuevoUser.equals(usuarioExistente.getUser())) {
+                                                    JOptionPane.showMessageDialog(null, "El nombre de usuario ingresado ya existe. Por favor, elija otro nombre de usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+                                                }
+                                            } while (nuevoUserExiste && !nuevoUser.equals(usuarioExistente.getUser()));
+                                            usuarioExistente.setUser(nuevoUser);
+                                            usuarioExistente.setContraseña(nuevoUser);
+                                            controlador.updateUser(usuarioExistente);
+                                            JOptionPane.showMessageDialog(null, "Nombre de usuario actualizado exitosamente.");
+                                            break;
+                                        case 2:
+                                            String[] nuevosPuestos = { "Almacenista", "Administrador", "Gerente" };
+                                            int nuevoPuestoIndex = JOptionPane.showOptionDialog(null, "Seleccione el nuevo puesto en la empresa:", "Seleccionar Puesto",
+                                                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, nuevosPuestos, usuarioExistente.getPuesto());
+                                            if (nuevoPuestoIndex != -1) {
+                                                usuarioExistente.setPuesto(nuevosPuestos[nuevoPuestoIndex]);
+                                                controlador.updateUser(usuarioExistente);
+                                                JOptionPane.showMessageDialog(null, "Puesto actualizado exitosamente.");
+                                            } else {
+                                                JOptionPane.showMessageDialog(null, "Debe seleccionar un puesto válido. Inténtelo nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                                            }
+                                            break;
+                                        case 3:
+                                            actualizar = false;
+                                            break;
+                                    }
+                                }
+                                break;
+                            } catch (NumberFormatException e) {
+                                JOptionPane.showMessageDialog(null, "ID inválido. Por favor, ingrese un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
      	                break;
      	           case 3:
     	               // Implementar eliminar usuario
