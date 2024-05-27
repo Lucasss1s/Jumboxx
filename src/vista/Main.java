@@ -55,9 +55,11 @@ public class Main {
 		
 		switch (opcionMenu) {
 		case 0:
+			int id= ReportControlador.getLastReportId()+1;
+			
 			String descripcion = JOptionPane.showInputDialog("Ingrese el problema");
-			LocalDate fecha = LocalDate.of(2024, 05, 27);
-			ReportControlador.addReport(new Reporte(1,descripcion,fecha));
+			LocalDate fecha = LocalDate.now();
+			ReportControlador.addReport(new Reporte(id,descripcion,fecha));
 			
 			break;
 		case 1:
@@ -66,13 +68,13 @@ public class Main {
 			break;
 		case 2:
 		  Reporte nuevo = SeleccionarReporte(ReportControlador);
-		  String nuevaDescripcion = JOptionPane.showInputDialog("Ingrese el nombre a cambiar por: " + nuevo.getDescripcion());
+		  String nuevaDescripcion = JOptionPane.showInputDialog("Ingrese el nuevo problema: " + nuevo.getDescripcion());
 		  nuevo.setDescripcion(nuevaDescripcion);
 		  ReportControlador.updateReport(nuevo);
 		break;
 		case 3: 
 			Reporte otro = SeleccionarReporte(ReportControlador);
-			controlador.deleteUser(otro.getId_reporte());
+			ReportControlador.deleteReport(otro.getId_reporte());
 			break;
 		case 4: 
 			 JOptionPane.showMessageDialog(null, "Finalizar");
@@ -80,7 +82,6 @@ public class Main {
 		default:
 			break;
 		}
-		
 		
 		} while (opcionMenu!=4);
 		
@@ -165,9 +166,18 @@ public class Main {
 
 	}
 
-	private static Reporte SeleccionarReporte(ReporteControlador reportControlador) {
-		// TODO Auto-generated method stub
-		return null;
+	public static Reporte SeleccionarReporte(ReporteControlador controlador ) {
+		String[] lista = new String[controlador.getAllReport().size()];
+		
+		for (int i = 0; i < lista.length; i++) {
+			lista[i] = Integer.toString( controlador.getAllReport().get(i).getId_reporte());
+		}
+		String elegido = (String)JOptionPane.showInputDialog(null, "Elija el reporte que quiera editar", null, 0, null, lista, lista[0]);
+		
+		Reporte seleccionado =  controlador.getReportById(Integer.parseInt(elegido));
+		 return seleccionado;
 	}
+
+	
 
 }

@@ -42,15 +42,5 @@ public class Reporte {
 		return "Reporte [id_reporte=" + id_reporte + ", descripcion=" + descripcion + ", fecha=" + fecha + "]";
 	}
 	
-	private static Reporte SeleccionarReporte(ReporteControlador controlador ) {
-		String[] lista = new String[controlador.getAllReport().size()];
-		
-		for (int i = 0; i < lista.length; i++) {
-			lista[i] = Integer.toString( controlador.getAllReport().get(i).getId_reporte());
-		}
-		String elegido = (String)JOptionPane.showInputDialog(null, "Elija el reporte que quiera editar", null, 0, null, lista, lista[0]);
-		
-		Reporte seleccionado =  controlador.getReportById(Integer.parseInt(elegido));
-		 return seleccionado;
-	}
+	
 }

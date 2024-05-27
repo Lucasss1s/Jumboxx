@@ -16,4 +16,6 @@ public interface ReportRepository {
 	 void updateReport(Reporte report); 
 	    
 	 void deleteReport(int id); 
+	 
+	 int getLastReportId();
 }

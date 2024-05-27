@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import Modelos.Reporte;
 
 import interfaz.ReportRepository;
@@ -64,7 +66,7 @@ public class ReporteControlador implements ReportRepository{
 	            
 	            int rowsInserted = statement.executeUpdate();
 	            if (rowsInserted > 0) {
-	                System.out.println("Reporte insertado exitosamente");
+	            	JOptionPane.showMessageDialog(null, "Reporte agregado exitosamente");
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
@@ -74,29 +76,44 @@ public class ReporteControlador implements ReportRepository{
 		@Override
 	    public void updateReport(Reporte Reporte) {
 	        try {
-	            PreparedStatement statement = connection.prepareStatement("UPDATE reporte SET descripcion = ?, fecha = ? WHERE id = ?");
+	            PreparedStatement statement = connection.prepareStatement("UPDATE reporte SET descripcion = ?, fecha = ? WHERE id_reporte = ?");
 	            statement.setString(1, Reporte.getDescripcion());
 	            statement.setDate(2, java.sql.Date.valueOf(Reporte.getFecha()));
 	            statement.setInt(3, Reporte.getId_reporte());
 	            
 	            int rowsUpdated = statement.executeUpdate();
 	            if (rowsUpdated > 0) {
-	                System.out.println("Reporte actualizado exitosamente");
+	              JOptionPane.showMessageDialog(null, "Reporte actualizado exitosamente");
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
 	    }
+		@Override
+		public int getLastReportId() {
+		    int ultimoId = 0;
+		    try {
+		        PreparedStatement declaracionPreparada = connection.prepareStatement("SELECT MAX(id_reporte) AS max_id FROM reporte");
+		        ResultSet conjuntoResultados = declaracionPreparada.executeQuery();
+		        
+		        if (conjuntoResultados.next()) {
+		            ultimoId = conjuntoResultados.getInt("max_id");
+		        }
+		    } catch (SQLException excepcion) {
+		        excepcion.printStackTrace();
+		    }
+		    return ultimoId;
+		}
 
 	    @Override
 	    public void deleteReport(int id) {
 	        try {
-	            PreparedStatement statement = connection.prepareStatement("DELETE FROM reporte WHERE id = ?");
+	            PreparedStatement statement = connection.prepareStatement("DELETE FROM reporte WHERE id_reporte = ?");
 	            statement.setInt(1, id);
 	            
 	            int rowsDeleted = statement.executeUpdate();
 	            if (rowsDeleted > 0) {
-	                System.out.println("Reporte eliminado exitosamente");
+	               JOptionPane.showMessageDialog(null, "Reporte eliminado exitosamente");
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
