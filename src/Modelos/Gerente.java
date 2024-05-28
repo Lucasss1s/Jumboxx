@@ -242,8 +242,32 @@ public class Gerente extends Usuario {
                         }
      	                break;
      	           case 3:
-    	               // Implementar eliminar usuario
-    	                break;
+     	        	  while (true) {
+                          String idStrEliminar = Usuario.pedirInputNoVacio("Ingrese el ID del usuario que desea eliminar:");
+                          int idUsuarioEliminar;
+                          try {
+                              idUsuarioEliminar = Integer.parseInt(idStrEliminar);
+                          } catch (NumberFormatException e) {
+                              JOptionPane.showMessageDialog(null, "ID inválido. Por favor, ingrese un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
+                              continue;
+                          }
+
+                          Usuario usuarioExistenteEliminar = controlador.getUserById(idUsuarioEliminar);
+                          if (usuarioExistenteEliminar == null) {
+                              JOptionPane.showMessageDialog(null, "Usuario no encontrado. Por favor, ingrese un ID válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                              continue;
+                          }
+
+                          int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar al usuario con ID " + idUsuarioEliminar + "?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+                          if (confirmacion == JOptionPane.YES_OPTION) {
+                              controlador.deleteUser(idUsuarioEliminar);
+                              JOptionPane.showMessageDialog(null, "Usuario eliminado exitosamente.");
+                          } else {
+                              JOptionPane.showMessageDialog(null, "Eliminación cancelada.");
+                          }
+                          break;
+                      }
+                      break;
      	            case 4:
      	                salirUsuarios = true;
      	                break;
