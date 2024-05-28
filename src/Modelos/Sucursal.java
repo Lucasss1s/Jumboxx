@@ -5,7 +5,7 @@ public class Sucursal {
 	private String nombre;
 	private String direccion;
 	private int telefono;
-	
+
 	public Sucursal(int id_sucursal, String nombre, String direccion, int telefono) {
 		super();
 		this.id_sucursal = id_sucursal;
@@ -51,6 +51,5 @@ public class Sucursal {
 		return "Sucursal [id_sucursal=" + id_sucursal + ", nombre=" + nombre + ", direccion=" + direccion
 				+ ", telefono=" + telefono + "]";
 	}
-	
-	
+
 }

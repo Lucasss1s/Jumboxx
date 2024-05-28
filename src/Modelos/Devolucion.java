@@ -1,14 +1,15 @@
 package Modelos;
+
 import java.time.LocalDate;
 
 public class Devolucion {
-	
+
 	private int id_devolcion;
 	private int id_pedido;
 	private int id_cliente;
 	private LocalDate fecha_devolucion;
 	private String motivo;
-	
+
 	public Devolucion(int id_devolcion, int id_pedido, int id_cliente, LocalDate fecha_devolucion, String motivo) {
 		super();
 		this.id_devolcion = id_devolcion;
@@ -63,7 +64,5 @@ public class Devolucion {
 		return "Devolucion [id_devolcion=" + id_devolcion + ", id_pedido=" + id_pedido + ", id_cliente=" + id_cliente
 				+ ", fecha_devolucion=" + fecha_devolucion + ", motivo=" + motivo + "]";
 	}
-	
-	
 
 }
