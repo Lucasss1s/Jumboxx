@@ -64,7 +64,7 @@ public class Main {
 				
 				
 				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Almacenista") ) {
-					Almacenista.mostrarMenu();
+					Almacenista.mostrarMenu(usuarioAutenticado);
 				}
 				
 								
