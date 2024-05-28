@@ -1,10 +1,11 @@
 package Modelos;
 
-import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import controladores.ProductoControlador;
+import controladores.UsuarioControlador;
+
 import java.time.LocalDate;
 import java.util.List;
-import javax.swing.JOptionPane;
-import controladores.UsuarioControlador;
 
 public class Gerente extends Usuario {
 
@@ -141,7 +142,28 @@ public class Gerente extends Usuario {
     }
 
     private static void comprarProductos() {
-        JOptionPane.showMessageDialog(null, "Comprar Productos");
+        ProductoControlador productoControlador = new ProductoControlador();
+        List<Producto> productos = productoControlador.getAllProducts();
+
+        String[] nombresProductos = new String[productos.size()];
+        for (int i = 0; i < productos.size(); i++) {
+            nombresProductos[i] = productos.get(i).getNombre() + " - Stock: " + productos.get(i).getStock();
+        }
+
+        String productoSeleccionado = (String) JOptionPane.showInputDialog(null, "Seleccione un producto para comprar",
+                "Comprar Productos", JOptionPane.QUESTION_MESSAGE, null, nombresProductos, nombresProductos[0]);
+
+        if (productoSeleccionado != null) {
+            for (Producto producto : productos) {
+                if (productoSeleccionado.contains(producto.getNombre())) {
+                    int cantidadComprar = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad a comprar:"));
+                    producto.setStock(producto.getStock() + cantidadComprar);
+                    productoControlador.updateStock(producto.getIdProducto(), producto.getStock());
+                    JOptionPane.showMessageDialog(null, "Compra realizada con éxito. Nuevo stock: " + producto.getStock());
+                    break;
+                }
+            }
+        }
     }
 
     private static void verUsuarios(UsuarioControlador controlador) {
