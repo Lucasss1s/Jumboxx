@@ -74,8 +74,7 @@ public class Gerente extends Usuario {
 
 						int id_actualizar;
 
-						id_actualizar = Integer.parseInt(
-								JOptionPane.showInputDialog("Ingrese el id del producto: "));
+						id_actualizar = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id del producto: "));
 						Producto productoObtenido = Producto.obtenerProducto(id_actualizar);
 
 						JOptionPane.showMessageDialog(null, "Producto obtenido: " + productoObtenido);
@@ -83,16 +82,36 @@ public class Gerente extends Usuario {
 						// Actualizar el producto
 
 						int pregunta;
-						pregunta = Integer
-								.parseInt(JOptionPane.showInputDialog("¿Quiere actualizar el nombre del producto "
-										+ productoObtenido.getNombre() + " ?\n 0=si // 1= no"));
+						pregunta = Integer.parseInt(JOptionPane
+								.showInputDialog("Seleccione que deseea actualizar del producto " + productoObtenido.getNombre()
+										+ "\n 0=Nombre // 1= Cantidad // 2= Precio // 3= Volver al menu"));
 
 						if (pregunta == 0) {
 
 							productoObtenido.setNombre(JOptionPane.showInputDialog("Escriba el nuevo nombre: "));
 							Producto.actualizarProducto(productoObtenido);
 							JOptionPane.showMessageDialog(null, "Producto actualizado correctamente.");
-						} else {
+						}
+
+						if (pregunta == 1) {
+
+							productoObtenido.setCantidad(
+									Integer.parseInt(JOptionPane.showInputDialog("Escriba la nueva cantidad: ")));
+							Producto.actualizarProducto(productoObtenido);
+							JOptionPane.showMessageDialog(null, "Producto actualizado correctamente.");
+
+						}
+
+						if (pregunta == 2) {
+
+							productoObtenido.setPrecio(
+									Double.parseDouble(JOptionPane.showInputDialog("Escriba el nuevo precio: ")));
+							Producto.actualizarProducto(productoObtenido);
+							JOptionPane.showMessageDialog(null, "Producto actualizado correctamente.");
+
+						}
+
+						else {
 							JOptionPane.showMessageDialog(null, "Volviendo al menu");
 						}
 
