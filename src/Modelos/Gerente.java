@@ -45,7 +45,7 @@ public class Gerente extends Usuario {
 
 				break;
 			case 1:
-				String[] opciones2 = { "Ver Stock", "Actualizar Stock", "Comprar", "Salir" };
+				String[] opciones2 = { "Ver Stock", "Actualizar Stock", "Agregar producto", "Eliminar producto", "Comprar", "Salir" };
 				int opcionSeleccionada2 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones2,
 						opciones2[0]);
 				switch (opcionSeleccionada2) {
@@ -65,8 +65,8 @@ public class Gerente extends Usuario {
 					}
 
 					break;
+					
 				case 1:
-					JOptionPane.showMessageDialog(null, "Actualizar stock");
 
 					try {
 
@@ -120,10 +120,20 @@ public class Gerente extends Usuario {
 					}
 
 					break;
+					
 				case 2:
+					JOptionPane.showMessageDialog(null, "Agregar producto");
+					break;
+				
+				case 3:
+					JOptionPane.showMessageDialog(null, "Eliminar producto");
+					break;
+					
+				case 4:
 					JOptionPane.showMessageDialog(null, "Realizar compra de productos a proveedores");
 					break;
-				case 3:
+					
+				case 5:
 					salir = true;
 					break;
 				}
