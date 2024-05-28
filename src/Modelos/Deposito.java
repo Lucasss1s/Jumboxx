@@ -5,7 +5,7 @@ public class Deposito {
 	private Producto producto;
 	private int cantidad;
 	private String direccion;
-	
+
 	public Deposito(int id_Deposito, Producto producto, int cantidad, String direccion) {
 		super();
 		this.id_Deposito = id_Deposito;
@@ -51,8 +51,5 @@ public class Deposito {
 		return "Deposito [id_Deposito=" + id_Deposito + ", producto=" + producto + ", cantidad=" + cantidad
 				+ ", direccion=" + direccion + "]";
 	}
-	
-	
-	
-	
+
 }

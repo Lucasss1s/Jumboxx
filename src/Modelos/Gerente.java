@@ -85,7 +85,7 @@ public class Gerente extends Usuario {
 
 						int pregunta;
 						pregunta = Integer.parseInt(JOptionPane.showInputDialog(
-								"Seleccione que deseea actualizar del producto " + productoObtenido.getNombre()
+								"Seleccione que desea actualizar del producto " + productoObtenido.getNombre()
 										+ "\n 0=Nombre // 1= Cantidad // 2= Precio // 3= Volver al menu"));
 
 						if (pregunta == 0) {

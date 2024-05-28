@@ -1,4 +1,5 @@
 package Modelos;
+
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -6,10 +7,10 @@ public class Venta {
 
 	private int id_venta;
 	private Cliente cliente;
-	private LinkedList<String> productos; 
+	private LinkedList<String> productos;
 	private Date fechaPedido;
 	private double precio_final;
-	
+
 	public Venta(int id_venta, Cliente cliente, LinkedList<String> productos, Date fechaPedido, double precio_final) {
 		super();
 		this.id_venta = id_venta;
@@ -64,5 +65,5 @@ public class Venta {
 		return "Venta [id_venta=" + id_venta + ", cliente=" + cliente + ", productos=" + productos + ", fechaPedido="
 				+ fechaPedido + ", precio_final=" + precio_final + "]";
 	}
-	
+
 }
