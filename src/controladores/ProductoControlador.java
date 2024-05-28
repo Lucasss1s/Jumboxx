@@ -22,8 +22,10 @@ public class ProductoControlador {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Producto product = new Producto(resultSet.getInt("ProductoID"), resultSet.getString("Nombre"),
-                        resultSet.getDouble("Precio"), resultSet.getInt("Stock"));
+            	
+            	Producto product = new Producto(resultSet.getInt("ProductoID"), resultSet.getString("Nombre"),
+                        resultSet.getInt("Precio"), resultSet.getInt("Stock"));
+
                 products.add(product);
             }
         } catch (SQLException e) {
