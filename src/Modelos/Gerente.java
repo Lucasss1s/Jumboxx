@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import controladores.DatabaseConnection;
+import controladores.ReporteControlador;
 import controladores.UsuarioControlador;
 
 public class Gerente extends Usuario {
@@ -176,17 +177,32 @@ public class Gerente extends Usuario {
 				break;
 
 			case 2:
-				String[] opciones3 = { "Ver Reportes", "Generar Reporte", "Salir" };
+				ReporteControlador ReportControlador = new ReporteControlador();
+				String[] opciones3 = { "Ver Reportes", "Generar Reporte", "Editar reporte", "Eliminar reporte", "Salir" };
 				int opcionSeleccionada3 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones3,
 						opciones3[0]);
 				switch (opcionSeleccionada3) {
 				case 0:
-					JOptionPane.showMessageDialog(null, "Reportes");
+					JOptionPane.showMessageDialog(null, ReportControlador.getAllReport());
 					break;
 				case 1:
-					JOptionPane.showMessageDialog(null, "Realizar Reporte");
+					int id= ReportControlador.getLastReportId()+1;
+					
+					String descripcion = JOptionPane.showInputDialog("Ingrese el problema");
+					LocalDate fecha = LocalDate.now();
+					ReportControlador.addReport(new Reporte(id,descripcion,fecha));
 					break;
 				case 2:
+					 Reporte nuevo = SeleccionarReporte(ReportControlador);
+					  String nuevaDescripcion = JOptionPane.showInputDialog("Ingrese el nuevo problema: " + nuevo.getDescripcion());
+					  nuevo.setDescripcion(nuevaDescripcion);
+					  ReportControlador.updateReport(nuevo);
+					break;
+				case 3:
+					Reporte otro = SeleccionarReporte(ReportControlador);
+					ReportControlador.deleteReport(otro.getId_reporte());
+					break;
+				case 4:
 					salir = true;
 					break;
 
@@ -417,5 +433,16 @@ public class Gerente extends Usuario {
 	public void realizarReunionPersonal() {
 
 		JOptionPane.showMessageDialog(null, "El gerente está realizando una reunión con el personal.");
+	}
+	public static Reporte SeleccionarReporte(ReporteControlador controlador ) {
+		String[] lista = new String[controlador.getAllReport().size()];
+		
+		for (int i = 0; i < lista.length; i++) {
+			lista[i] = Integer.toString( controlador.getAllReport().get(i).getId_reporte());
+		}
+		String elegido = (String)JOptionPane.showInputDialog(null, "Elija el reporte que quiera editar", null, 0, null, lista, lista[0]);
+		
+		Reporte seleccionado =  controlador.getReportById(Integer.parseInt(elegido));
+		 return seleccionado;
 	}
 }

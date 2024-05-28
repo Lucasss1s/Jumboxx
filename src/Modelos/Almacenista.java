@@ -2,6 +2,8 @@ package Modelos;
 
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
+
+import controladores.ReporteControlador;
 import controladores.UsuarioControlador;
 
 public class Almacenista extends Usuario {
@@ -46,11 +48,12 @@ public class Almacenista extends Usuario {
                     }
                     break;
                 case 2:
+                	ReporteControlador ReportControlador = new ReporteControlador();
                     String[] opciones3 = { "Ver Reportes", "Salir" };
                     int opcionSeleccionada3 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones3, opciones3[0]);
                     switch (opcionSeleccionada3) {
                         case 0:
-                            JOptionPane.showMessageDialog(null, "Reportes");
+                        	JOptionPane.showMessageDialog(null, ReportControlador.getAllReport());
                             break;
                         case 1:
                             salir = true;
