@@ -1,14 +1,14 @@
 package vista;
 
 import java.sql.SQLException;
-
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import java.sql.Connection;
+import com.mysql.jdbc.Connection;
 
 import Modelos.Administrador;
 import Modelos.Almacenista;
@@ -19,7 +19,9 @@ import Modelos.Producto;
 import Modelos.Sucursal;
 import Modelos.Usuario;
 import Modelos.Venta;
+import Modelos.Reporte;
 import controladores.UsuarioControlador;
+import controladores.ReporteControlador;
 import controladores.DatabaseConnection;
 
 public class Main {
@@ -39,6 +41,52 @@ public class Main {
 //        Usuario usuarioAutenticado = controlador.getUserByUsernameAndPassword(username, password);
 //        JOptionPane.showMessageDialog(null, usuarioAutenticado.getUser() + " " + usuarioAutenticado.getPuesto());
 
+		ReporteControlador ReportControlador = new ReporteControlador();
+		
+		
+		String[] menu = { 
+				"Crear Reporte","Ver Reporte","Editar usuario","Eliminar","Salir"
+		};
+		int opcionMenu = 0;
+		do {
+			
+		opcionMenu = JOptionPane.showOptionDialog(null, "Elija una opcion", null, 0, 0, null, menu, menu[0]);
+		
+		
+		switch (opcionMenu) {
+		case 0:
+			int id= ReportControlador.getLastReportId()+1;
+			
+			String descripcion = JOptionPane.showInputDialog("Ingrese el problema");
+			LocalDate fecha = LocalDate.now();
+			ReportControlador.addReport(new Reporte(id,descripcion,fecha));
+			
+			break;
+		case 1:
+			
+			JOptionPane.showMessageDialog(null, ReportControlador.getAllReport());
+			break;
+		case 2:
+		  Reporte nuevo = SeleccionarReporte(ReportControlador);
+		  String nuevaDescripcion = JOptionPane.showInputDialog("Ingrese el nuevo problema: " + nuevo.getDescripcion());
+		  nuevo.setDescripcion(nuevaDescripcion);
+		  ReportControlador.updateReport(nuevo);
+		break;
+		case 3: 
+			Reporte otro = SeleccionarReporte(ReportControlador);
+			ReportControlador.deleteReport(otro.getId_reporte());
+			break;
+		case 4: 
+			 JOptionPane.showMessageDialog(null, "Finalizar");
+			break;
+		default:
+			break;
+		}
+		
+		} while (opcionMenu!=4);
+		
+		
+		
 		try {
 			JOptionPane.showMessageDialog(null, "Bienvenido a Jumbox");
 
@@ -83,6 +131,9 @@ public class Main {
 			}
 		}
 
+		
+		
+		
 //		try {
 //			// Agregar un producto
 //			Producto nuevoProducto = new Producto(11, "Leche", 10, 2.5);
@@ -114,5 +165,19 @@ public class Main {
 //		}
 
 	}
+
+	public static Reporte SeleccionarReporte(ReporteControlador controlador ) {
+		String[] lista = new String[controlador.getAllReport().size()];
+		
+		for (int i = 0; i < lista.length; i++) {
+			lista[i] = Integer.toString( controlador.getAllReport().get(i).getId_reporte());
+		}
+		String elegido = (String)JOptionPane.showInputDialog(null, "Elija el reporte que quiera editar", null, 0, null, lista, lista[0]);
+		
+		Reporte seleccionado =  controlador.getReportById(Integer.parseInt(elegido));
+		 return seleccionado;
+	}
+
+	
 
 }
