@@ -83,32 +83,32 @@ public class Main {
 			}
 		}
 
-//		try {
-//			// Agregar un producto
+	//	try {
+			// Agregar un producto
 //			Producto nuevoProducto = new Producto(11, "Leche", 10, 2.5);
 //			Producto.agregarProducto(nuevoProducto);
 //			System.out.println("Producto agregado correctamente.");
 //
-//		//	Obtener un producto por su ID
-//		//	Producto productoObtenido = Producto.obtenerProducto(11);
-//		//	System.out.println("Producto obtenido: " + productoObtenido);
-//
-//			// Actualizar el producto
-//		//	productoObtenido.setNombre("Cargador");
-//		//	Producto.actualizarProducto(productoObtenido);
-//		//	System.out.println("Producto actualizado correctamente.");
-//
-//			// Obtener todos los productos
-//		//	List<Producto> todosLosProductos = Producto.obtenerTodosLosProductos();
-//		//	System.out.println("Todos los productos:");
-//		//	for (Producto p : todosLosProductos) {
-//		//		//System.out.println(p);
-//		//	}
-//
-//			// Eliminar el producto
-//		//	Producto.eliminarProducto(11);
-//		//	System.out.println("Producto eliminado correctamente.");
-//			
+			// Obtener un producto por su ID
+//			Producto productoObtenido = Producto.obtenerProducto(11);
+//			System.out.println("Producto obtenido: " + productoObtenido);
+
+			// Actualizar el producto
+//			productoObtenido.setNombre("Cargador");
+//			Producto.actualizarProducto(productoObtenido);
+//			System.out.println("Producto actualizado correctamente.");
+
+			// Obtener todos los productos
+//			List<Producto> todosLosProductos = Producto.obtenerTodosLosProductos();
+//			System.out.println("Todos los productos:");
+//			for (Producto p : todosLosProductos) {
+//			System.out.println(p);
+//			}
+
+			// Eliminar el producto
+//			Producto.eliminarProducto(11);
+//			System.out.println("Producto eliminado correctamente.");
+		
 //		} catch (SQLException e) {
 //			e.printStackTrace();
 //		}
