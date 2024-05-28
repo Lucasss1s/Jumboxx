@@ -14,7 +14,6 @@ public class Usuario {
 	private String puesto;
 	private LocalDate fechaRegistro;
 
-	
 	public Usuario(int id_usuario, String nombreCompleto, String user, String contraseña, String puesto,
 			LocalDate fechaRegistro) {
 		super();
@@ -74,26 +73,23 @@ public class Usuario {
 		this.fechaRegistro = fechaRegistro;
 	}
 
+	public static String pedirInputNoVacio(String mensaje) {
+		String input;
+		do {
+			input = JOptionPane.showInputDialog(mensaje);
+			if (input == null || input.trim().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Error: Este campo no puede estar vacío", "Error",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		} while (input == null || input.trim().isEmpty());
+		return input.trim();
 
-	
-    public static String pedirInputNoVacio(String mensaje) {
-        String input;
-        do {
-            input = JOptionPane.showInputDialog(mensaje);
-            if (input == null || input.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Error: Este campo no puede estar vacío", "Error", JOptionPane.INFORMATION_MESSAGE);                
-            }
-        } while (input == null || input.trim().isEmpty());
-        return input.trim();
-           
-    }
-	
-    
+	}
+
 	@Override
 	public String toString() {
 		return "Usuario [id_usuario=" + id_usuario + ", nombreCompleto=" + nombreCompleto + ", user=" + user
 				+ ", puesto=" + puesto + ", fechaRegistro=" + fechaRegistro + "]";
 	}
-
 
 }

@@ -1,7 +1,7 @@
 package Modelos;
+
 import java.time.LocalDate;
 import java.util.LinkedList;
-
 
 public class Pedido {
 	private int id_pedido;
@@ -10,7 +10,7 @@ public class Pedido {
 	private LocalDate fechaPedido;
 	private double total;
 	private boolean estado;
-	
+
 	public Pedido(int id_Pedido, Cliente cliente, LinkedList<String> productos, LocalDate fechaPedido, double total,
 			boolean estado) {
 		super();
@@ -76,8 +76,4 @@ public class Pedido {
 				+ fechaPedido + ", total=" + total + ", estado=" + estado + "]";
 	}
 
-	
-	
-	
-	
 }
