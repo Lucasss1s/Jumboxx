@@ -51,24 +51,19 @@ public class Main {
 				JOptionPane.showMessageDialog(null,
 						"Bienvenido, " + usuarioAutenticado.getNombreCompleto() + "!\n" + "Usuario: "
 								+ usuarioAutenticado.getUser() + "\n" + "Puesto: " + usuarioAutenticado.getPuesto());
-				
-				
-				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Gerente") ) {
+
+				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Gerente")) {
 					Gerente.mostrarMenu();
 				}
-				
-				
-				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Administrador") ) {
+
+				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Administrador")) {
 					Administrador.mostrarMenu();
 				}
-				
-				
-				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Almacenista") ) {
+
+				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Almacenista")) {
 					Almacenista.mostrarMenu();
 				}
-				
-								
-				
+
 			} else {
 				JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos.");
 			}
@@ -82,21 +77,6 @@ public class Main {
 				}
 			}
 		}
-
-	//	try {
-			// Agregar un producto
-//			Producto nuevoProducto = new Producto(11, "Leche", 10, 2.5);
-//			Producto.agregarProducto(nuevoProducto);
-//			System.out.println("Producto agregado correctamente.");
-//
-
-			// Eliminar el producto
-//			Producto.eliminarProducto(11);
-//			System.out.println("Producto eliminado correctamente.");
-		
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
 
 	}
 

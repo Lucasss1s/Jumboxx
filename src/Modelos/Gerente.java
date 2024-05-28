@@ -45,7 +45,8 @@ public class Gerente extends Usuario {
 
 				break;
 			case 1:
-				String[] opciones2 = { "Ver Stock", "Actualizar Stock", "Agregar producto", "Eliminar producto", "Comprar", "Salir" };
+				String[] opciones2 = { "Ver Stock", "Actualizar Stock", "Agregar producto", "Eliminar producto",
+						"Comprar", "Salir" };
 				int opcionSeleccionada2 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones2,
 						opciones2[0]);
 				switch (opcionSeleccionada2) {
@@ -65,8 +66,9 @@ public class Gerente extends Usuario {
 					}
 
 					break;
-					
+
 				case 1:
+					JOptionPane.showMessageDialog(null, "Actualizar producto");
 
 					try {
 
@@ -82,8 +84,8 @@ public class Gerente extends Usuario {
 						// Actualizar el producto
 
 						int pregunta;
-						pregunta = Integer.parseInt(JOptionPane
-								.showInputDialog("Seleccione que deseea actualizar del producto " + productoObtenido.getNombre()
+						pregunta = Integer.parseInt(JOptionPane.showInputDialog(
+								"Seleccione que deseea actualizar del producto " + productoObtenido.getNombre()
 										+ "\n 0=Nombre // 1= Cantidad // 2= Precio // 3= Volver al menu"));
 
 						if (pregunta == 0) {
@@ -120,24 +122,59 @@ public class Gerente extends Usuario {
 					}
 
 					break;
-					
+
 				case 2:
 					JOptionPane.showMessageDialog(null, "Agregar producto");
+
+					try {
+
+						String codigoStr = JOptionPane.showInputDialog("Ingrese el ID del producto:");
+						int codigo = Integer.parseInt(codigoStr);
+
+						String nombre = JOptionPane.showInputDialog("Ingrese el nombre del producto:");
+
+						String cantidadStr = JOptionPane.showInputDialog("Ingrese la cantidad del producto:");
+						int cantidad = Integer.parseInt(cantidadStr);
+
+						String precioStr = JOptionPane.showInputDialog("Ingrese el precio del producto:");
+						double precio = Double.parseDouble(precioStr);
+
+						Producto nuevoProducto = new Producto(codigo, nombre, cantidad, precio);
+						Producto.agregarProducto(nuevoProducto);
+						JOptionPane.showMessageDialog(null, "Producto agregado correctamente.");
+
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+
 					break;
-				
+
 				case 3:
 					JOptionPane.showMessageDialog(null, "Eliminar producto");
+
+					int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del producto a eliminar:"));
+
+					try {
+
+						Producto.eliminarProducto(id);
+						JOptionPane.showMessageDialog(null, "Producto eliminado correctamente.");
+
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+
 					break;
-					
+
 				case 4:
 					JOptionPane.showMessageDialog(null, "Realizar compra de productos a proveedores");
 					break;
-					
+
 				case 5:
 					salir = true;
 					break;
 				}
 				break;
+
 			case 2:
 				String[] opciones3 = { "Ver Reportes", "Generar Reporte", "Salir" };
 				int opcionSeleccionada3 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones3,
@@ -155,6 +192,7 @@ public class Gerente extends Usuario {
 
 				}
 				break;
+
 			case 3:
 				JOptionPane.showMessageDialog(null, "Almacenes");
 				break;
