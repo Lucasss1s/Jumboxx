@@ -252,9 +252,7 @@ public class Main {
 							}
 							break;
 						case 3:
-		                	Usuario usuario = null;
-		                     Usuario usuarioActual = controlador.getUserById(usuario.getId_usuario());
-		                     Administrador.updateProfile(controlador, usuarioActual);
+		                     Administrador.updateProfile(controlador, usuarioAutenticado);
 		                     break;
 						case 4:
 							System.exit(0);
@@ -313,9 +311,7 @@ public class Main {
 			                    }
 			                    break;
 			                case 3:
-			                	Usuario usuario = null;
-			                     Usuario usuarioActual = controlador.getUserById(usuario.getId_usuario());
-			                     Almacenista.updateProfile(controlador, usuarioActual);
+			                     Almacenista.updateProfile(controlador, usuarioAutenticado);
 			                    break;
 			                case 4:
 			                    System.exit(0);
