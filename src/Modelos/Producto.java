@@ -57,8 +57,8 @@ public class Producto {
 
 	@Override
 	public String toString() {
-		return "Producto [id_producto=" + id_producto + ", nombre=" + nombre + ", cantidad=" + cantidad + ", precio="
-				+ precio + "]";
+		return "IDProducto = " + id_producto + ". " + nombre + ", cantidad = " + cantidad + ", precio $"
+				+ precio;
 	}
 
 	public static Connection getConnection() throws SQLException {

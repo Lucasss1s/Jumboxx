@@ -138,5 +138,17 @@ public class ProductoDAO {
             return false;
         }
     }
-}
+    
+    public boolean eliminarTodosLosProductos() {
+        String sql = "DELETE FROM productos";
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
+}

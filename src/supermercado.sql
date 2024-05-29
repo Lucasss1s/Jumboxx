@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-05-2024 a las 00:41:07
+-- Tiempo de generación: 29-05-2024 a las 00:45:53
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -83,14 +83,14 @@ CREATE TABLE `productos` (
 INSERT INTO `productos` (`id_producto`, `nombre`, `cantidad`, `precio`) VALUES
 (1, 'Portátil', 50, 799.99),
 (2, 'Teléfono Inteligente', 200, 599.99),
-(3, 'Tableta', 150, 299.99),
+(3, 'Tablet', 150, 299.99),
 (4, 'Reloj Inteligente', 300, 199.99),
 (5, 'Auriculares', 500, 99.99),
 (6, 'Teclado', 250, 49.99),
 (7, 'Ratón', 300, 29.99),
 (8, 'Monitor', 100, 199.99),
 (9, 'Impresora', 75, 149.99),
-(10, 'Disco Duro Externo', 120, 89.99);
+(10, 'Cargador', 120, 89.99);
 
 -- --------------------------------------------------------
 
