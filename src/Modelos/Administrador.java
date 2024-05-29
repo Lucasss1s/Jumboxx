@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
 
+import controladores.ReporteControlador;
+
 public class Administrador extends Usuario {
 
 	public Administrador(int id_usuario, String nombreCompleto, String user, String contraseña, String puesto,
@@ -57,15 +59,20 @@ public class Administrador extends Usuario {
 				}
 				break;
 			case 2:
+				ReporteControlador ReportControlador = new ReporteControlador();
 				String[] opciones3 = { "Ver Reportes", "Generar Reporte", "Salir" };
 				int opcionSeleccionada3 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones3,
 						opciones3[0]);
 				switch (opcionSeleccionada3) {
 				case 0:
-					JOptionPane.showMessageDialog(null, "Reportes");
+					JOptionPane.showMessageDialog(null, ReportControlador.getAllReport());
 					break;
 				case 1:
-					JOptionPane.showMessageDialog(null, "Realizar Reporte");
+					int id= ReportControlador.getLastReportId()+1;
+					
+					String descripcion = JOptionPane.showInputDialog("Ingrese el problema");
+					LocalDate fecha = LocalDate.now();
+					ReportControlador.addReport(new Reporte(id,descripcion,fecha));
 					break;
 				case 2:
 					salir = true;
