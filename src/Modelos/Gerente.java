@@ -210,12 +210,12 @@ public class Gerente extends Usuario {
                      JOptionPane.showMessageDialog(null, usuarioTexto.toString(), "Usuario Encontrado", JOptionPane.INFORMATION_MESSAGE);
                      break; // Salir del bucle si se encuentra el usuario
                  } else {
-                     JOptionPane.showMessageDialog(null, "Usuario no encontrado. Por favor, ingrese un ID válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                     JOptionPane.showMessageDialog(null, "Usuario no encontrado. Por favor, ingrese un ID válido", "Error", JOptionPane.ERROR_MESSAGE);
+                     break;
                  }
              } catch (NumberFormatException e) {
-                 JOptionPane.showMessageDialog(null, "ID inválido. Por favor, ingrese un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
-             } catch (Exception e) {
-                 JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                 JOptionPane.showMessageDialog(null, "ID inválido. Por favor, ingrese un número entero", "Error", JOptionPane.ERROR_MESSAGE);
+                 break;
              }
          }
 	}
@@ -235,7 +235,8 @@ public class Gerente extends Usuario {
      	    user = Usuario.pedirInputNoVacio("Ingrese nombre de usuario");
      	    userExiste = controlador.usernameExists(user);
      	    if (userExiste) {
-     	        JOptionPane.showMessageDialog(null, "El nombre de usuario ingresado ya existe. Por favor, elija otro nombre de usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+     	        JOptionPane.showMessageDialog(null, "El nombre de usuario ingresado ya existe. Por favor, elija otro nombre de usuario", "Error", JOptionPane.ERROR_MESSAGE);
+     	        break;
      	    }
      	} while (userExiste);
 
@@ -261,8 +262,8 @@ public class Gerente extends Usuario {
 	            Usuario usuarioExistente = controlador.getUserById(idUsuario);
 
 	            if (usuarioExistente == null) {
-	                JOptionPane.showMessageDialog(null, "Usuario no encontrado. Por favor, ingrese un ID válido.", "Error", JOptionPane.ERROR_MESSAGE);
-	                continue;
+	                JOptionPane.showMessageDialog(null, "Usuario no encontrado. Por favor, ingrese un ID válido", "Error", JOptionPane.ERROR_MESSAGE);
+	                break;
 	            }
 
 	            boolean actualizar = true;
@@ -279,7 +280,7 @@ public class Gerente extends Usuario {
 	                        } else {
 	                            usuarioExistente.setNombreCompleto(nuevoNombreCompleto);
 	                            controlador.updateUser(usuarioExistente);
-	                            JOptionPane.showMessageDialog(null, "Nombre completo actualizado exitosamente.");
+	                            JOptionPane.showMessageDialog(null, "Nombre completo actualizado exitosamente");
 	                        }
 	                        break;
 	                    case 1:
@@ -289,18 +290,18 @@ public class Gerente extends Usuario {
 	                            nuevoUser = Usuario.pedirInputNoVacio("Ingrese el nuevo nombre de usuario:");
 	                            nuevoUserExiste = controlador.usernameExists(nuevoUser);
 	                            if (nuevoUserExiste && !nuevoUser.equals(usuarioExistente.getUser())) {
-	                                JOptionPane.showMessageDialog(null, "El nombre de usuario ingresado ya existe. Por favor, elija otro nombre de usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+	                                JOptionPane.showMessageDialog(null, "El nombre de usuario ingresado ya existe. Por favor, elija otro nombre de usuario", "Error", JOptionPane.ERROR_MESSAGE);
 	                                break;
 	                            }
 	                        } while (nuevoUserExiste && !nuevoUser.equals(usuarioExistente.getUser()));
 
 	                        if (nuevoUser.equals(usuarioExistente.getUser())) {
-	                            JOptionPane.showMessageDialog(null, "El nuevo nombre de usuario es igual al actual. Por favor, ingrese un nombre diferente.", "Error", JOptionPane.ERROR_MESSAGE);
+	                            JOptionPane.showMessageDialog(null, "El nuevo nombre de usuario es igual al actual. Por favor, ingrese un nombre diferente", "Error", JOptionPane.ERROR_MESSAGE);
 	                        } else {
 	                            usuarioExistente.setUser(nuevoUser);
 	                            usuarioExistente.setContraseña(nuevoUser);
 	                            controlador.updateUser(usuarioExistente);
-	                            JOptionPane.showMessageDialog(null, "Nombre de usuario actualizado exitosamente.");
+	                            JOptionPane.showMessageDialog(null, "Nombre de usuario actualizado exitosamente");
 	                        }
 	                        break;
 	                    case 2:
@@ -310,15 +311,13 @@ public class Gerente extends Usuario {
 	                        if (nuevoPuestoIndex != -1) {
 	                            String nuevoPuesto = nuevosPuestos[nuevoPuestoIndex];
 	                            if (nuevoPuesto.equals(usuarioExistente.getPuesto())) {
-	                                JOptionPane.showMessageDialog(null, "El nuevo puesto es igual al actual. Por favor, seleccione un puesto diferente.", "Error", JOptionPane.ERROR_MESSAGE);
+	                                JOptionPane.showMessageDialog(null, "El nuevo puesto es igual al actual. Por favor, seleccione un puesto diferente", "Error", JOptionPane.ERROR_MESSAGE);
 	                            } else {
 	                                usuarioExistente.setPuesto(nuevoPuesto);
 	                                controlador.updateUser(usuarioExistente);
-	                                JOptionPane.showMessageDialog(null, "Puesto actualizado exitosamente.");
+	                                JOptionPane.showMessageDialog(null, "Puesto actualizado exitosamente");
 	                            }
-	                        } else {
-	                            JOptionPane.showMessageDialog(null, "Debe seleccionar un puesto válido. Inténtelo nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
-	                        }
+	                        } 
 	                        break;
 	                    case 3:
 	                        actualizar = false;
@@ -327,9 +326,8 @@ public class Gerente extends Usuario {
 	            }
 	            break;
 	        } catch (NumberFormatException e) {
-	            JOptionPane.showMessageDialog(null, "ID inválido. Por favor, ingrese un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
-	        } catch (Exception e) {
-	            JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+	            JOptionPane.showMessageDialog(null, "ID inválido. Por favor, ingrese un número entero", "Error", JOptionPane.ERROR_MESSAGE);
+	            break;
 	        }
 	    }
 	}
@@ -343,23 +341,23 @@ public class Gerente extends Usuario {
 				try {
 				    idUsuarioEliminar = Integer.parseInt(idStrEliminar);
 				} catch (NumberFormatException e) {
-				    JOptionPane.showMessageDialog(null, "ID inválido. Por favor, ingrese un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
-				    continue;
+				    JOptionPane.showMessageDialog(null, "ID inválido. Por favor, ingrese un número entero", "Error", JOptionPane.ERROR_MESSAGE);
+				    break;
 				}
 				
 				Usuario usuarioExistenteEliminar = controlador.getUserById(idUsuarioEliminar);
 				
 				if (usuarioExistenteEliminar == null) {
-				    JOptionPane.showMessageDialog(null, "Usuario no encontrado. Por favor, ingrese un ID válido.", "Error", JOptionPane.ERROR_MESSAGE);
-				    continue;
+				    JOptionPane.showMessageDialog(null, "Usuario no encontrado. Por favor, ingrese un ID válido", "Error", JOptionPane.ERROR_MESSAGE);
+				    break;
 				}
 				
 				int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar al usuario con ID " + idUsuarioEliminar + "?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
 				if (confirmacion == JOptionPane.YES_OPTION) {
 				    controlador.deleteUser(idUsuarioEliminar);
-				    JOptionPane.showMessageDialog(null, "Usuario eliminado exitosamente.");
+				    JOptionPane.showMessageDialog(null, "Usuario eliminado exitosamente");
 				} else {
-				    JOptionPane.showMessageDialog(null, "Eliminación cancelada.");
+				    JOptionPane.showMessageDialog(null, "Eliminación cancelada");
 				}
 				break;
 			}

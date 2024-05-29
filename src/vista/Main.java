@@ -326,6 +326,8 @@ public class Main {
 				
 								
 				
+			} else {
+				JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos.");
 			}
 
 		} finally {
