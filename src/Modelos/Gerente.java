@@ -8,6 +8,9 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import controladores.DatabaseConnection;
 import controladores.ReporteControlador;
 import controladores.UsuarioControlador;
@@ -168,6 +171,66 @@ public class Gerente extends Usuario {
 
 				case 4:
 					JOptionPane.showMessageDialog(null, "Realizar compra de productos a proveedores");
+
+					try {
+						List<Producto> todosLosProductos = Producto.obtenerTodosLosProductos();
+						StringBuilder productList = new StringBuilder("Productos Disponibles:\n");
+
+						for (Producto p : todosLosProductos) {
+							productList.append(p.getId_producto()).append(". ").append(p.getNombre())
+									.append(" - Cantidad: ").append(p.getCantidad()).append(", Precio: $")
+									.append(p.getPrecio()).append("\n");
+						}
+						productList.append(
+								"\nIngrese el ID del producto que desea comprar, o 0 para finalizar la compra:");
+
+						List<Producto> productosSeleccionados = new ArrayList<>(); // Lista para almacenar los productos
+																					// seleccionados
+						double totalCompra = 0; // Variable para almacenar el total de la compra
+
+						while (true) {
+							
+							int idProducto = Integer.parseInt(JOptionPane.showInputDialog(productList.toString()));
+							if (idProducto == 0)
+								break;
+
+							Producto producto = Producto.obtenerProducto(idProducto);
+							if (producto != null) {
+								int cantidad = Integer.parseInt(
+										JOptionPane.showInputDialog("Ingrese la cantidad a comprar del producto \""
+												+ producto.getNombre() + "\":"));
+								if (cantidad <= 0) {
+									JOptionPane.showMessageDialog(null, "La cantidad debe ser mayor que cero.");
+									continue;
+								}
+
+								if (cantidad > producto.getCantidad()) {
+									JOptionPane.showMessageDialog(null,
+											"No hay suficiente stock de \"" + producto.getNombre() + "\".");
+									continue;
+								}
+
+								productosSeleccionados.add(producto);
+																		
+								totalCompra += producto.getPrecio() * cantidad;
+
+								producto.setCantidad(producto.getCantidad() - cantidad);
+								Producto.actualizarProducto(producto);
+							} else {
+								JOptionPane.showMessageDialog(null, "El ID del producto ingresado no es válido.");
+							}
+						}
+
+						StringBuilder selectedProductsList = new StringBuilder("Productos Seleccionados:\n");
+						for (Producto p : productosSeleccionados) {
+							selectedProductsList.append("- ").append(p.getNombre()).append(", Precio: $").append(p.getPrecio()).append("\n");
+						}
+						selectedProductsList.append("\nTotal de la compra: $" + totalCompra);
+						JOptionPane.showMessageDialog(null, selectedProductsList.toString());
+
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 					break;
 
 				case 5:
@@ -178,7 +241,8 @@ public class Gerente extends Usuario {
 
 			case 2:
 				ReporteControlador ReportControlador = new ReporteControlador();
-				String[] opciones3 = { "Ver Reportes", "Generar Reporte", "Editar reporte", "Eliminar reporte", "Salir" };
+				String[] opciones3 = { "Ver Reportes", "Generar Reporte", "Editar reporte", "Eliminar reporte",
+						"Salir" };
 				int opcionSeleccionada3 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones3,
 						opciones3[0]);
 				switch (opcionSeleccionada3) {
@@ -186,17 +250,18 @@ public class Gerente extends Usuario {
 					JOptionPane.showMessageDialog(null, ReportControlador.getAllReport());
 					break;
 				case 1:
-					int id= ReportControlador.getLastReportId()+1;
-					
+					int id = ReportControlador.getLastReportId() + 1;
+
 					String descripcion = JOptionPane.showInputDialog("Ingrese el problema");
 					LocalDate fecha = LocalDate.now();
-					ReportControlador.addReport(new Reporte(id,descripcion,fecha));
+					ReportControlador.addReport(new Reporte(id, descripcion, fecha));
 					break;
 				case 2:
-					 Reporte nuevo = SeleccionarReporte(ReportControlador);
-					  String nuevaDescripcion = JOptionPane.showInputDialog("Ingrese el nuevo problema: " + nuevo.getDescripcion());
-					  nuevo.setDescripcion(nuevaDescripcion);
-					  ReportControlador.updateReport(nuevo);
+					Reporte nuevo = SeleccionarReporte(ReportControlador);
+					String nuevaDescripcion = JOptionPane
+							.showInputDialog("Ingrese el nuevo problema: " + nuevo.getDescripcion());
+					nuevo.setDescripcion(nuevaDescripcion);
+					ReportControlador.updateReport(nuevo);
 					break;
 				case 3:
 					Reporte otro = SeleccionarReporte(ReportControlador);
@@ -426,15 +491,17 @@ public class Gerente extends Usuario {
 
 		JOptionPane.showMessageDialog(null, "El gerente está realizando una reunión con el personal.");
 	}
-	public static Reporte SeleccionarReporte(ReporteControlador controlador ) {
+
+	public static Reporte SeleccionarReporte(ReporteControlador controlador) {
 		String[] lista = new String[controlador.getAllReport().size()];
-		
+
 		for (int i = 0; i < lista.length; i++) {
-			lista[i] = Integer.toString( controlador.getAllReport().get(i).getId_reporte());
+			lista[i] = Integer.toString(controlador.getAllReport().get(i).getId_reporte());
 		}
-		String elegido = (String)JOptionPane.showInputDialog(null, "Elija el reporte que quiera editar", null, 0, null, lista, lista[0]);
-		
-		Reporte seleccionado =  controlador.getReportById(Integer.parseInt(elegido));
-		 return seleccionado;
+		String elegido = (String) JOptionPane.showInputDialog(null, "Elija el reporte que quiera editar", null, 0, null,
+				lista, lista[0]);
+
+		Reporte seleccionado = controlador.getReportById(Integer.parseInt(elegido));
+		return seleccionado;
 	}
 }
