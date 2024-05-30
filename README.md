@@ -5,7 +5,7 @@ El proyecto trata sobre la creación de un sistema para la cadena de supermercad
 
 Entre las características destacadas del sistema encontramos su capacidad para administrar usuarios de manera efectiva, el control de stock, la gestión de pedidos y la capacidad de generar informes detallados.
 
-![image](https://github.com/Lucasss1s/Jumboxx/assets/170205641/68f74d6d-468a-42be-a342-03f5201d992f)
+  <img src="https://github.com/Lucasss1s/Jumboxx/assets/170205641/68f74d6d-468a-42be-a342-03f5201d992f" alt="JUMBOX" style="display:block; margin:auto;">
 
 Integrantes: Lautaro Cala, Lucas Frangolini, Marcos Grasset, Nicolás Ojeda & Gonzalo Vadone.
 
