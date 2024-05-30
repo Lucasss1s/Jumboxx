@@ -216,13 +216,13 @@ public class Main {
 									opciones2[0]);
 							switch (opcionSeleccionada2) {
 							case 0:
-								JOptionPane.showMessageDialog(null, "Stock");
+								Administrador.verStock();
 								break;
 							case 1:
-								JOptionPane.showMessageDialog(null, "Actualizar stock");
+								Administrador.actualizarProducto();
 								break;
 							case 2:
-								JOptionPane.showMessageDialog(null, "Realizar compra de productos a proveedores");
+								Administrador.comprarProducto();
 								break;
 							case 3:
 								salir = true;
