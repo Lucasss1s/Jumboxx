@@ -53,7 +53,6 @@ public class PedidoControlador {
     }
 	
 	private Cliente getClienteById(int clienteId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
