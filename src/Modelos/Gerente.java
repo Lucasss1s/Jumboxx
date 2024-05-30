@@ -285,37 +285,38 @@ public class Gerente extends Usuario {
 	}
 
 	public static void addUser(UsuarioControlador controlador) {
-		JOptionPane.showMessageDialog(null, "Para agregar un nuevo usuario se solicitaran los siguientes datos: "
-				+ "\nNombre Completo (Obligatorio) "
-				+ "\nNombre de usuario(Obligatorio), se refiere al nombre que se le pedira al usuario para ingresar al sistema "
-				+ "\nPuesto (Obligatorio), esto determinara los permisos del usuario");
+	    JOptionPane.showMessageDialog(null, "Para agregar un nuevo usuario se solicitaran los siguientes datos: "
+	            + "\nNombre Completo (Obligatorio) "
+	            + "\nNombre de usuario(Obligatorio), se refiere al nombre que se le pedira al usuario para ingresar al sistema "
+	            + "\nPuesto (Obligatorio), esto determinara los permisos del usuario");
 
-		String nombreCompleto = Usuario.pedirInputNoVacio("Ingrese el nombre completo");
+	    String nombreCompleto = Usuario.pedirInputNoVacio("Ingrese el nombre completo");
 
-		String user;
-		boolean userExiste;
-		do {
-			user = Usuario.pedirInputNoVacio("Ingrese nombre de usuario");
-			userExiste = controlador.usernameExists(user);
-			if (userExiste) {
-				JOptionPane.showMessageDialog(null,
-						"El nombre de usuario ingresado ya existe. Por favor, elija otro nombre de usuario", "Error",
-						JOptionPane.ERROR_MESSAGE);
-				break;
-			}
-		} while (userExiste);
+	    String user;
+	    boolean userExiste;
+	    do {
+	        user = Usuario.pedirInputNoVacio("Ingrese nombre de usuario");
+	        userExiste = controlador.usernameExists(user);
+	        if (userExiste) {
+	            JOptionPane.showMessageDialog(null,
+	                    "El nombre de usuario ingresado ya existe. Por favor, elija otro nombre de usuario", "Error",
+	                    JOptionPane.ERROR_MESSAGE);
+	            return; 
+	        }
+	    } while (userExiste);
 
-		String[] puestos = { "Almacenista", "Administrador", "Gerente" };
-		int opcionPuesto = JOptionPane.showOptionDialog(null, "Seleccione el puesto en la empresa:",
-				"Seleccionar Puesto", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, puestos, puestos[0]);
+	    String[] puestos = { "Almacenista", "Administrador", "Gerente" };
+	    int opcionPuesto = JOptionPane.showOptionDialog(null, "Seleccione el puesto en la empresa:",
+	            "Seleccionar Puesto", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, puestos, puestos[0]);
 
-		String puesto = puestos[opcionPuesto];
-		int id_usuario = controlador.getLastUserId() + 1;
-		LocalDate fechaRegistro = LocalDate.now();
-		String contraseña = user;
+	    String puesto = puestos[opcionPuesto];
+	    int id_usuario = controlador.getLastUserId() + 1;
+	    LocalDate fechaRegistro = LocalDate.now();
+	    String contraseña = user;
 
-		controlador.addUser(new Usuario(id_usuario, nombreCompleto, user, contraseña, puesto, fechaRegistro));
+	    controlador.addUser(new Usuario(id_usuario, nombreCompleto, user, contraseña, puesto, fechaRegistro));
 	}
+
 
 	public static void updateUser(UsuarioControlador controlador) {
 		while (true) {
