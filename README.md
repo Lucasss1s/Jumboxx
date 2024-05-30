@@ -15,4 +15,3 @@ Links:
     <li>https://lucid.app/lucidchart/b6fbd264-4d1c-4f0b-8f43-12a198128dda/edit?viewport_loc=-1128%2C-1295%2C5453%2C2304%2C0_0&invitationId=inv_095610a1-a1fc-40a0-9f07-cf81603d0939</li>
 </ul>
 </body>
-centrar esto ![image](https://github.com/Lucasss1s/Jumboxx/assets/170205641/68f74d6d-468a-42be-a342-03f5201d992f)
