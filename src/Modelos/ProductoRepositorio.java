@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductoDAO {
+public class ProductoRepositorio {
     public boolean crearProducto(Producto producto) {
         if (producto == null) {
             return false;
@@ -137,6 +137,19 @@ public class ProductoDAO {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    public boolean eliminarTodosLosProductos() {
+        String sql = "DELETE FROM productos";
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        
     }
 }
 
