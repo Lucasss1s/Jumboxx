@@ -80,6 +80,49 @@ public class PedidoControlador {
             connection.close();
         }
     }
+
+	public Pedido getPedidoById(int id) {
+		Pedido pedido = null;
+	    try {
+	        PreparedStatement statement = connection.prepareStatement("SELECT * FROM pedido WHERE id_pedido = ?");
+	        statement.setInt(1, id);
+	        ResultSet resultSet = statement.executeQuery();
+	        if (resultSet.next()) {
+	            int clienteId = resultSet.getInt("id_cliente");
+	            Cliente cliente = getClienteById(clienteId);
+
+	            String productosStr = resultSet.getString("Productos");
+	            LinkedList<String> productos = new LinkedList<>();
+	            for (String producto : productosStr.split(",")) {
+	                productos.add(producto);
+	            }
+
+	            pedido = new Pedido(
+	                resultSet.getInt("id_pedido"),
+	                cliente,
+	                productos,
+	                resultSet.getDate("fechaPedido").toLocalDate(),
+	                resultSet.getDouble("total"),
+	                resultSet.getBoolean("estado")
+	            );
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		return pedido;
+	}
+
+	public void deletePedido(int id_Pedido) {
+		try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM pedido WHERE id_pedido = ?");
+            statement.setInt(1, id_Pedido);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		
+	}
+
 	
 	
 }
