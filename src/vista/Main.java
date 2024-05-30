@@ -93,7 +93,7 @@ public class Main {
 								Gerente.eliminarProducto();
 								break;
 							case 4:
-								JOptionPane.showMessageDialog(null, "Realizar compra de productos a proveedores");
+								Gerente.comprarProducto();
 								break;
 							case 5:
 								salir = true;
