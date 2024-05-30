@@ -287,10 +287,10 @@ public class Main {
 			                    int opcionSeleccionada2 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones2, opciones2[0]);
 			                    switch (opcionSeleccionada2) {
 			                        case 0:
-			                            JOptionPane.showMessageDialog(null, "Stock");
+			                            Almacenista.verStock();
 			                            break;
 			                        case 1:
-			                            JOptionPane.showMessageDialog(null, "Realizar compra de productos a proveedores");
+			                            Almacenista.actualizarProducto();
 			                            break;
 			                        case 2:
 			                            salir = true;
