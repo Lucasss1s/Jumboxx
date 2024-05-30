@@ -1,6 +1,7 @@
 package vista;
 
 import java.sql.SQLException;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
@@ -16,7 +17,6 @@ import Modelos.Cliente;
 import Modelos.Deposito;
 import Modelos.Gerente;
 import Modelos.Producto;
-import Modelos.Sucursal;
 import Modelos.Usuario;
 import Modelos.Venta;
 import Modelos.Reporte;
