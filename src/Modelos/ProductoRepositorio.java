@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductoDAO {
+public class ProductoRepositorio {
     public boolean crearProducto(Producto producto) {
         if (producto == null) {
             return false;
@@ -149,6 +149,7 @@ public class ProductoDAO {
             e.printStackTrace();
             return false;
         }
+        
     }
-
 }
+
