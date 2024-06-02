@@ -1,6 +1,7 @@
 package vista;
 
 import java.sql.SQLException;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
@@ -16,7 +17,6 @@ import Modelos.Cliente;
 import Modelos.Deposito;
 import Modelos.Gerente;
 import Modelos.Producto;
-import Modelos.Sucursal;
 import Modelos.Usuario;
 import Modelos.Venta;
 import Modelos.Reporte;
@@ -30,6 +30,13 @@ public class Main {
 		// TODO Auto-generated method stub
 
  	    UsuarioControlador controlador = new UsuarioControlador();
+ 	    
+ 	   List<Deposito> depositos = new ArrayList<>();
+       depositos.add(new Deposito(1, 100, "Direccion 1"));
+       depositos.add(new Deposito(2, 150, "Direccion 2"));
+       depositos.add(new Deposito(3, 200, "Direccion 3"));
+       depositos.add(new Deposito(4, 250, "Direccion 4"));
+       depositos.add(new Deposito(5, 300, "Direccion 5"));
  	    
 		ImageIcon icon = new ImageIcon(Main.class.getResource("/img/Logo.png"));
 		JOptionPane.showMessageDialog(null, "¡Bienvenido \n         a               \n  Mayorista      \n  Jumbox!",
@@ -52,7 +59,7 @@ public class Main {
 				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Gerente") ) {			
 					boolean salir = false;
 					do {
-					    String[] opciones = { "Pedidos", "Stock", "Reportes", "Almacenes", "Usuarios", "Salir" };
+					    String[] opciones = { "Pedidos", "Stock", "Reportes", "Depositos", "Usuarios", "Salir" };
 					    int opcionSeleccionada = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones, opciones[0]);
 
 					    switch (opcionSeleccionada) {
@@ -73,8 +80,10 @@ public class Main {
 					            break;
 
 					        case 1:
-					            String[] opciones2 = { "Ver Stock", "Actualizar Stock", "Agregar producto", "Eliminar producto", "Comprar", "Salir" };
+					            String[] opciones2 = { "Ver Stock", "Actualizar Stock", "Agregar producto", "Eliminar producto", "Comprar", "Atrás" };
 					            int opcionSeleccionada2 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones2, opciones2[0]);
+					            boolean salirProducto = false;
+					            while (!salirProducto) {
 					            switch (opcionSeleccionada2) {
 					                case 0:
 					                    Gerente.verStock();
@@ -92,15 +101,18 @@ public class Main {
 					                    Gerente.comprarProducto();
 					                    break;
 					                case 5:
-					                    salir = true;
+					                	salirProducto = true;
 					                    break;
+					            	}
 					            }
 					            break;
 
 					        case 2:
 					            ReporteControlador ReportControlador = new ReporteControlador();
-					            String[] opciones3 = { "Ver Reportes", "Generar Reporte", "Editar reporte", "Eliminar reporte", "Salir" };
+					            String[] opciones3 = { "Ver Reportes", "Generar Reporte", "Editar reporte", "Eliminar reporte", "Atrás" };
 					            int opcionSeleccionada3 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones3, opciones3[0]);
+					            boolean salirReporte = false;
+					            while (!salirReporte) {
 					            switch (opcionSeleccionada3) {
 					                case 0:
 					                    JOptionPane.showMessageDialog(null, ReportControlador.getAllReport());
@@ -119,15 +131,21 @@ public class Main {
 					                    ReportControlador.deleteReport(otro.getId_reporte());
 					                    break;
 					                case 4:
-					                    salir = true;
+					                	salirReporte = true;
 					                    break;
+					            	}
 					            }
 					            break;
 
 					        case 3:
-					            JOptionPane.showMessageDialog(null, "Almacenes");
+				                   StringBuilder listaDepositos = new StringBuilder("Lista de Depósitos:\n");
+				                    for (Deposito deposito : depositos) {
+				                        listaDepositos.append("ID: ").append(deposito.getId())
+				                                      .append(", Dirección: ").append(deposito.getDireccion())
+				                                      .append(", Stock: ").append(deposito.getStock()).append("\n");
+				                    }
+				                    JOptionPane.showMessageDialog(null, listaDepositos.toString());
 					            break;
-
 					        case 4:
 					            boolean salirUsuarios = false;
 					            while (!salirUsuarios) {
