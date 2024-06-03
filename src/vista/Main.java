@@ -1,6 +1,7 @@
 package vista;
 
 import java.sql.SQLException;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
@@ -16,7 +17,6 @@ import Modelos.Cliente;
 import Modelos.Deposito;
 import Modelos.Gerente;
 import Modelos.Producto;
-import Modelos.Sucursal;
 import Modelos.Usuario;
 import Modelos.Venta;
 import Modelos.Reporte;
@@ -29,19 +29,19 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		UsuarioControlador controlador = new UsuarioControlador();
+ 	    UsuarioControlador controlador = new UsuarioControlador();
+ 	    
 
+        List<Deposito> depositos = new ArrayList<>();
+        depositos.add(new Deposito(1, "Direccion 1", true));
+        depositos.add(new Deposito(2, "Direccion 2", true));
+        depositos.add(new Deposito(3, "Direccion 3", true));
+        depositos.add(new Deposito(4, "Direccion 4", true));
+        depositos.add(new Deposito(5, "Direccion 5", true));
+ 	    
 		ImageIcon icon = new ImageIcon(Main.class.getResource("/img/Logo.png"));
 		JOptionPane.showMessageDialog(null, "¡Bienvenido \n         a               \n  Mayorista      \n  Jumbox!",
-				"Hola", JOptionPane.INFORMATION_MESSAGE, icon);
-
-//		String username = "Lucass"; // Nombre de usuario ingresado
-//        String password = "123"; // Contraseña ingresada
-//
-//        Usuario usuarioAutenticado = controlador.getUserByUsernameAndPassword(username, password);
-//        JOptionPane.showMessageDialog(null, usuarioAutenticado.getUser() + " " + usuarioAutenticado.getPuesto());
-
-		
+				"Hola", JOptionPane.INFORMATION_MESSAGE, icon);		
 		
 		try {
 			JOptionPane.showMessageDialog(null, "Bienvenido a Jumbox");
@@ -57,18 +57,303 @@ public class Main {
 								+ usuarioAutenticado.getUser() + "\n" + "Puesto: " + usuarioAutenticado.getPuesto());
 				
 				
-				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Gerente") ) {
-					Gerente.mostrarMenu();
-				}
+
+				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Gerente")) {
+                    boolean salir = false;
+                    do {
+                        String[] opciones = { "Pedidos", "Stock", "Reportes", "Depositos", "Usuarios", "Salir" };
+                        int opcionSeleccionada = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones,
+                                opciones[0]);
+
+                        switch (opcionSeleccionada) {
+                            case 0:
+                                String[] opciones1 = { "Ver Pedido", "Generar Pedido", "Salir" };
+                                int opcionSeleccionada1 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null,
+                                        opciones1, opciones1[0]);
+                                switch (opcionSeleccionada1) {
+                                    case 0:
+                                        JOptionPane.showMessageDialog(null, "Pedidos");
+                                        break;
+                                    case 1:
+                                        JOptionPane.showMessageDialog(null, "Realizar Pedido");
+                                        break;
+                                    case 2:
+                                        salir = true;
+                                        break;
+                                }
+                                break;
+
+                            case 1:
+                                boolean salirProducto = false;
+                                do {
+                                    String[] opciones2 = { "Ver Stock", "Actualizar Stock", "Agregar producto",
+                                            "Eliminar producto", "Comprar", "Atrás" };
+                                    int opcionSeleccionada2 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3,
+                                            null, opciones2, opciones2[0]);
+
+                                    switch (opcionSeleccionada2) {
+                                        case 0:
+                                            Gerente.verStock();
+                                            break;
+                                        case 1:
+                                            Gerente.actualizarProducto();
+                                            break;
+                                        case 2:
+                                            Gerente.agregarProducto();
+                                            break;
+                                        case 3:
+                                            Gerente.eliminarProducto();
+                                            break;
+                                        case 4:
+                                            Gerente.comprarProducto();
+                                            break;
+                                        case 5:
+                                            salirProducto = true;
+                                            break;
+                                    }
+                                } while (!salirProducto);
+                                break;
+
+                            case 2:
+                                ReporteControlador reporteControlador = new ReporteControlador();
+                                boolean salirReporte = false;
+                                do {
+                                    String[] opciones3 = { "Ver Reportes", "Generar Reporte", "Editar reporte",
+                                            "Eliminar reporte", "Atrás" };
+                                    int opcionSeleccionada3 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3,
+                                            null, opciones3, opciones3[0]);
+
+                                    switch (opcionSeleccionada3) {
+                                        case 0:
+                                            JOptionPane.showMessageDialog(null, reporteControlador.getAllReport());
+                                            break;
+                                        case 1:
+                                            Gerente.generarReporte(reporteControlador);
+                                            break;
+                                        case 2:
+                                            Reporte reporte = Gerente.SeleccionarReporte(reporteControlador);
+                                            if (reporte != null) {
+                                                String nuevaDescripcion = JOptionPane
+                                                        .showInputDialog("Ingrese la nueva descripción:");
+                                                if (nuevaDescripcion != null) {
+                                                    reporte.setDescripcion(nuevaDescripcion);
+                                                    reporteControlador.updateReport(reporte);
+                                                }
+                                            }
+                                            break;
+                                        case 3:
+                                            Reporte reporteAEliminar = Gerente.seleccionarReporte(reporteControlador);
+                                            if (reporteAEliminar != null) {
+                                                reporteControlador.deleteReport(reporteAEliminar.getId_reporte());
+                                            }
+                                            break;
+                                        case 4:
+                                            salirReporte = true;
+                                            break;
+                                    }
+                                } while (!salirReporte);
+                                break;
+
+                            case 3:
+                                StringBuilder listaDepositos = new StringBuilder("Lista de Depósitos:\n");
+                                for (Deposito deposito : depositos) {
+                                    listaDepositos.append("ID: ").append(deposito.getId()).append(", Dirección: ")
+                                            .append(deposito.getDireccion()).append(", Stock: ")
+                                            .append(deposito.getStock()).append("\n");
+                                }
+                                JOptionPane.showMessageDialog(null, listaDepositos.toString());
+                                break;
+
+                            case 4:
+                                boolean salirUsuarios = false;
+                                do {
+                                    String[] opcionesUsuarios = { "Ver usuario", "Agregar usuario",
+                                            "Actualizar usuario", "Eliminar usuario", "Atrás" };
+                                    int opcionSeleccionadaUsuarios = JOptionPane.showOptionDialog(null, "Menu", null,
+                                            0, 3, null, opcionesUsuarios, opcionesUsuarios[0]);
+
+                                    switch (opcionSeleccionadaUsuarios) {
+                                        case 0:
+                                            boolean salirVerUsuarios = false;
+                                            do {
+                                                String[] opcionesVerUsuarios = { "Ver todos los usuarios",
+                                                        "Buscar usuario", "Atrás" };
+                                                int opcionSeleccionadaVerUsuarios = JOptionPane.showOptionDialog(null,
+                                                        "Menu", null, 0, 3, null, opcionesVerUsuarios,
+                                                        opcionesVerUsuarios[0]);
+
+                                                switch (opcionSeleccionadaVerUsuarios) {
+                                                    case 0:
+                                                        Gerente.viewAllUser(controlador);
+                                                        break;
+                                                    case 1:
+                                                        Gerente.searchUserByID(controlador);
+                                                        break;
+                                                    case 2:
+                                                        salirVerUsuarios = true;
+                                                        break;
+                                                }
+                                            } while (!salirVerUsuarios);
+                                            break;
+                                        case 1:
+                                            Gerente.addUser(controlador);
+                                            break;
+                                        case 2:
+                                            Gerente.updateUser(controlador);
+                                            break;
+                                        case 3:
+                                            Gerente.deleteUser(controlador);
+                                            break;
+                                        case 4:
+                                            salirUsuarios = true;
+                                            break;
+                                    }
+                                } while (!salirUsuarios);
+                                break;
+
+                            case 5:
+                                System.exit(0);
+                                break;
+                        }
+
+                    } while (!salir);
+                }
 				
 				
 				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Administrador") ) {
-					Administrador.mostrarMenu();
+					boolean salir1 = false;
+					do {
+						String[] opciones = { "Pedidos", "Stock", "Reportes", "Perfil", "Salir" };
+						int opcionSeleccionada = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones,
+								opciones[0]);
+
+						switch (opcionSeleccionada) {
+						case 0:
+
+							String[] opciones1 = { "Ver Pedido", "Generar Pedido", "Salir" };
+							int opcionSeleccionada1 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones1,
+									opciones1[0]);
+							switch (opcionSeleccionada1) {
+							case 0:
+								JOptionPane.showMessageDialog(null, "Pedidos");
+								break;
+							case 1:
+								JOptionPane.showMessageDialog(null, "Realizar Pedido");
+								break;
+							case 2:
+								salir1 = true;
+								break;
+							}
+
+							break;
+						case 1:
+							String[] opciones2 = { "Ver Stock", "Actualizar Stock", "Comprar", "Salir" };
+							int opcionSeleccionada2 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones2,
+									opciones2[0]);
+							switch (opcionSeleccionada2) {
+							case 0:
+								Administrador.verStock();
+								break;
+							case 1:
+								Administrador.actualizarProducto();
+								break;
+							case 2:
+								Administrador.comprarProducto();
+								break;
+							case 3:
+								salir1 = true;
+								break;
+							}
+							break;
+						case 2:
+							ReporteControlador ReportControlador = new ReporteControlador();
+							String[] opciones3 = { "Ver Reportes", "Generar Reporte", "Salir" };
+							int opcionSeleccionada3 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones3,
+									opciones3[0]);
+							switch (opcionSeleccionada3) {
+							case 0:
+								JOptionPane.showMessageDialog(null, ReportControlador.getAllReport());
+								break;
+							case 1:
+								int id= ReportControlador.getLastReportId()+1;
+								
+								String descripcion = JOptionPane.showInputDialog("Ingrese el problema");
+								LocalDate fecha = LocalDate.now();
+								ReportControlador.addReport(new Reporte(id,descripcion,fecha));
+								break;
+							case 2:
+								salir1 = true;
+								break;
+
+							}
+							break;
+						case 3:
+		                     Administrador.updateProfile(controlador, usuarioAutenticado);
+		                     break;
+						case 4:
+							System.exit(0);
+							break;
+						}
+
+					} while (salir1 = true);
 				}
 				
 				
 				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Almacenista") ) {
-					Almacenista.mostrarMenu(usuarioAutenticado);
+				    boolean salir = false;
+			        do {
+			            String[] opciones = { "Pedidos", "Stock", "Reportes", "Perfil", "Salir" };
+			            int opcionSeleccionada = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones, opciones[0]);
+
+			            switch (opcionSeleccionada) {
+			                case 0:
+			                    String[] opciones1 = { "Ver Pedido", "Salir" };
+			                    int opcionSeleccionada1 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones1, opciones1[0]);
+			                    switch (opcionSeleccionada1) {
+			                        case 0:
+			                            JOptionPane.showMessageDialog(null, "Pedidos");
+			                            break;
+			                        case 1:
+			                            salir = true;
+			                            break;
+			                    }
+			                    break;
+			                case 1:
+			                    String[] opciones2 = { "Ver Stock", "Actualizar Stock", "Salir" };
+			                    int opcionSeleccionada2 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones2, opciones2[0]);
+			                    switch (opcionSeleccionada2) {
+			                        case 0:
+			                            Almacenista.verStock();
+			                            break;
+			                        case 1:
+			                            Almacenista.actualizarProducto();
+			                            break;
+			                        case 2:
+			                            salir = true;
+			                            break;
+			                    }
+			                    break;
+			                case 2:
+			                	ReporteControlador ReportControlador = new ReporteControlador();
+			                    String[] opciones3 = { "Ver Reportes", "Salir" };
+			                    int opcionSeleccionada3 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones3, opciones3[0]);
+			                    switch (opcionSeleccionada3) {
+			                        case 0:
+			                        	JOptionPane.showMessageDialog(null, ReportControlador.getAllReport());
+			                            break;
+			                        case 1:
+			                            salir = true;
+			                            break;
+			                    }
+			                    break;
+			                case 3:
+			                     Almacenista.updateProfile(controlador, usuarioAutenticado);
+			                    break;
+			                case 4:
+			                    System.exit(0);
+			                    break;
+			            }
+			        } while (!salir);
 				}
 				
 								
@@ -89,36 +374,6 @@ public class Main {
 
 		
 		
-		
-//		try {
-//			// Agregar un producto
-//			Producto nuevoProducto = new Producto(11, "Leche", 10, 2.5);
-//			Producto.agregarProducto(nuevoProducto);
-//			System.out.println("Producto agregado correctamente.");
-//
-//		//	Obtener un producto por su ID
-//		//	Producto productoObtenido = Producto.obtenerProducto(11);
-//		//	System.out.println("Producto obtenido: " + productoObtenido);
-//
-//			// Actualizar el producto
-//		//	productoObtenido.setNombre("Cargador");
-//		//	Producto.actualizarProducto(productoObtenido);
-//		//	System.out.println("Producto actualizado correctamente.");
-//
-//			// Obtener todos los productos
-//		//	List<Producto> todosLosProductos = Producto.obtenerTodosLosProductos();
-//		//	System.out.println("Todos los productos:");
-//		//	for (Producto p : todosLosProductos) {
-//		//		//System.out.println(p);
-//		//	}
-//
-//			// Eliminar el producto
-//		//	Producto.eliminarProducto(11);
-//		//	System.out.println("Producto eliminado correctamente.");
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
 
 	}
 
