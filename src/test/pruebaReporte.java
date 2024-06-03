@@ -25,7 +25,7 @@ public class pruebaReporte {
 	}
 	
 	 @Test
-	    public void pruebaIdNegativo(){
+	    public void pruebaIdNull(){
 	        boolean flag = false;
 	        Reporte reporte = controlador.getReportById(999);
 	        if (reporte != null) {

@@ -1,6 +1,7 @@
 package vista;
 
 import java.sql.SQLException;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
@@ -15,8 +16,8 @@ import Modelos.Almacenista;
 import Modelos.Cliente;
 import Modelos.Deposito;
 import Modelos.Gerente;
+import Modelos.Pedido;
 import Modelos.Producto;
-import Modelos.Sucursal;
 import Modelos.Usuario;
 import Modelos.Venta;
 import Modelos.Reporte;
@@ -71,7 +72,7 @@ public class Main {
 					                    JOptionPane.showMessageDialog(null, "Pedidos");
 					                    break;
 					                case 1:
-					                    JOptionPane.showMessageDialog(null, "Realizar Pedido");
+					                    Pedido.generarPedido();
 					                    break;
 					                case 2:
 					                    salir = true;
@@ -80,8 +81,10 @@ public class Main {
 					            break;
 
 					        case 1:
-					            String[] opciones2 = { "Ver Stock", "Actualizar Stock", "Agregar producto", "Eliminar producto", "Comprar", "Salir" };
+					            String[] opciones2 = { "Ver Stock", "Actualizar Stock", "Agregar producto", "Eliminar producto", "Comprar", "Atrás" };
 					            int opcionSeleccionada2 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones2, opciones2[0]);
+					            boolean salirProducto = false;
+					            while (!salirProducto) {
 					            switch (opcionSeleccionada2) {
 					                case 0:
 					                    Gerente.verStock();
@@ -99,15 +102,18 @@ public class Main {
 					                    Gerente.comprarProducto();
 					                    break;
 					                case 5:
-					                    salir = true;
+					                	salirProducto = true;
 					                    break;
+					            	}
 					            }
 					            break;
 
 					        case 2:
 					            ReporteControlador ReportControlador = new ReporteControlador();
-					            String[] opciones3 = { "Ver Reportes", "Generar Reporte", "Editar reporte", "Eliminar reporte", "Salir" };
+					            String[] opciones3 = { "Ver Reportes", "Generar Reporte", "Editar reporte", "Eliminar reporte", "Atrás" };
 					            int opcionSeleccionada3 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones3, opciones3[0]);
+					            boolean salirReporte = false;
+					            while (!salirReporte) {
 					            switch (opcionSeleccionada3) {
 					                case 0:
 					                    JOptionPane.showMessageDialog(null, ReportControlador.getAllReport());
@@ -126,8 +132,9 @@ public class Main {
 					                    ReportControlador.deleteReport(otro.getId_reporte());
 					                    break;
 					                case 4:
-					                    salir = true;
+					                	salirReporte = true;
 					                    break;
+					            	}
 					            }
 					            break;
 
