@@ -162,11 +162,20 @@ public class Usuario {
 	}
 
 	public static String id_usuario(String nombre, String contraseña) {
-    
+		String errores = "";
+		if (nombre.isEmpty()) {
+			errores = errores +  "Nombre vacio  \n";
+        } 
+		if (contraseña.isEmpty()) {
+			errores = errores + "contraseña vacia \n";
+        } 
+		
         if (nombre.equals("usuario") && contraseña.equals("contraseña")) {
             return "Ingresa";
         } else {
-            return "Error en el nombre o la contraseña";
+			errores = errores +  "No se encontrò";
+
+            return errores;
         }
     }
 

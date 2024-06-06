@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.EventQueue;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -47,7 +48,7 @@ public class PantallaIniciarSeccion extends JFrame {
     public PantallaIniciarSeccion() {
     	setIconImage(Toolkit.getDefaultToolkit().getImage(PantallaIniciarSeccion.class.getResource("/img/Logo.png")));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 607, 337);
         contentPane = new JPanel();
         contentPane.setBackground(new Color(0, 64, 128));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -58,41 +59,37 @@ public class PantallaIniciarSeccion extends JFrame {
         JLabel lblNombre = new JLabel("ID Usuario");
         lblNombre.setForeground(new Color(255, 255, 255));
         lblNombre.setFont(new Font("Impact", Font.ITALIC, 20));
-        lblNombre.setBounds(271, 37, 91, 26);
+        lblNombre.setBounds(390, 26, 91, 26);
         contentPane.add(lblNombre);
 
         inpNombre = new JTextField();
-        inpNombre.setBounds(219, 74, 205, 28);
+        inpNombre.setBounds(345, 74, 205, 28);
         contentPane.add(inpNombre);
         inpNombre.setColumns(10);
 
         inpContraseña = new JPasswordField();
-        inpContraseña.setBounds(219, 167, 205, 28);
+        inpContraseña.setBounds(345, 165, 205, 28);
         contentPane.add(inpContraseña);
+        
 
+        JLabel lblError = new JLabel("Error Usuario");
+        lblError.setForeground(new Color(255, 0, 0));
+        lblError.setBounds(390, 102, 271, 26);
+        contentPane.add(lblError);
+        lblError.setVisible(false);
+        
         JLabel lblContrasea = new JLabel("Contraseña");
         lblContrasea.setBackground(new Color(255, 255, 255));
         lblContrasea.setForeground(new Color(255, 255, 255));
         lblContrasea.setFont(new Font("Impact", Font.ITALIC, 20));
-        lblContrasea.setBounds(267, 128, 101, 28);
+        lblContrasea.setBounds(390, 126, 101, 28);
         contentPane.add(lblContrasea);
-
-        JButton btnIngresar = new JButton("Ingresar");
-        btnIngresar.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        btnIngresar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String respuesta = Usuario.id_usuario(inpNombre.getText(), new String(inpContraseña.getPassword()));
-                if(respuesta.equals("Ingresa")) {
-                    Home home = new Home(inpNombre.getText());
-                    dispose();
-                } else {
-                    lblError.setText(respuesta);
-                    lblError.setVisible(true);
-                }
-            }
-        });
-        btnIngresar.setBounds(50, 275, 193, 50);
-        contentPane.add(btnIngresar);
+        
+        JLabel lblContraseñaError = new JLabel("Error Contraseña");
+        lblContraseñaError.setForeground(new Color(255, 0, 0));
+        lblContraseñaError.setBounds(411, 204, 139, 19);
+        contentPane.add(lblContraseñaError);
+        lblContraseñaError.setVisible(false);
 
         JButton btnRegistrase = new JButton("Registrase");
         btnRegistrase.addActionListener(new ActionListener() {
@@ -108,9 +105,19 @@ public class PantallaIniciarSeccion extends JFrame {
         Button button = new Button("Iniciar");
         button.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		
+        		
+        		String respuesta = Usuario.id_usuario(inpNombre.getText(), new String(inpContraseña.getPassword()));
+                if(respuesta.equals("Ingresa")) {
+                    Home home = new Home(inpNombre.getText());
+                    dispose();
+                } else {
+                    lblError.setText(respuesta);
+                    lblError.setVisible(true);
+                }
         	}
         });
-        button.setBounds(278, 212, 84, 28);
+        button.setBounds(271, 248, 84, 28);
         contentPane.add(button);
         
         JLabel lblNewLabel = new JLabel("");
@@ -123,5 +130,9 @@ public class PantallaIniciarSeccion extends JFrame {
         lblNewLabel_1.setForeground(new Color(255, 255, 255));
         lblNewLabel_1.setBounds(50, 26, 101, 26);
         contentPane.add(lblNewLabel_1);
+        
+       
+        
+        
     }
 }
