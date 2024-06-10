@@ -1,5 +1,7 @@
 package vista;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 import java.time.LocalDate;
@@ -26,6 +28,17 @@ import controladores.ReporteControlador;
 import controladores.DatabaseConnection;
 
 public class Main {
+	
+    private static Usuario usuarioAutenticado;
+
+    public static void setUsuarioAutenticado(Usuario usuario) {
+        usuarioAutenticado = usuario;
+    }
+
+    public static Usuario getUsuarioAutenticado() {
+        return usuarioAutenticado;
+    }
+      
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -39,22 +52,23 @@ public class Main {
        depositos.add(new Deposito(4, 250, "Direccion 4"));
        depositos.add(new Deposito(5, 300, "Direccion 5"));
  	    
-		ImageIcon icon = new ImageIcon(Main.class.getResource("/img/Logo.png"));
-		JOptionPane.showMessageDialog(null, "¡Bienvenido \n         a               \n  Mayorista      \n  Jumbox!",
-				"Hola", JOptionPane.INFORMATION_MESSAGE, icon);		
-		
+//		ImageIcon icon = new ImageIcon(Main.class.getResource("/img/Logo.png"));
+//		JOptionPane.showMessageDialog(null, "¡Bienvenido \n         a               \n  Mayorista      \n  Jumbox!",
+//				"Hola", JOptionPane.INFORMATION_MESSAGE, icon);		
+       
+        
 		try {
-			JOptionPane.showMessageDialog(null, "Bienvenido a Jumbox");
-
-			String username = Usuario.pedirInputNoVacio("Ingrese su nombre de usuario:");
-			String password = Usuario.pedirInputNoVacio("Ingrese su contraseña:");
-
-			Usuario usuarioAutenticado = controlador.getUserByUsernameAndPassword(username, password);
+//			JOptionPane.showMessageDialog(null, "Bienvenido a Jumbox");
+//
+//			String username = Usuario.pedirInputNoVacio("Ingrese su nombre de usuario:");
+//			String password = Usuario.pedirInputNoVacio("Ingrese su contraseña:");
+//
+//			Usuario usuarioAutenticado = controlador.getUserByUsernameAndPassword(username, password);
 
 			if (usuarioAutenticado != null) {
-				JOptionPane.showMessageDialog(null,
-						"Bienvenido, " + usuarioAutenticado.getNombreCompleto() + "!\n" + "Usuario: "
-								+ usuarioAutenticado.getUser() + "\n" + "Puesto: " + usuarioAutenticado.getPuesto());
+//				JOptionPane.showMessageDialog(null,
+//						"Bienvenido, " + usuarioAutenticado.getNombreCompleto() + "!\n" + "Usuario: "
+//								+ usuarioAutenticado.getUser() + "\n" + "Puesto: " + usuarioAutenticado.getPuesto());
 				
 				
 				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Gerente") ) {			
@@ -187,6 +201,9 @@ public class Main {
 					                        break;
 					                }
 					            }
+//					            menuUsuario menuUsuarioFrame = new menuUsuario(controlador);
+//					            menuUsuarioFrame.setVisible(true);
+					          
 					            break;
 
 					        case 5:
@@ -348,6 +365,9 @@ public class Main {
 			}
 		}
 
+		
+	
+		
 		
 		
 
