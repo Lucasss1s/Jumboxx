@@ -28,7 +28,7 @@ public class ReporteControlador implements ReportRepository{
 	            ResultSet resultSet = statement.executeQuery();
 	       
 	            while (resultSet.next()) {
-	            	Reporte user = new Reporte(resultSet.getInt("id_reporte"), resultSet.getString("descripcion"), resultSet.getDate("fecha").toLocalDate());
+	            	Reporte user = new Reporte(resultSet.getInt("id_reporte"), resultSet.getString("autor"), resultSet.getString("descripcion"), resultSet.getDate("fecha").toLocalDate());
 	                users.add(user);
 	            }
 	        } catch (SQLException e) {
@@ -47,7 +47,7 @@ public class ReporteControlador implements ReportRepository{
 	            ResultSet resultSet = statement.executeQuery();
 	            
 	            if (resultSet.next()) {
-	            	reporte = new Reporte(resultSet.getInt("id_reporte"), resultSet.getString("descripcion"), resultSet.getDate("fecha").toLocalDate());
+	            	reporte = new Reporte(resultSet.getInt("id_reporte"), resultSet.getString("autor"), resultSet.getString("descripcion"), resultSet.getDate("fecha").toLocalDate());
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
@@ -58,10 +58,11 @@ public class ReporteControlador implements ReportRepository{
 		@Override
 	    public void addReport(Reporte Reporte) {
 	        try {
-	            PreparedStatement statement = connection.prepareStatement("INSERT INTO reporte (id_reporte, descripcion, fecha) VALUES (?, ?, ?)");
+	            PreparedStatement statement = connection.prepareStatement("INSERT INTO reporte (id_reporte, autor, descripcion, fecha) VALUES (?, ?, ?, ?)");
 	            statement.setInt(1, Reporte.getId_reporte());
-	            statement.setString(2, Reporte.getDescripcion());
-	            statement.setDate(3, java.sql.Date.valueOf(Reporte.getFecha()));
+	            statement.setString(2, Reporte.getAutor());
+	            statement.setString(3, Reporte.getDescripcion());
+	            statement.setDate(4, java.sql.Date.valueOf(Reporte.getFecha()));
 	     
 	            
 	            int rowsInserted = statement.executeUpdate();
@@ -76,10 +77,11 @@ public class ReporteControlador implements ReportRepository{
 		@Override
 	    public void updateReport(Reporte Reporte) {
 	        try {
-	            PreparedStatement statement = connection.prepareStatement("UPDATE reporte SET descripcion = ?, fecha = ? WHERE id_reporte = ?");
+	            PreparedStatement statement = connection.prepareStatement("UPDATE reporte SET descripcion = ?, fecha = ?, autor = ? WHERE id_reporte = ?");
 	            statement.setString(1, Reporte.getDescripcion());
 	            statement.setDate(2, java.sql.Date.valueOf(Reporte.getFecha()));
-	            statement.setInt(3, Reporte.getId_reporte());
+	            statement.setString(3, Reporte.getAutor());
+	            statement.setInt(4, Reporte.getId_reporte());
 	            
 	            int rowsUpdated = statement.executeUpdate();
 	            if (rowsUpdated > 0) {

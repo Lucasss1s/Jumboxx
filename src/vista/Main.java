@@ -133,7 +133,8 @@ public class Main {
 					                    JOptionPane.showMessageDialog(null, ReportControlador.getAllReport());
 					                    break;
 					                case 1:
-					                    Gerente.generarReporte(ReportControlador);
+					                	String autor = "Gerente";
+					                    Gerente.generarReporte(ReportControlador,autor);
 					                    break;
 					                case 2:
 					                    Reporte nuevo = Gerente.SeleccionarReporte(ReportControlador);
@@ -269,10 +270,10 @@ public class Main {
 								break;
 							case 1:
 								int id= ReportControlador.getLastReportId()+1;
-								
+								String autor = "Administrador";
 								String descripcion = JOptionPane.showInputDialog("Ingrese el problema");
 								LocalDate fecha = LocalDate.now();
-								ReportControlador.addReport(new Reporte(id,descripcion,fecha));
+								ReportControlador.addReport(new Reporte(id,autor,descripcion,fecha));
 								break;
 							case 2:
 								salir1 = true;
