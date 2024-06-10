@@ -1,9 +1,12 @@
 package Modelos;
 
 import java.sql.Date;
+
 import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
+
+import controladores.UsuarioControlador;
 
 public class Usuario {
 
@@ -83,13 +86,102 @@ public class Usuario {
 			}
 		} while (input == null || input.trim().isEmpty());
 		return input.trim();
-
 	}
+	
+	public static void updateProfile(UsuarioControlador controlador, Usuario usuarioActual) {
+	    StringBuilder perfilTexto = new StringBuilder();
+	    perfilTexto.append("Nombre Completo: ").append(usuarioActual.getNombreCompleto()).append("\n")
+	            .append("Usuario: ").append(usuarioActual.getUser()).append("\n")
+	            .append("Puesto: ").append(usuarioActual.getPuesto()).append("\n");
+
+	    JOptionPane.showMessageDialog(null, perfilTexto.toString(), "Perfil", JOptionPane.INFORMATION_MESSAGE);
+
+	    boolean cambiarDatos = true;
+	    while (cambiarDatos) {
+	        String[] opcionesPerfil = { "Cambiar Nombre de Usuario", "Cambiar Contraseña", "Atrás" };
+	        int opcionPerfil = JOptionPane.showOptionDialog(null, "Seleccione una opción", null, 0, 3, null, opcionesPerfil, opcionesPerfil[0]);
+
+	        switch (opcionPerfil) {
+	            case 0:
+	                String nuevoNombreUsuario;
+	                boolean nuevoUserExiste;
+	                do {
+	                    nuevoNombreUsuario = Usuario.pedirInputNoVacio("Ingrese el nuevo nombre de usuario:");
+	                    nuevoUserExiste = controlador.usernameExists(nuevoNombreUsuario);
+	                    if (nuevoUserExiste) {
+	                        JOptionPane.showMessageDialog(null, "El nombre de usuario ingresado ya existe. Por favor, elija otro nombre de usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+	                        break;
+	                    } else {
+	                        usuarioActual.setUser(nuevoNombreUsuario);
+	                        controlador.updateUser(usuarioActual);
+	                        JOptionPane.showMessageDialog(null, "Nombre de usuario actualizado exitosamente.");
+	                        break;
+	                    }
+	                } while (nuevoUserExiste);
+	                break;
+	            case 1:
+	                while (true) {
+	                    String contraseñaActual = Usuario.pedirInputNoVacio("Ingrese su contraseña actual para confirmar:");
+	                    if (usuarioActual.getContraseña().equals(contraseñaActual)) {
+	                        while (true) {
+	                            String nuevaContraseña = Usuario.pedirInputNoVacio("Ingrese la nueva contraseña (mínimo 3 caracteres):");
+	                            if (nuevaContraseña.length() < 3) {
+	                                JOptionPane.showMessageDialog(null, "La nueva contraseña debe tener al menos 3 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+	                            } else if (nuevaContraseña.equals(usuarioActual.getContraseña())) {
+	                                JOptionPane.showMessageDialog(null, "La nueva contraseña no puede ser igual a la contraseña actual.", "Error", JOptionPane.ERROR_MESSAGE);
+	                                break;
+	                            } else {
+	                                usuarioActual.setContraseña(nuevaContraseña);
+	                                controlador.updateUser(usuarioActual);
+	                                JOptionPane.showMessageDialog(null, "Contraseña actualizada exitosamente.");
+	                                break;
+	                            }
+	                        }
+	                        break;
+	                    } else {
+	                        int retry = JOptionPane.showConfirmDialog(null, "Contraseña incorrecta. ¿Desea intentar de nuevo?", "Error", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+	                        if (retry != JOptionPane.YES_OPTION) {
+	                            cambiarDatos = false;
+	                            break;
+	                        }
+	                    }
+	                }
+	                break;
+	            case 2:
+	                cambiarDatos = false;
+	                break;
+	        }
+	    }
+	}
+
 
 	@Override
 	public String toString() {
 		return "Usuario [id_usuario=" + id_usuario + ", nombreCompleto=" + nombreCompleto + ", user=" + user
 				+ ", puesto=" + puesto + ", fechaRegistro=" + fechaRegistro + "]";
+	}
+
+	public static String id_usuario(String nombre, String contraseña) {
+		String errores = "";
+		if (nombre.isEmpty()) {
+			errores = errores +  "Nombre vacio  \n";
+        } 
+		if (contraseña.isEmpty()) {
+			errores = errores + "contraseña vacia \n";
+        } 
+		
+        if (nombre.equals("usuario") && contraseña.equals("contraseña")) {
+            return "Ingresa";
+        } else {
+			errores = errores +  "No se encontrò";
+
+            return errores;
+        }
+    }
+
+	public static String Registrarse(String text, String text2) {
+	
+		return null;
 	}
 
 }
