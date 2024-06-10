@@ -98,7 +98,7 @@ public class Main {
 					            String[] opciones2 = { "Ver Stock", "Actualizar Stock", "Agregar producto", "Eliminar producto", "Comprar", "Atrás" };
 					            int opcionSeleccionada2 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones2, opciones2[0]);
 					            boolean salirProducto = false;
-					            while (!salirProducto) {
+					           
 					            switch (opcionSeleccionada2) {
 					                case 0:
 					                    Gerente.verStock();
@@ -119,7 +119,7 @@ public class Main {
 					                	salirProducto = true;
 					                    break;
 					            	}
-					            }
+					            
 					            break;
 
 					        case 2:
@@ -127,7 +127,7 @@ public class Main {
 					            String[] opciones3 = { "Ver Reportes", "Generar Reporte", "Editar reporte", "Eliminar reporte", "Atrás" };
 					            int opcionSeleccionada3 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones3, opciones3[0]);
 					            boolean salirReporte = false;
-					            while (!salirReporte) {
+					            
 					            switch (opcionSeleccionada3) {
 					                case 0:
 					                    JOptionPane.showMessageDialog(null, ReportControlador.getAllReport());
@@ -150,7 +150,7 @@ public class Main {
 					                	salirReporte = true;
 					                    break;
 					            	}
-					            }
+					            
 					            break;
 
 					        case 3:
