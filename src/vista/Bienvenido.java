@@ -5,9 +5,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import Modelos.Usuario;
+import controladores.UsuarioControlador;
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -20,7 +23,7 @@ public class Bienvenido extends JFrame {
     /**
      * Create the frame.
      */
-    public Bienvenido(Usuario usuario) {
+    public Bienvenido(Usuario usuario, UsuarioControlador controlador) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
@@ -48,8 +51,12 @@ public class Bienvenido extends JFrame {
             public void actionPerformed(ActionEvent e) {
                
             	dispose();
-                Main.setUsuarioAutenticado(usuario);
-                Main.main(null);
+//                Main.setUsuarioAutenticado(usuario);
+//                Main.main(null);
+            	if (usuario.getPuesto().equalsIgnoreCase("Gerente") ) {
+		            MenuPrincipalGerente menuPrincipalGerente = new MenuPrincipalGerente(usuario, controlador);
+					menuPrincipalGerente.setVisible(true);
+				}
                
             }
         });

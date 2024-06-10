@@ -71,7 +71,7 @@ public class PantallaIniciarSeccion extends JFrame {
                 String password = new String(inpContraseña.getPassword()); 
                 Usuario usuarioAutenticado = controlador.getUserByUsernameAndPassword(username, password);
                 if (usuarioAutenticado != null) {
-                    Bienvenido bienvenidoFrame = new Bienvenido(usuarioAutenticado);
+                    Bienvenido bienvenidoFrame = new Bienvenido(usuarioAutenticado, controlador);
                     bienvenidoFrame.setVisible(true);
                     dispose();
                 } else {
