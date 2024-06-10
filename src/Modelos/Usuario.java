@@ -1,6 +1,7 @@
 package Modelos;
 
 import java.sql.Date;
+
 import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
@@ -158,6 +159,29 @@ public class Usuario {
 	public String toString() {
 		return "Usuario [id_usuario=" + id_usuario + ", nombreCompleto=" + nombreCompleto + ", user=" + user
 				+ ", puesto=" + puesto + ", fechaRegistro=" + fechaRegistro + "]";
+	}
+
+	public static String id_usuario(String nombre, String contraseña) {
+		String errores = "";
+		if (nombre.isEmpty()) {
+			errores = errores +  "Nombre vacio  \n";
+        } 
+		if (contraseña.isEmpty()) {
+			errores = errores + "contraseña vacia \n";
+        } 
+		
+        if (nombre.equals("usuario") && contraseña.equals("contraseña")) {
+            return "Ingresa";
+        } else {
+			errores = errores +  "No se encontrò";
+
+            return errores;
+        }
+    }
+
+	public static String Registrarse(String text, String text2) {
+	
+		return null;
 	}
 
 }

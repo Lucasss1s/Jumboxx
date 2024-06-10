@@ -78,6 +78,35 @@ public class Pedido {
 				+ fechaPedido + ", total=" + total + ", estado=" + estado + "]";
 	}
 	
+	public static Pedido generarPedido() {
+		LinkedList<String> productos = new LinkedList<>();
+        double total = 0.0;
+        boolean continuar = true;
+        Cliente cliente = new Cliente(0, null, null, null, 0);
+
+        while (continuar) {
+            String producto = JOptionPane.showInputDialog("Ingrese el nombre del producto:");
+            String cantidadStr = JOptionPane.showInputDialog("Ingrese la cantidad para " + producto + ":");
+            int cantidad = Integer.parseInt(cantidadStr);
+            
+            for (int i = 0; i < cantidad; i++) {
+                productos.add(producto);
+            }
+            
+            double precioPorProducto = 10.0; 
+            total += cantidad * precioPorProducto;
+
+            int continuarSeleccion = JOptionPane.showConfirmDialog(null, "¿Desea agregar otro producto?", "Generar Pedido",
+                    JOptionPane.YES_NO_OPTION);
+            if (continuarSeleccion != JOptionPane.YES_OPTION) {
+                continuar = false;
+            }
+        }
+        Pedido nuevoPedido = new Pedido(0, cliente, productos, LocalDate.now(), total, true); 
+        JOptionPane.showMessageDialog(null, "Pedido generado: " + nuevoPedido.toString());
+        return nuevoPedido;
+	}
+	
 	public static void generarOrdenVentaMayorista(Pedido pedido, Cliente mayorista, LinkedList<String> productos, double total) {
 		pedido.cliente = mayorista;
 		pedido.Productos = productos;
