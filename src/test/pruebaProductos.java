@@ -14,7 +14,7 @@ public class pruebaProductos {
     @Test
     public void pruebaCrearProductoConNombreNulo() {
         boolean flag = false;
-        Producto producto = new Producto(11, null, 10, 100.0);
+        Producto producto = new Producto(11, null, 10, null, 100.0);
         if (!productoRepo.crearProducto(producto)) {
             flag = true;
         }
@@ -26,7 +26,7 @@ public class pruebaProductos {
     @Test
     public void pruebaCrearProductoConCantidadNegativa() {
         boolean flag = false;
-        Producto producto = new Producto(12, "Producto Prueba", -10, 100.0);
+        Producto producto = new Producto(12, "Producto Prueba", -10, null, 100.0);
         if (!productoRepo.crearProducto(producto)) {
             flag = true;
         }
@@ -38,7 +38,7 @@ public class pruebaProductos {
     @Test
     public void pruebaCrearProductoConPrecioNegativo() {
         boolean flag = false;
-        Producto producto = new Producto(13, "Producto Prueba", 10, -100.0);
+        Producto producto = new Producto(13, "Producto Prueba", 10, null, -100.0);
         if (!productoRepo.crearProducto(producto)) {
             flag = true;
         }
