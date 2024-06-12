@@ -15,17 +15,29 @@ public class ProductoControlador {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
 
+    public void agregarProducto(Producto producto) {
+        String sql = "INSERT INTO productos (id_producto, nombre, cantidad, imagen, precio) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, producto.getId_producto());
+            statement.setString(2, producto.getNombre());
+            statement.setInt(3, producto.getCantidad());
+            statement.setBytes(4, producto.getImagen());
+            statement.setDouble(5, producto.getPrecio());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Producto> getAllProducts() {
         List<Producto> products = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM producto");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM productos");
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-            	
-            	Producto product = new Producto(resultSet.getInt("ProductoID"), resultSet.getString("Nombre"),
-                        resultSet.getInt("Precio"), resultSet.getInt("Stock"));
-
+                Producto product = new Producto(resultSet.getInt("id_producto"), resultSet.getString("nombre"),
+                        resultSet.getInt("cantidad"), resultSet.getBytes("imagen"), resultSet.getDouble("precio"));
                 products.add(product);
             }
         } catch (SQLException e) {
@@ -36,7 +48,7 @@ public class ProductoControlador {
 
     public void updateStock(int productId, int newStock) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE producto SET Stock = ? WHERE ProductoID = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE productos SET cantidad = ? WHERE id_producto = ?");
             statement.setInt(1, newStock);
             statement.setInt(2, productId);
             statement.executeUpdate();
@@ -50,4 +62,14 @@ public class ProductoControlador {
             connection.close();
         }
     }
+
+	public void eliminarProducto(int id_producto) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Producto getProductById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
