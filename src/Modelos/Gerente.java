@@ -226,12 +226,12 @@ public class Gerente extends Usuario {
 		return seleccionado;
 	}
 
-	public static void generarReporte(ReporteControlador ReportControlador, String autor) {
+	public static void generarReporte(ReporteControlador ReportControlador) {
 		int id = ReportControlador.getLastReportId() + 1;
 
 		String descripcion = JOptionPane.showInputDialog("Ingrese el problema");
 		LocalDate fecha = LocalDate.now();
-		ReportControlador.addReport(new Reporte(id, autor, descripcion, fecha));
+		ReportControlador.addReport(new Reporte(id, descripcion, fecha));
 	}
 
 	// ----------------------------------------- FUNCIONES PARA GESTIONAR USUARIOS
