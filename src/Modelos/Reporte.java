@@ -56,8 +56,7 @@ public class Reporte {
 
 	@Override
 	public String toString() {
-		return "Reporte [id_reporte=" + id_reporte + ", autor=" + autor + ", descripcion=" + descripcion + ", fecha="
-				+ fecha + "]";
+		return "IdReporte=" + id_reporte + ", autor=" + autor + ", descripcion=" + descripcion + ", fecha=" + fecha + "\n";
 	}
 	
 	
