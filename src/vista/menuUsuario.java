@@ -24,7 +24,10 @@ public class menuUsuario extends JFrame {
         JButton btnVerUsuarios = new JButton("Ver usuarios");
         btnVerUsuarios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               Gerente.viewAllUser(controlador);
+            	dispose();  
+            	verUsuario verUsuario = new verUsuario();
+            	verUsuario.setVisible(true);
+//               Gerente.viewAllUser(controlador);
             }
         });
         contentPane.add(btnVerUsuarios);
