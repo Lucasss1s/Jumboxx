@@ -109,5 +109,26 @@ public class ProductoControlador {
             e.printStackTrace();
         }
     }
+    public List<Producto> buscarProductosPorNombre(String nombre) {
+        List<Producto> productos = new ArrayList<>();
+        String sql = "SELECT * FROM productos WHERE nombre LIKE ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, "%" + nombre + "%");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Producto producto = new Producto(
+                    resultSet.getInt("id_producto"),
+                    resultSet.getString("nombre"),
+                    resultSet.getInt("cantidad"),
+                    resultSet.getBytes("imagen"),
+                    resultSet.getDouble("precio")
+                );
+                productos.add(producto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productos;
+    }
 
 }

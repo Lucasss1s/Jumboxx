@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.Font;
 
 public class ProductoTabla extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -24,6 +25,7 @@ public class ProductoTabla extends JFrame {
     private ProductoControlador controlador;
     private JLabel imagenLabel;
     private Producto seleccionado;
+    private JTextField searchField;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -57,12 +59,29 @@ public class ProductoTabla extends JFrame {
         contentPane.setLayout(null);
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(5, 5, 600, 300);
+        scrollPane.setBounds(10, 42, 600, 300);
         contentPane.add(scrollPane);
 
         imagenLabel = new JLabel();
-        imagenLabel.setBounds(620, 5, 250, 250);
+        imagenLabel.setBounds(620, 42, 250, 250);
         contentPane.add(imagenLabel);
+
+        // Campo de búsqueda
+        searchField = new JTextField();
+        searchField.setBounds(110, 353, 305, 25);
+        contentPane.add(searchField);
+        
+        // Botón de búsqueda
+        JButton searchButton = new JButton("Buscar");
+        searchButton.setBounds(425, 353, 80, 25);
+        contentPane.add(searchButton);
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String searchText = searchField.getText();
+                buscarProducto(searchText);
+            }
+        });
 
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -88,7 +107,7 @@ public class ProductoTabla extends JFrame {
         });
 
         JButton btnEliminar = new JButton("Eliminar");
-        btnEliminar.setBounds(620, 270, 120, 30);
+        btnEliminar.setBounds(620, 312, 120, 30);
         contentPane.add(btnEliminar);
         btnEliminar.addActionListener(new ActionListener() {
             @Override
@@ -106,8 +125,14 @@ public class ProductoTabla extends JFrame {
         });
 
         JButton btnEditar = new JButton("Editar");
-        btnEditar.setBounds(750, 270, 120, 30);
+        btnEditar.setBounds(750, 312, 120, 30);
         contentPane.add(btnEditar);
+
+        JLabel lblNewLabel = new JLabel("Productos");
+        lblNewLabel.setFont(new Font("Impact", Font.ITALIC, 15));
+        lblNewLabel.setForeground(new Color(255, 255, 255));
+        lblNewLabel.setBounds(275, 11, 71, 30);
+        contentPane.add(lblNewLabel);
         btnEditar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -152,6 +177,14 @@ public class ProductoTabla extends JFrame {
             imagenLabel.setIcon(new ImageIcon(scaledImg));
         } else {
             imagenLabel.setIcon(null);
+        }
+    }
+
+    private void buscarProducto(String nombre) {
+        model.setRowCount(0);
+        List<Producto> productos = controlador.buscarProductosPorNombre(nombre);
+        for (Producto producto : productos) {
+            model.addRow(new Object[]{producto.getId_producto(), producto.getNombre(), producto.getPrecio(), producto.getCantidad()});
         }
     }
 }
