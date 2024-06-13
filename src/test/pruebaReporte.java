@@ -35,14 +35,12 @@ public class pruebaReporte {
 	    }
 	 @Test
 	    public void pruebaAgregarReporte(){
-		 String autor = "Gerente";
-	        Reporte NuevoReporte = new Reporte(0, autor, "Nuevo Reporte", LocalDate.now());
+	        Reporte NuevoReporte = new Reporte(0, "Nuevo Reporte", LocalDate.now());
 	        controlador.addReport(NuevoReporte);
 	       
 	        Reporte reporteAgregado = controlador.getReportById(0);
 	        
 	        assertEquals(0, reporteAgregado.getId_reporte());
-	        assertEquals(autor, reporteAgregado.getAutor());
 	        assertEquals("Nuevo Reporte", reporteAgregado.getDescripcion());
 	        assertEquals(LocalDate.now(), reporteAgregado.getFecha());
 	     

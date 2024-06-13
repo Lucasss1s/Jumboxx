@@ -52,23 +52,23 @@ public class Main {
        depositos.add(new Deposito(4, 250, "Direccion 4"));
        depositos.add(new Deposito(5, 300, "Direccion 5"));
  	    
-		ImageIcon icon = new ImageIcon(Main.class.getResource("/img/Logo.png"));
-		JOptionPane.showMessageDialog(null, "¡Bienvenido \n         a               \n  Mayorista      \n  Jumbox!",
-				"Hola", JOptionPane.INFORMATION_MESSAGE, icon);		
+//		ImageIcon icon = new ImageIcon(Main.class.getResource("/img/Logo.png"));
+//		JOptionPane.showMessageDialog(null, "¡Bienvenido \n         a               \n  Mayorista      \n  Jumbox!",
+//				"Hola", JOptionPane.INFORMATION_MESSAGE, icon);		
        
         
 		try {
-			JOptionPane.showMessageDialog(null, "Bienvenido a Jumbox");
-
-			String username = Usuario.pedirInputNoVacio("Ingrese su nombre de usuario:");
-		String password = Usuario.pedirInputNoVacio("Ingrese su contraseña:");
-
-			Usuario usuarioAutenticado = controlador.getUserByUsernameAndPassword(username, password);
+//			JOptionPane.showMessageDialog(null, "Bienvenido a Jumbox");
+//
+//			String username = Usuario.pedirInputNoVacio("Ingrese su nombre de usuario:");
+//			String password = Usuario.pedirInputNoVacio("Ingrese su contraseña:");
+//
+//			Usuario usuarioAutenticado = controlador.getUserByUsernameAndPassword(username, password);
 
 			if (usuarioAutenticado != null) {
-				JOptionPane.showMessageDialog(null,
-						"Bienvenido, " + usuarioAutenticado.getNombreCompleto() + "!\n" + "Usuario: "
-								+ usuarioAutenticado.getUser() + "\n" + "Puesto: " + usuarioAutenticado.getPuesto());
+//				JOptionPane.showMessageDialog(null,
+//						"Bienvenido, " + usuarioAutenticado.getNombreCompleto() + "!\n" + "Usuario: "
+//								+ usuarioAutenticado.getUser() + "\n" + "Puesto: " + usuarioAutenticado.getPuesto());
 				
 				
 				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Gerente") ) {			
@@ -213,142 +213,141 @@ public class Main {
 					
 					} while (!salir);
 				}
-	
-//				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Administrador") ) {
-//					boolean salir1 = false;
-//					do {
-//						String[] opciones = { "Pedidos", "Stock", "Reportes", "Perfil", "Salir" };
-//						int opcionSeleccionada = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones,
-//								opciones[0]);
-//
-//						switch (opcionSeleccionada) {
-//						case 0:
-//
-//							String[] opciones1 = { "Ver Pedido", "Generar Pedido", "Salir" };
-//							int opcionSeleccionada1 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones1,
-//									opciones1[0]);
-//							switch (opcionSeleccionada1) {
-//							case 0:
-//								JOptionPane.showMessageDialog(null, "Pedidos");
-//								break;
-//							case 1:
-//								JOptionPane.showMessageDialog(null, "Realizar Pedido");
-//								break;
-//							case 2:
-//								salir1 = true;
-//								break;
-//							}
-//
-//							break;
-//						case 1:
-//							String[] opciones2 = { "Ver Stock", "Actualizar Stock", "Comprar", "Salir" };
-//							int opcionSeleccionada2 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones2,
-//									opciones2[0]);
-//							switch (opcionSeleccionada2) {
-//							case 0:
-//								Administrador.verStock();
-//								break;
-//							case 1:
-//								Administrador.actualizarProducto();
-//								break;
-//							case 2:
-//								Administrador.comprarProducto();
-//								break;
-//							case 3:
-//								salir1 = true;
-//								break;
-//							}
-//							break;
-//						case 2:
-//							ReporteControlador ReportControlador = new ReporteControlador();
-//							String[] opciones3 = { "Ver Reportes", "Generar Reporte", "Salir" };
-//							int opcionSeleccionada3 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones3,
-//									opciones3[0]);
-//							switch (opcionSeleccionada3) {
-//							case 0:
-//								JOptionPane.showMessageDialog(null, ReportControlador.getAllReport());
-//								break;
-//							case 1:
-//								int id= ReportControlador.getLastReportId()+1;
-//								
-//								String descripcion = JOptionPane.showInputDialog("Ingrese el problema");
-//								LocalDate fecha = LocalDate.now();
-//								ReportControlador.addReport(new Reporte(id,descripcion,fecha));
-//								break;
-//							case 2:
-//								salir1 = true;
-//								break;
-//
-//							}
-//							break;
-//						case 3:
-//		                     Administrador.updateProfile(controlador, usuarioAutenticado);
-//		                     break;
-//						case 4:
-//							System.exit(0);
-//							break;
-//						}
-//
-//					} while (salir1 = true);
-//				}
-//				
-//				
-//				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Almacenista") ) {
-//				    boolean salir1 = false;
-//			        do {
-//			            String[] opciones = { "Pedidos", "Stock", "Reportes", "Perfil", "Salir" };
-//			            int opcionSeleccionada = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones, opciones[0]);
-//
-//			            switch (opcionSeleccionada) {
-//			                case 0:
-//			                    String[] opciones1 = { "Ver Pedido", "Salir" };
-//			                    int opcionSeleccionada1 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones1, opciones1[0]);
-//			                    switch (opcionSeleccionada1) {
-//			                        case 0:
-//			                            JOptionPane.showMessageDialog(null, "Pedidos");
-//			                            break;
-//			                        case 1:
-//			                            salir1 = true;
-//			                            break;
-//			                    }
-//			                    break;
-//			                case 1:
-//			                    String[] opciones2 = { "Ver Stock", "Actualizar Stock", "Salir" };
-//			                    int opcionSeleccionada2 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones2, opciones2[0]);
-//			                    switch (opcionSeleccionada2) {
-//			                        case 0:
-//			                            Almacenista.verStock();
-//			                            break;
-//			                        case 1:
-//			                            Almacenista.actualizarProducto();
-//			                            break;
-//			                        case 2:
-//			                            salir1 = true;
-//			                            break;
-//			                    }
-//			                    break;
-//			                case 2:
-//			                	ReporteControlador ReportControlador = new ReporteControlador();
-//			                    String[] opciones3 = { "Ver Reportes", "Salir" };
-//			                    int opcionSeleccionada3 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones3, opciones3[0]);
-//			                    switch (opcionSeleccionada3) {
-//			                        case 0:
-//			                        	JOptionPane.showMessageDialog(null, ReportControlador.getAllReport());
-//			                            break;
-//			                        case 1:
-//			                            salir1 = true;
-//			                            break;
-//			                    }
-//			                    break;
-//			                case 3:
-//			                     Almacenista.updateProfile(controlador, usuarioAutenticado);
-//			                    break;
-//			                case 4:
-//			                    System.exit(0);
-//			                    break;
-//			            }
-//			        } while (!salir1);
-//				}
+				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Administrador") ) {
+					boolean salir1 = false;
+					do {
+						String[] opciones = { "Pedidos", "Stock", "Reportes", "Perfil", "Salir" };
+						int opcionSeleccionada = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones,
+								opciones[0]);
+
+						switch (opcionSeleccionada) {
+						case 0:
+
+							String[] opciones1 = { "Ver Pedido", "Generar Pedido", "Salir" };
+							int opcionSeleccionada1 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones1,
+									opciones1[0]);
+							switch (opcionSeleccionada1) {
+							case 0:
+								JOptionPane.showMessageDialog(null, "Pedidos");
+								break;
+							case 1:
+								JOptionPane.showMessageDialog(null, "Realizar Pedido");
+								break;
+							case 2:
+								salir1 = true;
+								break;
+							}
+
+							break;
+						case 1:
+							String[] opciones2 = { "Ver Stock", "Actualizar Stock", "Comprar", "Salir" };
+							int opcionSeleccionada2 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones2,
+									opciones2[0]);
+							switch (opcionSeleccionada2) {
+							case 0:
+								Administrador.verStock();
+								break;
+							case 1:
+								Administrador.actualizarProducto();
+								break;
+							case 2:
+								Administrador.comprarProducto();
+								break;
+							case 3:
+								salir1 = true;
+								break;
+							}
+							break;
+						case 2:
+							ReporteControlador ReportControlador = new ReporteControlador();
+							String[] opciones3 = { "Ver Reportes", "Generar Reporte", "Salir" };
+							int opcionSeleccionada3 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones3,
+									opciones3[0]);
+							switch (opcionSeleccionada3) {
+							case 0:
+								JOptionPane.showMessageDialog(null, ReportControlador.getAllReport());
+								break;
+							case 1:
+								int id= ReportControlador.getLastReportId()+1;
+								
+								String descripcion = JOptionPane.showInputDialog("Ingrese el problema");
+								LocalDate fecha = LocalDate.now();
+								ReportControlador.addReport(new Reporte(id,descripcion,fecha));
+								break;
+							case 2:
+								salir1 = true;
+								break;
+
+							}
+							break;
+						case 3:
+		                     Administrador.updateProfile(controlador, usuarioAutenticado);
+		                     break;
+						case 4:
+							System.exit(0);
+							break;
+						}
+
+					} while (salir1 = true);
+				}
+				
+				
+				if (usuarioAutenticado.getPuesto().equalsIgnoreCase("Almacenista") ) {
+				    boolean salir = false;
+			        do {
+			            String[] opciones = { "Pedidos", "Stock", "Reportes", "Perfil", "Salir" };
+			            int opcionSeleccionada = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones, opciones[0]);
+
+			            switch (opcionSeleccionada) {
+			                case 0:
+			                    String[] opciones1 = { "Ver Pedido", "Salir" };
+			                    int opcionSeleccionada1 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones1, opciones1[0]);
+			                    switch (opcionSeleccionada1) {
+			                        case 0:
+			                            JOptionPane.showMessageDialog(null, "Pedidos");
+			                            break;
+			                        case 1:
+			                            salir = true;
+			                            break;
+			                    }
+			                    break;
+			                case 1:
+			                    String[] opciones2 = { "Ver Stock", "Actualizar Stock", "Salir" };
+			                    int opcionSeleccionada2 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones2, opciones2[0]);
+			                    switch (opcionSeleccionada2) {
+			                        case 0:
+			                            Almacenista.verStock();
+			                            break;
+			                        case 1:
+			                            Almacenista.actualizarProducto();
+			                            break;
+			                        case 2:
+			                            salir = true;
+			                            break;
+			                    }
+			                    break;
+			                case 2:
+			                	ReporteControlador ReportControlador = new ReporteControlador();
+			                    String[] opciones3 = { "Ver Reportes", "Salir" };
+			                    int opcionSeleccionada3 = JOptionPane.showOptionDialog(null, "Menu", null, 0, 3, null, opciones3, opciones3[0]);
+			                    switch (opcionSeleccionada3) {
+			                        case 0:
+			                        	JOptionPane.showMessageDialog(null, ReportControlador.getAllReport());
+			                            break;
+			                        case 1:
+			                            salir = true;
+			                            break;
+			                    }
+			                    break;
+			                case 3:
+			                     Almacenista.updateProfile(controlador, usuarioAutenticado);
+			                    break;
+			                case 4:
+			                    System.exit(0);
+			                    break;
+			            }
+			        } while (!salir);
+				}
 				
 								
 				

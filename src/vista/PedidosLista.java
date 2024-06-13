@@ -1,5 +1,6 @@
 package vista;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,34 +10,31 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JTextArea;
-import java.awt.Color;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PedidosLista extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTable table;
+	private DefaultTableModel model;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PedidosLista frame = new PedidosLista();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
 	 */
 	public PedidosLista() {
+		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -46,20 +44,68 @@ public class PedidosLista extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblPedido = new JLabel("Pedidos");
-		lblPedido.setForeground(new Color(255, 255, 255));
-		lblPedido.setFont(new Font("Impact", Font.ITALIC, 30));
-		lblPedido.setBounds(177, 0, 123, 74);
-		contentPane.add(lblPedido);
+		JLabel lblNewLabel = new JLabel("Realizar pedido");
+		lblNewLabel.setBounds(128, 11, 189, 32);
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Impact", Font.ITALIC, 25));
+		contentPane.add(lblNewLabel);
 		
-		JButton btnNewButton = new JButton("Realizar pedido");
-		btnNewButton.setBounds(143, 138, 145, 36);
+		JLabel lblNewLabel_1 = new JLabel("Ingrese el nombre del producto");
+		lblNewLabel_1.setBounds(118, 54, 235, 21);
+		lblNewLabel_1.setFont(new Font("Impact", Font.ITALIC, 14));
+		lblNewLabel_1.setForeground(new Color(255, 255, 255));
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Ingrese la cantidad que desee");
+		lblNewLabel_2.setForeground(new Color(255, 255, 255));
+		lblNewLabel_2.setFont(new Font("Impact", Font.ITALIC, 14));
+		lblNewLabel_2.setBounds(118, 117, 219, 38);
+		contentPane.add(lblNewLabel_2);
+		
+		textField = new JTextField();
+		textField.setBounds(118, 86, 189, 20);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(118, 157, 189, 20);
+		contentPane.add(textField_1);
+		textField_1.setColumns(10);
+		
+		JButton btnNewButton = new JButton("Agregar pedido");
+		btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String producto = obtenerProductoUsuario();
+                String cantidad = obtenerCantidadUsuario();
+                PedidosTabla pedidosTabla = new PedidosTabla(producto, cantidad);
+                pedidosTabla.setVisible(true);
+            }
+        });
+		btnNewButton.setBounds(152, 210, 124, 23);
 		contentPane.add(btnNewButton);
 		
-		JLabel lblNewLabel = new JLabel("Click aqui para realizar su pedido");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Impact", Font.ITALIC, 20));
-		lblNewLabel.setBounds(78, 101, 333, 26);
-		contentPane.add(lblNewLabel);
+		JScrollPane scrollPane = new JScrollPane();
+	    scrollPane.setBounds(10, 221, 414, 29);
+	    contentPane.add(scrollPane);
+		
+		table = new JTable();
+        model = new DefaultTableModel();
+        model.addColumn("Producto");
+        model.addColumn("Cantidad");
+        table.setModel(model);
+        scrollPane.setViewportView(table);
+        
+	}
+
+	
+
+	private String obtenerProductoUsuario() {
+		// TODO Auto-generated method stub
+		return textField.getText();
+	}
+	
+	private String obtenerCantidadUsuario() {
+		// TODO Auto-generated method stub
+		return textField_1.getText();
 	}
 }
