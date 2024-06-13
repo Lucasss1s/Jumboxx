@@ -229,7 +229,7 @@ public class Gerente extends Usuario {
 	public static void generarReporte(ReporteControlador ReportControlador, String autor) {
 		int id = ReportControlador.getLastReportId() + 1;
 
-		String descripcion = JOptionPane.showInputDialog("Ingrese el problema");
+		String descripcion = Reporte.verificarInputVacio("Ingrese el problema");
 		LocalDate fecha = LocalDate.now();
 		ReportControlador.addReport(new Reporte(id, autor, descripcion, fecha));
 	}

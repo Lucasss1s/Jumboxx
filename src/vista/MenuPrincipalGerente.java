@@ -33,7 +33,9 @@ public class MenuPrincipalGerente extends JFrame {
                     } else if (opcion.equals("Stock")) {
                         JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Stock seleccionada");
                     } else if (opcion.equals("Reportes")) {
-                        JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Reportes seleccionada");
+                    	dispose();
+                    	TablaReporte pantallaReporte = new TablaReporte();
+                    	pantallaReporte.setVisible(true);
                     } else if (opcion.equals("Depositos")) {
                         JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Depositos seleccionada");
                     } else if (opcion.equals("Usuarios")) {

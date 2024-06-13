@@ -21,6 +21,9 @@ public class Reporte {
 		this.descripcion = descripcion;
 		this.fecha = fecha;
 	}
+	public Reporte() {
+		
+	}
 
 	public int getId_reporte() {
 		return id_reporte;
@@ -52,6 +55,17 @@ public class Reporte {
 
 	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
+	}
+	public static String verificarInputVacio(String descripcion) {
+		String input;
+		do {
+			input = JOptionPane.showInputDialog(descripcion);
+			if (input == null || input.trim().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Este campo no puede estar vacío", "Error",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		} while (input == null || input.trim().isEmpty());
+		return input.trim();
 	}
 
 	@Override

@@ -91,6 +91,18 @@ public class ReporteControlador implements ReportRepository{
 	            e.printStackTrace();
 	        }
 	    }
+		
+		public boolean updateReportWithSuccessCheck(Reporte reporte) {
+	        try {
+	            updateReport(reporte);
+	            return true;
+	        } catch (Exception e) {
+	            // Manejo de excepciones si la actualización falla
+	            e.printStackTrace();
+	            return false;
+	        }
+	    }
+		
 		@Override
 		public int getLastReportId() {
 		    int ultimoId = 0;
