@@ -1,6 +1,7 @@
 package vista;
 
 import javax.swing.*;
+
 import controladores.ProductoControlador;
 import Modelos.Producto;
 import java.awt.*;
@@ -23,21 +24,21 @@ public class ProductoForm extends JFrame {
     	setIconImage(Toolkit.getDefaultToolkit().getImage(ProductoForm.class.getResource("/img/Logo 2.png")));
     	getContentPane().setBackground(new Color(0, 128, 192));
         setTitle("Agregar Producto");
-        setSize(486, 337);
+        setSize(481, 358);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         nombreField = new JTextField();
-        nombreField.setBounds(237, 6, 191, 40);
+        nombreField.setBounds(73, 6, 191, 40);
         precioField = new JTextField();
-        precioField.setBounds(237, 57, 191, 40);
+        precioField.setBounds(73, 61, 191, 40);
         imagenLabel = new JLabel();
-        imagenLabel.setForeground(new Color(0, 0, 0));
+        imagenLabel.setForeground(new Color(255, 255, 255));
         imagenLabel.setBackground(new Color(255, 255, 255));
-        imagenLabel.setBounds(237, 108, 191, 40);
+        imagenLabel.setBounds(73, 112, 191, 40);
 
         JButton seleccionarImagenBtn = new JButton("Seleccionar Imagen");
-        seleccionarImagenBtn.setBounds(0, 226, 232, 70);
+        seleccionarImagenBtn.setBounds(32, 247, 185, 50);
         seleccionarImagenBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,7 +47,7 @@ public class ProductoForm extends JFrame {
         });
 
         JButton guardarBtn = new JButton("Guardar Producto");
-        guardarBtn.setBounds(237, 226, 232, 70);
+        guardarBtn.setBounds(246, 247, 185, 50);
         guardarBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -56,28 +57,36 @@ public class ProductoForm extends JFrame {
         getContentPane().setLayout(null);
 
         JLabel label = new JLabel("Nombre:");
+        label.setFont(new Font("Impact", Font.ITALIC, 11));
+        label.setForeground(new Color(255, 255, 255));
         label.setBounds(10, 1, 185, 50);
         getContentPane().add(label);
         getContentPane().add(nombreField);
         JLabel label_1 = new JLabel("Precio:");
+        label_1.setFont(new Font("Impact", Font.ITALIC, 11));
+        label_1.setForeground(new Color(255, 255, 255));
         label_1.setBackground(new Color(0, 128, 192));
-        label_1.setBounds(10, 50, 185, 40);
+        label_1.setBounds(10, 61, 185, 40);
         getContentPane().add(label_1);
         getContentPane().add(precioField);
         JLabel label_2 = new JLabel("Imagen:");
-        label_2.setBounds(10, 101, 185, 40);
+        label_2.setForeground(new Color(255, 255, 255));
+        label_2.setFont(new Font("Impact", Font.ITALIC, 11));
+        label_2.setBounds(10, 112, 185, 40);
         getContentPane().add(label_2);
         getContentPane().add(imagenLabel);
         getContentPane().add(seleccionarImagenBtn);
         getContentPane().add(guardarBtn);
         
         label_3 = new JLabel("Cantidad:");
+        label_3.setForeground(new Color(255, 255, 255));
+        label_3.setFont(new Font("Impact", Font.ITALIC, 11));
         label_3.setBackground(new Color(0, 128, 192));
-        label_3.setBounds(10, 163, 185, 40);
+        label_3.setBounds(10, 177, 185, 40);
         getContentPane().add(label_3);
         
         inpCantidad = new JTextField();
-        inpCantidad.setBounds(237, 163, 191, 40);
+        inpCantidad.setBounds(73, 177, 191, 40);
         getContentPane().add(inpCantidad);
     }
 
