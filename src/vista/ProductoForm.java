@@ -1,7 +1,6 @@
 package vista;
 
 import javax.swing.*;
-
 import controladores.ProductoControlador;
 import Modelos.Producto;
 import java.awt.*;
@@ -12,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class ProductoForm extends JFrame {
+	
     private JTextField nombreField;
     private JTextField precioField;
     private JLabel imagenLabel;
@@ -20,17 +20,21 @@ public class ProductoForm extends JFrame {
     private JTextField inpCantidad;
 
     public ProductoForm() {
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(ProductoForm.class.getResource("/img/Logo 2.png")));
+    	getContentPane().setBackground(new Color(0, 128, 192));
         setTitle("Agregar Producto");
         setSize(486, 337);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         nombreField = new JTextField();
-        nombreField.setBounds(237, 6, 176, 40);
+        nombreField.setBounds(237, 6, 191, 40);
         precioField = new JTextField();
         precioField.setBounds(237, 57, 191, 40);
         imagenLabel = new JLabel();
-        imagenLabel.setBounds(237, 108, 212, 40);
+        imagenLabel.setForeground(new Color(0, 0, 0));
+        imagenLabel.setBackground(new Color(255, 255, 255));
+        imagenLabel.setBounds(237, 108, 191, 40);
 
         JButton seleccionarImagenBtn = new JButton("Seleccionar Imagen");
         seleccionarImagenBtn.setBounds(0, 226, 232, 70);
@@ -56,6 +60,7 @@ public class ProductoForm extends JFrame {
         getContentPane().add(label);
         getContentPane().add(nombreField);
         JLabel label_1 = new JLabel("Precio:");
+        label_1.setBackground(new Color(0, 128, 192));
         label_1.setBounds(10, 50, 185, 40);
         getContentPane().add(label_1);
         getContentPane().add(precioField);
@@ -67,6 +72,7 @@ public class ProductoForm extends JFrame {
         getContentPane().add(guardarBtn);
         
         label_3 = new JLabel("Cantidad:");
+        label_3.setBackground(new Color(0, 128, 192));
         label_3.setBounds(10, 163, 185, 40);
         getContentPane().add(label_3);
         
