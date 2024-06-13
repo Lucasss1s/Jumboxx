@@ -112,9 +112,6 @@ public class PantallaEditar extends JFrame {
 		});
 		contentPane.add(btnSeleccionarImagen);
 
-
-		
-		
 	}
 
 }
