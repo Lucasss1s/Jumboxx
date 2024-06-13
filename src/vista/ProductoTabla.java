@@ -13,6 +13,9 @@ import controladores.ProductoControlador;
 import Modelos.Producto;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Toolkit;
+import java.awt.Font;
 
 public class ProductoTabla extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -22,7 +25,7 @@ public class ProductoTabla extends JFrame {
     private ProductoControlador controlador;
     private JLabel imagenLabel;
     private Producto seleccionado;
-    private JTextField filtrar;
+    private JTextField searchField;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -38,14 +41,16 @@ public class ProductoTabla extends JFrame {
     }
 
     public ProductoTabla() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(ProductoTabla.class.getResource("/img/Logo 2.png")));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 909, 452);
         contentPane = new JPanel();
+        contentPane.setBackground(new Color(0, 128, 192));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
 
         controlador = new ProductoControlador();
-        seleccionado = new Producto(0, "", 0, null, 0);
+        seleccionado = null;
 
         String[] columnNames = {"ID", "Nombre", "Precio", "Cantidad"};
         model = new DefaultTableModel(columnNames, 0);
@@ -54,12 +59,29 @@ public class ProductoTabla extends JFrame {
         contentPane.setLayout(null);
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(5, 5, 600, 300);
+        scrollPane.setBounds(10, 42, 600, 300);
         contentPane.add(scrollPane);
 
         imagenLabel = new JLabel();
-        imagenLabel.setBounds(620, 5, 250, 250);
+        imagenLabel.setBounds(620, 42, 250, 250);
         contentPane.add(imagenLabel);
+
+        // Campo de búsqueda
+        searchField = new JTextField();
+        searchField.setBounds(110, 353, 305, 25);
+        contentPane.add(searchField);
+        
+        // Botón de búsqueda
+        JButton searchButton = new JButton("Buscar");
+        searchButton.setBounds(425, 353, 80, 25);
+        contentPane.add(searchButton);
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String searchText = searchField.getText();
+                buscarProducto(searchText);
+            }
+        });
 
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -72,23 +94,30 @@ public class ProductoTabla extends JFrame {
                     if (selectedRow != -1) {
                         int id = (int) table.getValueAt(selectedRow, 0);
                         seleccionado = controlador.getProductById(id);
-                        mostrarImagen(seleccionado.getImagen());
+                        if (seleccionado != null) {
+                            mostrarImagen(seleccionado.getImagen());
+                            JOptionPane.showMessageDialog(null, "Producto seleccionado: " + seleccionado.getNombre());
+                        } else {
+                            imagenLabel.setIcon(null);
+                            JOptionPane.showMessageDialog(null, "Producto no encontrado para el ID: " + id);
+                        }
                     }
                 }
             }
         });
 
         JButton btnEliminar = new JButton("Eliminar");
-        btnEliminar.setBounds(620, 270, 120, 30);
+        btnEliminar.setBounds(620, 312, 120, 30);
         contentPane.add(btnEliminar);
         btnEliminar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (seleccionado.getId_producto() != 0) {
+                if (seleccionado != null && seleccionado.getId_producto() != 0) {
                     controlador.eliminarProducto(seleccionado.getId_producto());
                     JOptionPane.showMessageDialog(null, "Producto eliminado");
                     actualizarTabla();
                     imagenLabel.setIcon(null);
+                    seleccionado = null;
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione un producto");
                 }
@@ -96,33 +125,35 @@ public class ProductoTabla extends JFrame {
         });
 
         JButton btnEditar = new JButton("Editar");
-        btnEditar.setBounds(750, 270, 120, 30);
+        btnEditar.setBounds(750, 312, 120, 30);
         contentPane.add(btnEditar);
-        
-        filtrar = new JTextField();
-        filtrar.setBounds(15, 316, 86, 20);
-        contentPane.add(filtrar);
-        filtrar.setColumns(10);
-        
-        JLabel lblNewLabel = new JLabel("Criterio");
-        lblNewLabel.setBounds(127, 319, 62, 14);
+
+        JLabel lblNewLabel = new JLabel("Productos");
+        lblNewLabel.setFont(new Font("Impact", Font.ITALIC, 15));
+        lblNewLabel.setForeground(new Color(255, 255, 255));
+        lblNewLabel.setBounds(275, 11, 71, 30);
         contentPane.add(lblNewLabel);
-        
-        JButton btnNewButton = new JButton("Filtrar");
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Filtrar(filtrar.getText());
-            }
-        });
-        btnNewButton.setBounds(238, 316, 89, 23);
-        contentPane.add(btnNewButton);
         btnEditar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (seleccionado.getId_producto() != 0) {
-                    // Aquí puedes llamar a tu ventana de edición, pasando el producto seleccionado
-                    // new EditarProducto(seleccionado).setVisible(true);
-                    JOptionPane.showMessageDialog(null, "Funcionalidad de editar aún no implementada");
+                if (seleccionado != null && seleccionado.getId_producto() != 0) {
+                    // Obtener los nuevos valores de la fila seleccionada en la tabla
+                    int selectedRow = table.getSelectedRow();
+                    if (selectedRow != -1) {
+                        int id = (int) table.getValueAt(selectedRow, 0);
+                        String nuevoNombre = (String) table.getValueAt(selectedRow, 1);
+                        double nuevoPrecio = (double) table.getValueAt(selectedRow, 2);
+                        int nuevaCantidad = (int) table.getValueAt(selectedRow, 3);
+
+                        // Actualizar el producto en la base de datos
+                        seleccionado.setNombre(nuevoNombre);
+                        seleccionado.setPrecio(nuevoPrecio);
+                        seleccionado.setCantidad(nuevaCantidad);
+                        controlador.actualizarProducto(seleccionado);
+
+                        JOptionPane.showMessageDialog(null, "Producto actualizado en la base de datos");
+                        actualizarTabla();
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione un producto");
                 }
@@ -138,16 +169,6 @@ public class ProductoTabla extends JFrame {
         }
     }
 
-    private void Filtrar(String criterio) {
-        model.setRowCount(0);
-        List<Producto> productos = controlador.getAllProducts();
-        for (Producto producto : productos) {
-            if (producto.getNombre().contains(criterio)) {
-                model.addRow(new Object[]{producto.getId_producto(), producto.getNombre(), producto.getPrecio(), producto.getCantidad()});
-            }
-        }
-    }
-
     private void mostrarImagen(byte[] imagen) {
         if (imagen != null) {
             ImageIcon icon = new ImageIcon(imagen);
@@ -156,6 +177,14 @@ public class ProductoTabla extends JFrame {
             imagenLabel.setIcon(new ImageIcon(scaledImg));
         } else {
             imagenLabel.setIcon(null);
+        }
+    }
+
+    private void buscarProducto(String nombre) {
+        model.setRowCount(0);
+        List<Producto> productos = controlador.buscarProductosPorNombre(nombre);
+        for (Producto producto : productos) {
+            model.addRow(new Object[]{producto.getId_producto(), producto.getNombre(), producto.getPrecio(), producto.getCantidad()});
         }
     }
 }
