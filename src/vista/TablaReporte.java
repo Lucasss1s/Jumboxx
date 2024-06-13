@@ -26,6 +26,7 @@ import Modelos.Reporte;
 import vista.EditarReporte;
 import controladores.ReporteControlador;
 import java.awt.Color;
+import java.awt.Font;
 
 public class TablaReporte extends JFrame {
 
@@ -83,6 +84,8 @@ public class TablaReporte extends JFrame {
 
         // Crear el JLabel para mostrar la selección
         elemento = new JLabel("Seleccionado:");
+        elemento.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 11));
+        elemento.setForeground(new Color(255, 255, 255));
         elemento.setBounds(5, 5, 911, 14);
         contentPane.add(elemento);
         
