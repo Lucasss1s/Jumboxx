@@ -1,6 +1,7 @@
 package controladores;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,7 +42,9 @@ public class PedidoControlador {
                     productos,
                     resultSet.getDate("fechaPedido").toLocalDate(),
                     resultSet.getDouble("total"),
-                    resultSet.getBoolean("estado")
+                    resultSet.getBoolean("estado"),
+                    resultSet.getString("nombre"),
+                    resultSet.getString("cantidad")
                 );
 
                 orders.add(order);
@@ -103,7 +106,9 @@ public class PedidoControlador {
 	                productos,
 	                resultSet.getDate("fechaPedido").toLocalDate(),
 	                resultSet.getDouble("total"),
-	                resultSet.getBoolean("estado")
+	                resultSet.getBoolean("estado"),
+	                resultSet.getString("nombre"),
+	                resultSet.getString("cliente")
 	            );
 	        }
 	    } catch (SQLException e) {
@@ -121,6 +126,31 @@ public class PedidoControlador {
             e.printStackTrace();
         }
 		
+	}
+
+	public List<Pedido> obtenerPedidosDesdeBD() {
+		List<Pedido> orders = new ArrayList<>();
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tu_base_de_datos", "usuario", "contraseña")) {
+            // Preparar la consulta SQL
+            String sql = "SELECT * FROM tabla_de_pedidos";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                // Ejecutar la consulta y obtener los resultados
+                try (ResultSet rs = stmt.executeQuery()) {
+                    // Recorrer los resultados y crear objetos Pedido
+                    while (rs.next()) {
+                        Pedido pedido = new Pedido(0, null, null, null, 0, true, "", "");
+                        pedido.setNombre(rs.getString("nombre"));
+                        pedido.setCantidad(rs.getString("cantidad"));
+                        orders.add(pedido);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            // Manejar cualquier error de base de datos
+            e.printStackTrace();
+        }
+
+        return orders;
 	}
 
 	

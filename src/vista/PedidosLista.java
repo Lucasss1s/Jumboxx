@@ -13,6 +13,11 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+
+import Modelos.Pedido;
+
+import java.util.List;
+import controladores.PedidoControlador;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -22,8 +27,8 @@ public class PedidosLista extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
-	private JTable table;
 	private DefaultTableModel model;
+	private PedidoControlador controlador;
 
 	/**
 	 * Launch the application.
@@ -81,23 +86,27 @@ public class PedidosLista extends JFrame {
                 pedidosTabla.setVisible(true);
             }
         });
-		btnNewButton.setBounds(152, 210, 124, 23);
+		btnNewButton.setBounds(63, 210, 274, 40);
 		contentPane.add(btnNewButton);
-		
-		JScrollPane scrollPane = new JScrollPane();
-	    scrollPane.setBounds(10, 221, 414, 29);
-	    contentPane.add(scrollPane);
-		
-		table = new JTable();
         model = new DefaultTableModel();
         model.addColumn("Producto");
         model.addColumn("Cantidad");
-        table.setModel(model);
-        scrollPane.setViewportView(table);
+        
+        controlador = new PedidoControlador();
+        cargarPedidosDesdeBD();
         
 	}
 
 	
+
+	private void cargarPedidosDesdeBD() {
+		List<Pedido> orders = controlador.obtenerPedidosDesdeBD();
+        for (Pedido pedido : orders) {
+            model.addRow(new Object[]{pedido.getProductos(), pedido.getCantidad()});
+		
+	}
+
+	}
 
 	private String obtenerProductoUsuario() {
 		// TODO Auto-generated method stub

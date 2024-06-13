@@ -12,9 +12,11 @@ public class Pedido {
 	private LocalDate fechaPedido;
 	private double total;
 	private boolean estado;
+	private String nombre;
+	private String cantidad;
 
 	public Pedido(int id_Pedido, Cliente cliente, LinkedList<String> productos, LocalDate fechaPedido, double total,
-			boolean estado) {
+			boolean estado, String cantidad, String nombre) {
 		super();
 		this.id_pedido = id_Pedido;
 		this.cliente = cliente;
@@ -22,6 +24,8 @@ public class Pedido {
 		this.fechaPedido = fechaPedido;
 		this.total = total;
 		this.estado = estado;
+		this.cantidad = cantidad;
+		this.nombre = nombre;
 	}
 
 	public int getId_Pedido() {
@@ -70,6 +74,23 @@ public class Pedido {
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+	
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(String cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	@Override
