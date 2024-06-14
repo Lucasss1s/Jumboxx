@@ -1,6 +1,5 @@
 package vista;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Image;
 import java.util.List;
@@ -66,12 +65,12 @@ public class ProductoTabla extends JFrame {
         imagenLabel.setBounds(620, 42, 250, 250);
         contentPane.add(imagenLabel);
 
-        // Campo de búsqueda
+   
         searchField = new JTextField();
         searchField.setBounds(110, 353, 305, 25);
         contentPane.add(searchField);
         
-        // Botón de búsqueda
+      
         JButton searchButton = new JButton("Buscar");
         searchButton.setBounds(425, 353, 80, 25);
         contentPane.add(searchButton);
@@ -137,7 +136,7 @@ public class ProductoTabla extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado != null && seleccionado.getId_producto() != 0) {
-                    // Obtener los nuevos valores de la fila seleccionada en la tabla
+                  
                     int selectedRow = table.getSelectedRow();
                     if (selectedRow != -1) {
                         int id = (int) table.getValueAt(selectedRow, 0);
@@ -145,13 +144,13 @@ public class ProductoTabla extends JFrame {
                         double nuevoPrecio = (double) table.getValueAt(selectedRow, 2);
                         int nuevaCantidad = (int) table.getValueAt(selectedRow, 3);
 
-                        // Actualizar el producto en la base de datos
+                       PantallaEditar editar = new PantallaEditar(seleccionado);
                         seleccionado.setNombre(nuevoNombre);
                         seleccionado.setPrecio(nuevoPrecio);
                         seleccionado.setCantidad(nuevaCantidad);
                         controlador.actualizarProducto(seleccionado);
-
-                        JOptionPane.showMessageDialog(null, "Producto actualizado en la base de datos");
+                        dispose();
+                  
                         actualizarTabla();
                     }
                 } else {
@@ -159,6 +158,7 @@ public class ProductoTabla extends JFrame {
                 }
             }
         });
+        
     }
 
     private void actualizarTabla() {
