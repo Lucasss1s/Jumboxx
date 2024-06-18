@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.EventQueue;
+
 import java.awt.Image;
 import java.util.List;
 import javax.swing.*;
@@ -65,7 +66,7 @@ public class ProductoTabla extends JFrame {
         imagenLabel.setBounds(620, 42, 250, 250);
         contentPane.add(imagenLabel);
 
-   
+
         searchField = new JTextField();
         searchField.setBounds(110, 353, 305, 25);
         contentPane.add(searchField);
@@ -187,4 +188,5 @@ public class ProductoTabla extends JFrame {
             model.addRow(new Object[]{producto.getId_producto(), producto.getNombre(), producto.getPrecio(), producto.getCantidad()});
         }
     }
+    
 }
