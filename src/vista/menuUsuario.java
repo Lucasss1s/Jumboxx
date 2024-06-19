@@ -23,11 +23,10 @@ public class menuUsuario extends JFrame {
        
         JButton btnVerUsuarios = new JButton("Ver usuarios");
         btnVerUsuarios.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	dispose();  
+            public void actionPerformed(ActionEvent e) {      	  
             	verUsuario verUsuario = new verUsuario();
             	verUsuario.setVisible(true);
-//               Gerente.viewAllUser(controlador);
+            	dispose();
             }
         });
         contentPane.add(btnVerUsuarios);
@@ -36,7 +35,9 @@ public class menuUsuario extends JFrame {
         JButton btnAgregarUsuario = new JButton("Agregar usuario");
         btnAgregarUsuario.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Gerente.addUser(controlador);
+               agregarUsuario agregarUsuario = new agregarUsuario();
+               agregarUsuario.setVisible(true);
+               dispose();
             }
         });
         contentPane.add(btnAgregarUsuario);

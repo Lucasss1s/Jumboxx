@@ -112,7 +112,16 @@ public class verUsuario extends JFrame {
         });
         resetButton.setBounds(376, 369, 140, 22);
         contentPane.add(resetButton);
-
+        
+        JButton btnNewButton = new JButton("Volver");
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		volver();
+        	}
+        });
+        btnNewButton.setBounds(28, 369, 89, 23);
+        contentPane.add(btnNewButton);
+  
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         selectionModel.addListSelectionListener(new ListSelectionListener() {
@@ -192,4 +201,10 @@ public class verUsuario extends JFrame {
         inpBuscarID.setText("");
         actualizarTabla();
     }
+    
+    private void volver() {
+   	 menuUsuario menuUsuario = new menuUsuario(seleccionado, controlador);
+   	 menuUsuario.setVisible(true);
+   	 dispose();
+   }
 }
