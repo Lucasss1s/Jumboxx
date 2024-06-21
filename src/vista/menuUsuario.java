@@ -46,7 +46,9 @@ public class menuUsuario extends JFrame {
         JButton btnActualizarUsuario = new JButton("Actualizar usuario");
         btnActualizarUsuario.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Gerente.updateUser(controlador);
+                actualizarUsuario actualizarUsuario = new actualizarUsuario();
+                actualizarUsuario.setVisible(true);
+                dispose();
             }
         });
         contentPane.add(btnActualizarUsuario);
