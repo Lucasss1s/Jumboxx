@@ -57,7 +57,9 @@ public class menuUsuario extends JFrame {
         JButton btnEliminarUsuario = new JButton("Eliminar usuario");
         btnEliminarUsuario.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	Gerente.deleteUser(controlador);
+            	eliminarUsuario eliminarUsuario = new eliminarUsuario();
+            	eliminarUsuario.setVisible(true);
+            	dispose();
             }
         });
         contentPane.add(btnEliminarUsuario);
