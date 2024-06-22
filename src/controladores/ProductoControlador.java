@@ -15,17 +15,63 @@ public class ProductoControlador {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
 
+    public void agregarProducto(Producto producto) {
+        String sql = "INSERT INTO productos (id_producto, nombre, cantidad, imagen, precio) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, producto.getId_producto());
+            statement.setString(2, producto.getNombre());
+            statement.setInt(3, producto.getCantidad());
+            statement.setBytes(4, producto.getImagen());
+            statement.setDouble(5, producto.getPrecio());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Producto getProductById(int id) {
+        String sql = "SELECT * FROM productos WHERE id_producto = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return new Producto(
+                    resultSet.getInt("id_producto"),
+                    resultSet.getString("nombre"),
+                    resultSet.getInt("cantidad"),
+                    resultSet.getBytes("imagen"),
+                    resultSet.getDouble("precio")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void eliminarProducto(int id_producto) {
+        String sql = "DELETE FROM productos WHERE id_producto = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id_producto);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Producto> getAllProducts() {
         List<Producto> products = new ArrayList<>();
-        try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM producto");
-            ResultSet resultSet = statement.executeQuery();
-
+        String sql = "SELECT * FROM productos";
+        try (PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-            	
-            	Producto product = new Producto(resultSet.getInt("ProductoID"), resultSet.getString("Nombre"),
-                        resultSet.getInt("Precio"), resultSet.getInt("Stock"));
-
+                Producto product = new Producto(
+                    resultSet.getInt("id_producto"),
+                    resultSet.getString("nombre"),
+                    resultSet.getInt("cantidad"),
+                    resultSet.getBytes("imagen"),
+                    resultSet.getDouble("precio")
+                );
                 products.add(product);
             }
         } catch (SQLException e) {
@@ -35,8 +81,8 @@ public class ProductoControlador {
     }
 
     public void updateStock(int productId, int newStock) {
-        try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE producto SET Stock = ? WHERE ProductoID = ?");
+        String sql = "UPDATE productos SET cantidad = ? WHERE id_producto = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, newStock);
             statement.setInt(2, productId);
             statement.executeUpdate();
@@ -50,4 +96,39 @@ public class ProductoControlador {
             connection.close();
         }
     }
+    public void actualizarProducto(Producto producto) {
+        String sql = "UPDATE productos SET nombre = ?, cantidad = ?, imagen = ?, precio = ? WHERE id_producto = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, producto.getNombre());
+            statement.setInt(2, producto.getCantidad());
+            statement.setBytes(3, producto.getImagen());
+            statement.setDouble(4, producto.getPrecio());
+            statement.setInt(5, producto.getId_producto());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public List<Producto> buscarProductosPorNombre(String nombre) {
+        List<Producto> productos = new ArrayList<>();
+        String sql = "SELECT * FROM productos WHERE nombre LIKE ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, "%" + nombre + "%");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Producto producto = new Producto(
+                    resultSet.getInt("id_producto"),
+                    resultSet.getString("nombre"),
+                    resultSet.getInt("cantidad"),
+                    resultSet.getBytes("imagen"),
+                    resultSet.getDouble("precio")
+                );
+                productos.add(producto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productos;
+    }
+
 }

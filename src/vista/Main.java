@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.event.WindowAdapter;
+
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import com.mysql.jdbc.Connection;
+
 
 import Modelos.Administrador;
 import Modelos.Almacenista;
