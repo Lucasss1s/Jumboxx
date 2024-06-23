@@ -10,9 +10,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuPrincipalGerente extends JFrame {
+public class MenuPrincipalAdministrador extends JFrame {
 
-    public MenuPrincipalGerente(Usuario usuario, UsuarioControlador controlador) {
+    public MenuPrincipalAdministrador(Usuario usuario, UsuarioControlador controlador) {
 
         setTitle("Menú Principal");
         setSize(400, 300);
@@ -22,7 +22,7 @@ public class MenuPrincipalGerente extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(6, 1));
 
-        String[] opciones = {"Pedidos", "Stock", "Reportes", "Depositos", "Usuarios", "Salir"};
+        String[] opciones = {"Pedidos", "Stock", "Reportes", "Perfil", "Salir"};
 
         for (String opcion : opciones) {
             JButton button = new JButton(opcion);
@@ -30,17 +30,15 @@ public class MenuPrincipalGerente extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (opcion.equals("Pedidos")) {
-                        JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Pedidos seleccionada");
+                        JOptionPane.showMessageDialog(MenuPrincipalAdministrador.this, "Opción Pedidos seleccionada");
                     } else if (opcion.equals("Stock")) {
-                        JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Stock seleccionada");
+                        JOptionPane.showMessageDialog(MenuPrincipalAdministrador.this, "Opción Stock seleccionada");
                     } else if (opcion.equals("Reportes")) {
-                        JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Reportes seleccionada");
-                    } else if (opcion.equals("Depositos")) {
-                        JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Depositos seleccionada");
-                    } else if (opcion.equals("Usuarios")) {
-                    	dispose();
-                        menuUsuario menuUsuarioFrame = new menuUsuario(usuario, controlador);
-                        menuUsuarioFrame.setVisible(true);                     
+                        JOptionPane.showMessageDialog(MenuPrincipalAdministrador.this, "Opción Reportes seleccionada");
+                    } else if (opcion.equals("Perfil")) {
+                        perfilUsuario perfilUsuario = new perfilUsuario(controlador, usuario);
+                        perfilUsuario.setVisible(true);
+                        dispose();                                       
                     } else if (opcion.equals("Salir")) {
                         System.exit(0);
                     }

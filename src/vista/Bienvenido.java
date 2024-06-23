@@ -57,6 +57,14 @@ public class Bienvenido extends JFrame {
 		            MenuPrincipalGerente menuPrincipalGerente = new MenuPrincipalGerente(usuario, controlador);
 					menuPrincipalGerente.setVisible(true);
 				}
+            	if (usuario.getPuesto().equalsIgnoreCase("Administrador")) {
+					MenuPrincipalAdministrador MenuPrincipalAdministrador = new MenuPrincipalAdministrador(usuario, controlador);
+					MenuPrincipalAdministrador.setVisible(true);
+				}
+            	if (usuario.getPuesto().equalsIgnoreCase("Almacenista")) {
+            		MenuPrincipalAlmacenista MenuPrincipalAlmacenista = new MenuPrincipalAlmacenista(usuario, controlador);
+            		MenuPrincipalAlmacenista.setVisible(true);
+				}
                
             }
         });
