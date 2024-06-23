@@ -35,7 +35,7 @@ public class perfilUsuario extends JFrame {
             public void run() {
                 try {
                     UsuarioControlador controlador = new UsuarioControlador();
-                    Usuario usuarioActual = controlador.getUserById(1); // Reemplaza con la forma correcta de obtener el usuario actual
+                    Usuario usuarioActual = null ; 
                     perfilUsuario frame = new perfilUsuario(controlador, usuarioActual);
                     frame.setVisible(true);
                 } catch (Exception e) {
@@ -58,27 +58,27 @@ public class perfilUsuario extends JFrame {
 
         JLabel lblPerfil = new JLabel("Perfil del Usuario");
         lblPerfil.setFont(new Font("Tahoma", Font.BOLD, 16));
-        lblPerfil.setBounds(150, 20, 200, 30);
+        lblPerfil.setBounds(164, 7, 148, 30);
         contentPane.add(lblPerfil);
 
         nombreCompletoLabel = new JLabel("Nombre Completo: " + usuarioActual.getNombreCompleto());
-        nombreCompletoLabel.setBounds(50, 60, 400, 20);
+        nombreCompletoLabel.setBounds(50, 48, 400, 20);
         contentPane.add(nombreCompletoLabel);
 
         usuarioLabel = new JLabel("Usuario: " + usuarioActual.getUser());
-        usuarioLabel.setBounds(50, 90, 400, 20);
+        usuarioLabel.setBounds(50, 78, 400, 20);
         contentPane.add(usuarioLabel);
 
         puestoLabel = new JLabel("Puesto: " + usuarioActual.getPuesto());
-        puestoLabel.setBounds(50, 120, 400, 20);
+        puestoLabel.setBounds(50, 108, 400, 20);
         contentPane.add(puestoLabel);
 
         JLabel lblNuevoNombreUsuario = new JLabel("Nuevo Nombre de Usuario:");
-        lblNuevoNombreUsuario.setBounds(50, 160, 200, 20);
+        lblNuevoNombreUsuario.setBounds(50, 148, 200, 20);
         contentPane.add(lblNuevoNombreUsuario);
 
         nuevoNombreUsuarioField = new JTextField();
-        nuevoNombreUsuarioField.setBounds(250, 160, 200, 20);
+        nuevoNombreUsuarioField.setBounds(250, 148, 200, 20);
         contentPane.add(nuevoNombreUsuarioField);
         nuevoNombreUsuarioField.setColumns(10);
 
@@ -88,24 +88,24 @@ public class perfilUsuario extends JFrame {
                 cambiarNombreUsuario();
             }
         });
-        cambiarNombreButton.setBounds(150, 190, 200, 30);
+        cambiarNombreButton.setBounds(150, 178, 200, 30);
         cambiarNombreButton.setEnabled(false);
         contentPane.add(cambiarNombreButton);
 
         JLabel lblContraseñaActual = new JLabel("Contraseña Actual:");
-        lblContraseñaActual.setBounds(50, 240, 200, 20);
+        lblContraseñaActual.setBounds(50, 228, 200, 20);
         contentPane.add(lblContraseñaActual);
 
         contraseñaActualField = new JPasswordField();
-        contraseñaActualField.setBounds(250, 240, 200, 20);
+        contraseñaActualField.setBounds(250, 228, 200, 20);
         contentPane.add(contraseñaActualField);
 
         JLabel lblNuevaContraseña = new JLabel("Nueva Contraseña:");
-        lblNuevaContraseña.setBounds(50, 270, 200, 20);
+        lblNuevaContraseña.setBounds(50, 258, 200, 20);
         contentPane.add(lblNuevaContraseña);
 
         nuevaContraseñaField = new JPasswordField();
-        nuevaContraseñaField.setBounds(250, 270, 200, 20);
+        nuevaContraseñaField.setBounds(250, 258, 200, 20);
         contentPane.add(nuevaContraseñaField);
 
         cambiarContraseñaButton = new JButton("Cambiar Contraseña");
@@ -114,7 +114,7 @@ public class perfilUsuario extends JFrame {
                 cambiarContraseña();
             }
         });
-        cambiarContraseñaButton.setBounds(150, 300, 200, 30);
+        cambiarContraseñaButton.setBounds(150, 289, 200, 30);
         cambiarContraseñaButton.setEnabled(false);
         contentPane.add(cambiarContraseñaButton);
 
@@ -137,7 +137,7 @@ public class perfilUsuario extends JFrame {
 				}
             }
         });
-        atrasButton.setBounds(10, 10, 80, 30);
+        atrasButton.setBounds(10, 330, 80, 30);
         contentPane.add(atrasButton);
 
         // Añadir listeners para habilitar/deshabilitar botones
