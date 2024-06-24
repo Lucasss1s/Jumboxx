@@ -29,7 +29,7 @@ public class PantallaEditar extends JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(PantallaEditar.class.getResource("/img/Logo 2.png")));
         getContentPane().setBackground(new Color(0, 128, 192));
         setTitle("Editar Producto");
-        setSize(481, 358);
+        setSize(479, 438);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -40,10 +40,10 @@ public class PantallaEditar extends JFrame {
         imagenLabel = new JLabel();
         imagenLabel.setForeground(new Color(255, 255, 255));
         imagenLabel.setBackground(new Color(255, 255, 255));
-        imagenLabel.setBounds(73, 112, 191, 40);
+        imagenLabel.setBounds(73, 112, 191, 164);
 
         JButton seleccionarImagenBtn = new JButton("Seleccionar Imagen");
-        seleccionarImagenBtn.setBounds(32, 247, 185, 50);
+        seleccionarImagenBtn.setBounds(33, 338, 185, 50);
         seleccionarImagenBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -52,7 +52,7 @@ public class PantallaEditar extends JFrame {
         });
 
         JButton guardarBtn = new JButton("Guardar Cambios");
-        guardarBtn.setBounds(246, 247, 185, 50);
+        guardarBtn.setBounds(248, 338, 185, 50);
         guardarBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,11 +87,11 @@ public class PantallaEditar extends JFrame {
         label_3.setForeground(new Color(255, 255, 255));
         label_3.setFont(new Font("Impact", Font.ITALIC, 11));
         label_3.setBackground(new Color(0, 128, 192));
-        label_3.setBounds(10, 177, 185, 40);
+        label_3.setBounds(10, 287, 185, 40);
         getContentPane().add(label_3);
         
         inpCantidad = new JTextField(String.valueOf(seleccionado.getCantidad()));
-        inpCantidad.setBounds(73, 177, 191, 40);
+        inpCantidad.setBounds(73, 287, 191, 40);
         getContentPane().add(inpCantidad);
 
         // Mostrar la imagen actual del producto si existe
