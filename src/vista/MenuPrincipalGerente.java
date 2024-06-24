@@ -115,7 +115,9 @@ public class MenuPrincipalGerente extends JFrame {
                         productoTablaFrame.setVisible(true);
                         break;
                     case "Reportes":
-                        JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Reportes seleccionada");
+                    	 dispose();
+                         TablaReporte tablaReporte = new TablaReporte();
+                         tablaReporte.setVisible(true);
                         break;
                     case "Depositos":
                         JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Depositos seleccionada");

@@ -134,9 +134,10 @@ public class TablaReporte extends JFrame {
         btnMenuGerente = new JButton("Volver");
         btnMenuGerente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	 dispose();
                 MenuPrincipalGerente menuGerente = new MenuPrincipalGerente(null, null);
                 menuGerente.setVisible(true);
-                dispose();
+               
             }
         });
         
