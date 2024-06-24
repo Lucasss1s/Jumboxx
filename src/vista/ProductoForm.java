@@ -12,17 +12,20 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class ProductoForm extends JFrame {
-	
+    
     private JTextField nombreField;
     private JTextField precioField;
     private JLabel imagenLabel;
     private byte[] imagenData;
     private JLabel label_3;
     private JTextField inpCantidad;
+    private ProductoTabla productoTabla;  // Referencia a ProductoTabla
 
-    public ProductoForm() {
-    	setIconImage(Toolkit.getDefaultToolkit().getImage(ProductoForm.class.getResource("/img/Logo 2.png")));
-    	getContentPane().setBackground(new Color(0, 128, 192));
+    public ProductoForm(ProductoTabla productoTabla) {  // Modificar el constructor
+        this.productoTabla = productoTabla;  // Asignar la referencia
+
+        setIconImage(Toolkit.getDefaultToolkit().getImage(ProductoForm.class.getResource("/img/Logo 2.png")));
+        getContentPane().setBackground(new Color(0, 128, 192));
         setTitle("Agregar Producto");
         setSize(481, 358);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -119,13 +122,19 @@ public class ProductoForm extends JFrame {
         controlador.agregarProducto(producto);
 
         JOptionPane.showMessageDialog(this, "Producto guardado exitosamente");
+
+        // Actualizar la tabla
+        productoTabla.actualizarTabla();
+        
+        // Cerrar la ventana de agregar producto
+        dispose();
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new ProductoForm().setVisible(true);
+                new ProductoForm(null).setVisible(true);  // Pasa null si no hay instancia de ProductoTabla
             }
         });
     }

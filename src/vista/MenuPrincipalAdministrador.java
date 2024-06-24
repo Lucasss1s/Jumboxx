@@ -19,11 +19,12 @@ public class MenuPrincipalAdministrador extends JFrame {
     public MenuPrincipalAdministrador(Usuario usuario, UsuarioControlador controlador) {
 
         setTitle("Menú Principal - Almacenista");
-        setSize(400, 400);
+        setSize(616, 428);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
+        panel.setBackground(new Color(0, 128, 192));
         panel.setLayout(null);
 
         pedidosButton = createButton("Pedidos", "/img/pedido.png", 43, 50, usuario, controlador);
@@ -42,6 +43,11 @@ public class MenuPrincipalAdministrador extends JFrame {
         panel.add(salirButton);
 
         getContentPane().add(panel);
+        
+        JLabel lblNewLabel = new JLabel("New label");
+        lblNewLabel.setIcon(new ImageIcon(MenuPrincipalAdministrador.class.getResource("/img/Logo 2.png")));
+        lblNewLabel.setBounds(383, 50, 181, 127);
+        panel.add(lblNewLabel);
         setVisible(true);
     }
 

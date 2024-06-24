@@ -17,6 +17,7 @@ public class Bienvenido extends JFrame {
      * Create the frame.
      */
     public Bienvenido(Usuario usuario, UsuarioControlador controlador) {
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(Bienvenido.class.getResource("/img/Logo 2.png")));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 500, 350);
         contentPane = new JPanel();
@@ -85,7 +86,7 @@ public class Bienvenido extends JFrame {
             }
         });
 
-        contentPane.setBackground(new Color(240, 240, 240));
+        contentPane.setBackground(new Color(0, 128, 192));
     }
 
     public static void main(String[] args) {

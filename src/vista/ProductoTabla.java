@@ -1,8 +1,7 @@
 package vista;
 
-import java.awt.EventQueue;
-
-import java.awt.Image;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,11 +10,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import controladores.ProductoControlador;
 import Modelos.Producto;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.Color;
-import java.awt.Toolkit;
-import java.awt.Font;
 
 public class ProductoTabla extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -129,10 +123,9 @@ public class ProductoTabla extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado != null && seleccionado.getId_producto() != 0) {
-                    // Abrir PantallaEditar con el producto seleccionado
-                    PantallaEditar pantallaEditar = new PantallaEditar(seleccionado);
+                    // Abrir PantallaEditar con el producto seleccionado y pasar la referencia a ProductoTabla
+                    PantallaEditar pantallaEditar = new PantallaEditar(seleccionado, ProductoTabla.this);
                     pantallaEditar.setVisible(true);
-                    // No es necesario actualizar la tabla aquí, ya que se hace al cerrar la ventana de edición
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione un producto");
                 }
@@ -145,7 +138,7 @@ public class ProductoTabla extends JFrame {
         btnAgregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ProductoForm productoFormFrame = new ProductoForm();
+                ProductoForm productoFormFrame = new ProductoForm(ProductoTabla.this);  // Pasar la referencia
                 productoFormFrame.setVisible(true);
             }
         });
@@ -157,7 +150,7 @@ public class ProductoTabla extends JFrame {
         contentPane.add(lblNewLabel);
     }
 
-    private void actualizarTabla() {
+    public void actualizarTabla() {
         model.setRowCount(0);
         List<Producto> productos = controlador.getAllProducts();
         for (Producto producto : productos) {
@@ -182,7 +175,5 @@ public class ProductoTabla extends JFrame {
         for (Producto producto : productos) {
             model.addRow(new Object[]{producto.getId_producto(), producto.getNombre(), producto.getPrecio(), producto.getCantidad()});
         }
-        
-        } 
     }
-    
+}

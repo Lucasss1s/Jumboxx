@@ -20,7 +20,7 @@ public class MenuPrincipalGerente extends JFrame {
     public MenuPrincipalGerente(Usuario usuario, UsuarioControlador controlador) {
     	setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipalGerente.class.getResource("/img/Logo 2.png")));
         setTitle("Menú Principal - Gerente");
-        setSize(618, 426);
+        setSize(616, 428);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
