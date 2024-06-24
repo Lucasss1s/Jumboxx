@@ -111,7 +111,9 @@ public class MenuPrincipalAlmacenista extends JFrame {
                         productoTablaFrame.setVisible(true);
                         break;
                     case "Reportes":
-                        JOptionPane.showMessageDialog(MenuPrincipalAlmacenista.this, "Opción Reportes seleccionada");
+                    	dispose();
+                        TablaReporte tablaReporte = new TablaReporte();
+                        tablaReporte.setVisible(true);
                         break;
                     case "Perfil":
                         perfilUsuario perfilUsuarioFrame = new perfilUsuario(controlador, usuario);

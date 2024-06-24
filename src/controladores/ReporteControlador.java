@@ -66,7 +66,7 @@ public class ReporteControlador implements ReportRepository{
 	            
 	            int rowsInserted = statement.executeUpdate();
 	            if (rowsInserted > 0) {
-	            	JOptionPane.showMessageDialog(null, "Reporte agregado exitosamente");
+	            	
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
@@ -89,6 +89,18 @@ public class ReporteControlador implements ReportRepository{
 	            e.printStackTrace();
 	        }
 	    }
+		
+		public boolean updateReportWithSuccessCheck(Reporte reporte) {
+	        try {
+	            updateReport(reporte);
+	            return true;
+	        } catch (Exception e) {
+	            // Manejo de excepciones si la actualización falla
+	            e.printStackTrace();
+	            return false;
+	        }
+	    }
+		
 		@Override
 		public int getLastReportId() {
 		    int ultimoId = 0;
@@ -113,7 +125,7 @@ public class ReporteControlador implements ReportRepository{
 	            
 	            int rowsDeleted = statement.executeUpdate();
 	            if (rowsDeleted > 0) {
-	               JOptionPane.showMessageDialog(null, "Reporte eliminado exitosamente");
+	               
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();

@@ -26,17 +26,20 @@ public class Bienvenido extends JFrame {
         contentPane.setLayout(null);
 
         JLabel lblBienvenido = new JLabel("Bienvenido, " + usuario.getNombreCompleto() + "!");
+        lblBienvenido.setForeground(new Color(255, 255, 255));
         lblBienvenido.setFont(new Font("Tahoma", Font.BOLD, 24));
         lblBienvenido.setBounds(50, 20, 400, 50);
         lblBienvenido.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(lblBienvenido);
 
         JLabel lblUsuario = new JLabel("Usuario: " + usuario.getUser());
+        lblUsuario.setForeground(new Color(255, 255, 255));
         lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
         lblUsuario.setBounds(160, 97, 300, 30);
         contentPane.add(lblUsuario);
 
         JLabel lblPuesto = new JLabel("Puesto: " + usuario.getPuesto());
+        lblPuesto.setForeground(new Color(255, 255, 255));
         lblPuesto.setFont(new Font("Tahoma", Font.PLAIN, 18));
         lblPuesto.setBounds(160, 139, 300, 30);
         contentPane.add(lblPuesto);

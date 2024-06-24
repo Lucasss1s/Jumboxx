@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.Color;
+
 import java.awt.EventQueue;
 import java.awt.Font;
 import javax.swing.*;
@@ -50,9 +51,9 @@ public class perfilUsuario extends JFrame {
         this.usuarioActual = usuarioActual;
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 500, 400);
+        setBounds(100, 100, 565, 433);
         contentPane = new JPanel();
-        contentPane.setBackground(new Color(0, 128, 192));
+        contentPane.setBackground(new Color(255, 255, 255));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
@@ -121,7 +122,7 @@ public class perfilUsuario extends JFrame {
 
         errorLabel = new JLabel("");
         errorLabel.setForeground(Color.RED);
-        errorLabel.setBounds(50, 340, 400, 20);
+        errorLabel.setBounds(60, 330, 400, 20);
         contentPane.add(errorLabel);
 
         atrasButton = new JButton("Atrás");
@@ -138,7 +139,7 @@ public class perfilUsuario extends JFrame {
 				}
             }
         });
-        atrasButton.setBounds(10, 330, 80, 30);
+        atrasButton.setBounds(10, 361, 80, 30);
         contentPane.add(atrasButton);
 
         // Añadir listeners para habilitar/deshabilitar botones

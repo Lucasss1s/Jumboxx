@@ -41,7 +41,7 @@ public class ProductoForm extends JFrame {
         imagenLabel.setBounds(73, 114, 191, 137);
 
         JButton seleccionarImagenBtn = new JButton("Seleccionar Imagen");
-        seleccionarImagenBtn.setBounds(33, 340, 185, 50);
+        seleccionarImagenBtn.setBounds(33, 340, 139, 50);
         seleccionarImagenBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -50,7 +50,7 @@ public class ProductoForm extends JFrame {
         });
 
         JButton guardarBtn = new JButton("Guardar Producto");
-        guardarBtn.setBounds(248, 340, 185, 50);
+        guardarBtn.setBounds(182, 340, 139, 50);
         guardarBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -91,6 +91,22 @@ public class ProductoForm extends JFrame {
         inpCantidad = new JTextField();
         inpCantidad.setBounds(73, 278, 191, 40);
         getContentPane().add(inpCantidad);
+        
+        // Botón de Atrás
+        JButton btnAtras = new JButton("Atrás");
+        btnAtras.setBounds(346, 359, 95, 31);
+        getContentPane().add(btnAtras);
+        btnAtras.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Cierra la ventana actual
+                dispose();
+                // Vuelve a mostrar la ventana de ProductoTabla si existe una instancia válida
+                if (productoTabla != null) {
+                    productoTabla.setVisible(true);
+                }
+            }
+        });
     }
 
     private void seleccionarImagen() {
@@ -137,5 +153,6 @@ public class ProductoForm extends JFrame {
                 new ProductoForm(null).setVisible(true);  // Pasa null si no hay instancia de ProductoTabla
             }
         });
+        
     }
 }
