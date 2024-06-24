@@ -100,7 +100,9 @@ public class MenuPrincipalAlmacenista extends JFrame {
                         JOptionPane.showMessageDialog(MenuPrincipalAlmacenista.this, "Opción Pedidos seleccionada");
                         break;
                     case "Stock":
-                        JOptionPane.showMessageDialog(MenuPrincipalAlmacenista.this, "Opción Stock seleccionada");
+                        dispose();
+                        ProductoTabla productoTablaFrame = new ProductoTabla();
+                        productoTablaFrame.setVisible(true);
                         break;
                     case "Reportes":
                         JOptionPane.showMessageDialog(MenuPrincipalAlmacenista.this, "Opción Reportes seleccionada");

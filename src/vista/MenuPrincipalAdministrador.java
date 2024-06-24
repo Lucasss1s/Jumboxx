@@ -100,7 +100,9 @@ public class MenuPrincipalAdministrador extends JFrame {
                         JOptionPane.showMessageDialog(MenuPrincipalAdministrador.this, "Opción Pedidos seleccionada");
                         break;
                     case "Stock":
-                        JOptionPane.showMessageDialog(MenuPrincipalAdministrador.this, "Opción Stock seleccionada");
+                        dispose();
+                        ProductoTabla productoTablaFrame = new ProductoTabla();
+                        productoTablaFrame.setVisible(true);
                         break;
                     case "Reportes":
                         JOptionPane.showMessageDialog(MenuPrincipalAdministrador.this, "Opción Reportes seleccionada");
