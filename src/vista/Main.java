@@ -27,6 +27,7 @@ import Modelos.Reporte;
 import controladores.UsuarioControlador;
 import controladores.ReporteControlador;
 import controladores.DatabaseConnection;
+import controladores.PedidoControlador;
 
 public class Main {
 	
@@ -67,6 +68,16 @@ public class Main {
 //			Usuario usuarioAutenticado = controlador.getUserByUsernameAndPassword(username, password);
 
 			if (usuarioAutenticado != null) {
+				PedidoControlador pedidoControlador = new PedidoControlador();
+                List<Pedido> pedidos = pedidoControlador.getAllOrders();
+                
+                if (!pedidos.isEmpty()) {
+                    for (Pedido pedido : pedidos) {
+                        System.out.println(pedido);
+                    }
+                } else {
+                    System.out.println("No se encontraron pedidos.");
+                }
 //				JOptionPane.showMessageDialog(null,
 //						"Bienvenido, " + usuarioAutenticado.getNombreCompleto() + "!\n" + "Usuario: "
 //								+ usuarioAutenticado.getUser() + "\n" + "Puesto: " + usuarioAutenticado.getPuesto());

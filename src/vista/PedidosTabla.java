@@ -135,7 +135,6 @@ public class PedidosTabla extends JFrame {
         JOptionPane.showMessageDialog(null, "Pedido: " + pedidos);
         tableModel.setRowCount(0); // Limpiar tabla
         for (Pedido pedido : pedidos) {
-//        	String productosStr = String.join(", ", pedido.getProductos());	
             tableModel.addRow(new Object[]{pedido.getId_Pedido(), pedido.getProductos(), pedido.getCantidad(), pedido.getFechaPedido().toString()});
         }
     }

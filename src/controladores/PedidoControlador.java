@@ -171,7 +171,7 @@ public class PedidoControlador {
 	            statement.setString(5, keywordPattern);
 
 	            ResultSet resultSet = statement.executeQuery();
-	            while (resultSet.next()) {
+	            while (resultSet.next()) {	
 	                int clienteId = resultSet.getInt("id_cliente");
 	                Cliente cliente = getClienteById(clienteId);
 
