@@ -18,12 +18,14 @@ public class MenuPrincipalGerente extends JFrame {
     private JButton salirButton;
 
     public MenuPrincipalGerente(Usuario usuario, UsuarioControlador controlador) {
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipalGerente.class.getResource("/img/Logo 2.png")));
         setTitle("Menú Principal - Gerente");
-        setSize(400, 400);
+        setSize(618, 426);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
+        panel.setBackground(new Color(0, 128, 192));
         panel.setLayout(null);
 
         pedidosButton = createButton("Pedidos", "/img/pedido.png", 43, 33, usuario, controlador);
@@ -45,6 +47,11 @@ public class MenuPrincipalGerente extends JFrame {
         panel.add(salirButton);
 
         getContentPane().add(panel);
+        
+        JLabel lblNewLabel = new JLabel("New label");
+        lblNewLabel.setIcon(new ImageIcon(MenuPrincipalGerente.class.getResource("/img/Logo 2.png")));
+        lblNewLabel.setBounds(389, 33, 181, 127);
+        panel.add(lblNewLabel);
         setVisible(true);
     }
 
