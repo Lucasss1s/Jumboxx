@@ -66,11 +66,9 @@ public class ProductoTabla extends JFrame {
         imagenLabel.setBounds(620, 42, 250, 250);
         contentPane.add(imagenLabel);
 
-
         searchField = new JTextField();
         searchField.setBounds(110, 353, 305, 25);
         contentPane.add(searchField);
-        
       
         JButton searchButton = new JButton("Buscar");
         searchButton.setBounds(425, 353, 80, 25);
@@ -127,17 +125,10 @@ public class ProductoTabla extends JFrame {
         JButton btnEditar = new JButton("Editar");
         btnEditar.setBounds(750, 312, 120, 30);
         contentPane.add(btnEditar);
-
-        JLabel lblNewLabel = new JLabel("Productos");
-        lblNewLabel.setFont(new Font("Impact", Font.ITALIC, 15));
-        lblNewLabel.setForeground(new Color(255, 255, 255));
-        lblNewLabel.setBounds(275, 11, 71, 30);
-        contentPane.add(lblNewLabel);
         btnEditar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado != null && seleccionado.getId_producto() != 0) {
-                  
                     int selectedRow = table.getSelectedRow();
                     if (selectedRow != -1) {
                         int id = (int) table.getValueAt(selectedRow, 0);
@@ -145,13 +136,10 @@ public class ProductoTabla extends JFrame {
                         double nuevoPrecio = (double) table.getValueAt(selectedRow, 2);
                         int nuevaCantidad = (int) table.getValueAt(selectedRow, 3);
 
-                       PantallaEditar editar = new PantallaEditar(seleccionado);
                         seleccionado.setNombre(nuevoNombre);
                         seleccionado.setPrecio(nuevoPrecio);
                         seleccionado.setCantidad(nuevaCantidad);
                         controlador.actualizarProducto(seleccionado);
-                        dispose();
-                  
                         actualizarTabla();
                     }
                 } else {
@@ -159,7 +147,23 @@ public class ProductoTabla extends JFrame {
                 }
             }
         });
-        
+
+        JButton btnAgregar = new JButton("Agregar Producto");
+        btnAgregar.setBounds(620, 353, 250, 30);
+        contentPane.add(btnAgregar);
+        btnAgregar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ProductoForm productoFormFrame = new ProductoForm();
+                productoFormFrame.setVisible(true);
+            }
+        });
+
+        JLabel lblNewLabel = new JLabel("Productos");
+        lblNewLabel.setFont(new Font("Impact", Font.ITALIC, 15));
+        lblNewLabel.setForeground(new Color(255, 255, 255));
+        lblNewLabel.setBounds(275, 11, 71, 30);
+        contentPane.add(lblNewLabel);
     }
 
     private void actualizarTabla() {
@@ -187,6 +191,7 @@ public class ProductoTabla extends JFrame {
         for (Producto producto : productos) {
             model.addRow(new Object[]{producto.getId_producto(), producto.getNombre(), producto.getPrecio(), producto.getCantidad()});
         }
+        
+        } 
     }
     
-}

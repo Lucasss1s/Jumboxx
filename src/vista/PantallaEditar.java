@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.EventQueue;
+
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;

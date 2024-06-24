@@ -103,7 +103,9 @@ public class MenuPrincipalGerente extends JFrame {
                         JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Pedidos seleccionada");
                         break;
                     case "Stock":
-                        JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Stock seleccionada");
+                        dispose();
+                        ProductoTabla productoTablaFrame = new ProductoTabla();
+                        productoTablaFrame.setVisible(true);
                         break;
                     case "Reportes":
                         JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Reportes seleccionada");
