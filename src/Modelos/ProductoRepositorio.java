@@ -54,7 +54,7 @@ public class ProductoRepositorio {
                         rs.getInt("id_producto"),
                         rs.getString("nombre"),
                         rs.getInt("cantidad"),
-                        rs.getDouble("precio")
+                        null, rs.getDouble("precio")
                 );
             } else {
                 return null;
@@ -76,7 +76,7 @@ public class ProductoRepositorio {
                         rs.getInt("id_producto"),
                         rs.getString("nombre"),
                         rs.getInt("cantidad"),
-                        rs.getDouble("precio")
+                        null, rs.getDouble("precio")
                 ));
             }
             return productos;

@@ -1,6 +1,7 @@
 package vista;
 
 import javax.swing.*;
+
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
@@ -28,10 +29,11 @@ public class PantallaIniciarSeccion extends JFrame {
     }
 
     public PantallaIniciarSeccion() {
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(PantallaIniciarSeccion.class.getResource("/img/Logo 2.png")));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 650, 400);
+        setBounds(100, 100, 611, 335);
         contentPane = new JPanel();
-        contentPane.setBackground(new Color(0, 64, 128));
+        contentPane.setBackground(new Color(0, 128, 192));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
@@ -86,13 +88,13 @@ public class PantallaIniciarSeccion extends JFrame {
 
         JLabel lblNewLabel = new JLabel("");
         lblNewLabel.setIcon(new ImageIcon(PantallaIniciarSeccion.class.getResource("/img/Logo 2.png")));
-        lblNewLabel.setBounds(40, 102, 205, 182);
+        lblNewLabel.setBounds(42, 74, 180, 127);
         contentPane.add(lblNewLabel);
 
         JLabel lblNewLabel_1 = new JLabel("Bienvenido!");
         lblNewLabel_1.setFont(new Font("Impact", Font.ITALIC, 30));
         lblNewLabel_1.setForeground(Color.WHITE);
-        lblNewLabel_1.setBounds(53, 47, 159, 66);
+        lblNewLabel_1.setBounds(54, 2, 159, 66);
         contentPane.add(lblNewLabel_1);
     }
 }

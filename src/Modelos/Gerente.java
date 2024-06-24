@@ -109,7 +109,7 @@ public class Gerente extends Usuario {
 			String precioStr = JOptionPane.showInputDialog("Ingrese el precio del producto:");
 			double precio = Double.parseDouble(precioStr);
 
-			Producto nuevoProducto = new Producto(codigo, nombre, cantidad, precio);
+			Producto nuevoProducto = new Producto(codigo, nombre, cantidad, null, precio);
 			Producto.agregarProducto(nuevoProducto);
 			JOptionPane.showMessageDialog(null, "Producto agregado correctamente.");
 
