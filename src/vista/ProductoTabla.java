@@ -149,10 +149,9 @@ public class ProductoTabla extends JFrame {
         btnAtras.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Cierra la ventana actual
-                dispose();
-                // Mostrar la ventana principal
-                menuPrincipal.setVisible(true);
+              	 dispose();
+                 MenuPrincipalGerente menuGerente = new MenuPrincipalGerente(null, null);
+                 menuGerente.setVisible(true);
             }
         });
 
