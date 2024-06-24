@@ -146,6 +146,36 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`UsuarioID`, `NombreCompleto`, `User`, `Contraseña`, `Puesto`, `FechaRegistro`) VALUES
 (1, 'Lucas Frangolini', 'Lucass', '123', 'Gerente', '2000-01-01'),
 (2, 'Ramiro algo', 'Rama01', '123', 'Administrador', '2010-01-01');
+(3, 'Sofia Martinez', 'SofiM', '123', 'Empleado', '2015-02-15'),
+(4, 'Jorge Perez', 'JorgeP', '123', 'Empleado', '2016-03-18'),
+(5, 'Carla Gutierrez', 'CarlaG', '123', 'Empleado', '2017-04-21'),
+(6, 'Marta Lopez', 'MartaL', '123', 'Empleado', '2018-05-10'),
+(7, 'Pedro Fernandez', 'PedroF', '123', 'Empleado', '2019-06-11'),
+(8, 'Lucia Ramirez', 'LuciaR', '123', 'Empleado', '2020-07-12'),
+(9, 'Juan Garcia', 'JuanG', '123', 'Empleado', '2021-08-13'),
+(10, 'Ana Torres', 'AnaT', '123', 'Empleado', '2022-09-14'),
+(11, 'Gabriel Diaz', 'GabrielD', '123', 'Empleado', '2023-10-15'),
+(12, 'Matias Morales', 'MatiasM', '123', 'Empleado', '2014-11-16'),
+(13, 'Silvia Ruiz', 'SilviaR', '123', 'Empleado', '2013-12-17'),
+(14, 'Federico Castro', 'FedericoC', '123', 'Empleado', '2012-01-18'),
+(15, 'Natalia Vega', 'NataliaV', '123', 'Empleado', '2011-02-19'),
+(16, 'Hugo Santos', 'HugoS', '123', 'Empleado', '2010-03-20'),
+(17, 'Elena Prieto', 'ElenaP', '123', 'Empleado', '2009-04-21'),
+(18, 'Roberto Aguilar', 'RobertoA', '123', 'Empleado', '2008-05-22'),
+(19, 'Patricia Mendoza', 'PatriciaM', '123', 'Empleado', '2007-06-23'),
+(20, 'Francisco Romero', 'FranciscoR', '123', 'Empleado', '2006-07-24'),
+(21, 'Alicia Herrera', 'AliciaH', '123', 'Empleado', '2005-08-25'),
+(22, 'Daniel Vargas', 'DanielV', '123', 'Empleado', '2004-09-26'),
+(23, 'Teresa Soto', 'TeresaS', '123', 'Empleado', '2003-10-27'),
+(24, 'Antonio Ortiz', 'AntonioO', '123', 'Empleado', '2002-11-28'),
+(25, 'Mariana Pardo', 'MarianaP', '123', 'Empleado', '2001-12-29'),
+(26, 'Ricardo Molina', 'RicardoM', '123', 'Empleado', '2000-01-30'),
+(27, 'Lorena Silva', 'LorenaS', '123', 'Empleado', '1999-02-01'),
+(28, 'Fernando Navarro', 'FernandoN', '123', 'Empleado', '1998-03-02'),
+(29, 'Eva Peña', 'EvaP', '123', 'Empleado', '1997-04-03'),
+(30, 'Gonzalo Campos', 'GonzaloC', '123', 'Empleado', '1996-05-04'),
+(31, 'Monica Rios', 'MonicaR', '123', 'Empleado', '1995-06-05'),
+(32, 'Diego Reyes', 'DiegoR', '123', 'Empleado', '1994-07-06');
 
 -- --------------------------------------------------------
 
