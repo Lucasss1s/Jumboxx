@@ -49,20 +49,20 @@ public class actualizarUsuario extends JFrame {
         controlador = new UsuarioControlador();
 
         JLabel lblId = new JLabel("ID del Usuario:");
-        lblId.setBounds(83, 30, 120, 20);
+        lblId.setBounds(25, 53, 120, 20);
         contentPane.add(lblId);
 
         idField = new JTextField();
-        idField.setBounds(213, 30, 200, 20);
+        idField.setBounds(155, 53, 200, 20);
         contentPane.add(idField);
         idField.setColumns(10);
 
         JLabel lblNombreCompleto = new JLabel("Nombre Completo:");
-        lblNombreCompleto.setBounds(83, 66, 120, 20);
+        lblNombreCompleto.setBounds(25, 89, 120, 20);
         contentPane.add(lblNombreCompleto);
 
         nombreCompletoField = new JTextField();
-        nombreCompletoField.setBounds(213, 66, 200, 20);
+        nombreCompletoField.setBounds(155, 89, 200, 20);
         nombreCompletoField.setEditable(false);
         contentPane.add(nombreCompletoField);
         nombreCompletoField.setColumns(10);
@@ -73,11 +73,11 @@ public class actualizarUsuario extends JFrame {
         });
 
         JLabel lblUser = new JLabel("Nombre de Usuario:");
-        lblUser.setBounds(83, 116, 120, 20);
+        lblUser.setBounds(25, 139, 120, 20);
         contentPane.add(lblUser);
 
         userField = new JTextField();
-        userField.setBounds(213, 116, 200, 20);
+        userField.setBounds(155, 139, 200, 20);
         userField.setEditable(false);
         contentPane.add(userField);
         userField.setColumns(10);
@@ -88,11 +88,11 @@ public class actualizarUsuario extends JFrame {
         });
 
         JLabel lblPuesto = new JLabel("Puesto:");
-        lblPuesto.setBounds(83, 166, 120, 20);
+        lblPuesto.setBounds(25, 189, 120, 20);
         contentPane.add(lblPuesto);
 
         puestoComboBox = new JComboBox<>();
-        puestoComboBox.setBounds(213, 166, 200, 20);
+        puestoComboBox.setBounds(155, 189, 200, 20);
         puestoComboBox.addItem("Almacenista");
         puestoComboBox.addItem("Administrador");
         puestoComboBox.addItem("Gerente");
@@ -106,7 +106,7 @@ public class actualizarUsuario extends JFrame {
 
         errorLabel = new JLabel("");
         errorLabel.setForeground(Color.RED);
-        errorLabel.setBounds(83, 200, 330, 20);
+        errorLabel.setBounds(25, 223, 330, 20);
         contentPane.add(errorLabel);
 
         JButton buscarButton = new JButton("Buscar");
@@ -115,7 +115,7 @@ public class actualizarUsuario extends JFrame {
                 buscarUsuario();
             }
         });
-        buscarButton.setBounds(427, 30, 100, 20);
+        buscarButton.setBounds(374, 53, 100, 20);
         contentPane.add(buscarButton);
 
         actualizarButton = new JButton("Actualizar Usuario");
@@ -124,7 +124,7 @@ public class actualizarUsuario extends JFrame {
                 actualizarUsuario();
             }
         });
-        actualizarButton.setBounds(247, 236, 140, 30);
+        actualizarButton.setBounds(189, 259, 140, 30);
         actualizarButton.setEnabled(false);
         contentPane.add(actualizarButton);
 
@@ -134,7 +134,7 @@ public class actualizarUsuario extends JFrame {
                 volver();
             }
         });
-        volverButton.setBounds(83, 236, 100, 30);
+        volverButton.setBounds(25, 259, 100, 30);
         contentPane.add(volverButton);
     }
 

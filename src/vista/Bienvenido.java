@@ -1,16 +1,12 @@
 package vista;
 
-import javax.swing.JFrame;
-
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import Modelos.Usuario;
-import java.awt.Color;
-import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
+import controladores.UsuarioControlador;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Bienvenido extends JFrame {
 
@@ -20,42 +16,89 @@ public class Bienvenido extends JFrame {
     /**
      * Create the frame.
      */
-    public Bienvenido(Usuario usuario) {
+    public Bienvenido(Usuario usuario, UsuarioControlador controlador) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 500, 350);
         contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        JLabel lblNewLabel = new JLabel("Bienvenido " + usuario.getNombreCompleto());
-        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 27));
-        lblNewLabel.setBounds(74, 22, 350, 56);
-        contentPane.add(lblNewLabel);
+        JLabel lblBienvenido = new JLabel("Bienvenido, " + usuario.getNombreCompleto() + "!");
+        lblBienvenido.setFont(new Font("Tahoma", Font.BOLD, 24));
+        lblBienvenido.setBounds(50, 20, 400, 50);
+        lblBienvenido.setHorizontalAlignment(SwingConstants.CENTER);
+        contentPane.add(lblBienvenido);
 
         JLabel lblUsuario = new JLabel("Usuario: " + usuario.getUser());
-        lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        lblUsuario.setBounds(124, 89, 300, 20);
+        lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        lblUsuario.setBounds(160, 97, 300, 30);
         contentPane.add(lblUsuario);
 
         JLabel lblPuesto = new JLabel("Puesto: " + usuario.getPuesto());
-        lblPuesto.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        lblPuesto.setBounds(124, 130, 300, 20);
+        lblPuesto.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        lblPuesto.setBounds(160, 139, 300, 30);
         contentPane.add(lblPuesto);
 
         JButton btnOk = new JButton("OK");
+        btnOk.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        btnOk.setBounds(194, 207, 100, 40);
+        contentPane.add(btnOk);
+
         btnOk.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               
-            	dispose();
-                Main.setUsuarioAutenticado(usuario);
-                Main.main(null);
-               
+                dispose();
+
+                switch (usuario.getPuesto().toLowerCase()) {
+                    case "gerente":
+                        MenuPrincipalGerente menuPrincipalGerente = new MenuPrincipalGerente(usuario, controlador);
+                        menuPrincipalGerente.setVisible(true);
+                        break;
+                    case "administrador":
+                        MenuPrincipalAdministrador menuPrincipalAdministrador = new MenuPrincipalAdministrador(usuario, controlador);
+                        menuPrincipalAdministrador.setVisible(true);
+                        break;
+                    case "almacenista":
+                        MenuPrincipalAlmacenista menuPrincipalAlmacenista = new MenuPrincipalAlmacenista(usuario, controlador);
+                        menuPrincipalAlmacenista.setVisible(true);
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(Bienvenido.this, "Puesto desconocido", "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+                }
             }
         });
-        
-        btnOk.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        btnOk.setBounds(159, 189, 100, 40);
-        contentPane.add(btnOk);
+
+        // UX improvements
+        btnOk.setBackground(new Color(0, 153, 76));
+        btnOk.setForeground(Color.WHITE);
+        btnOk.setFocusPainted(false);
+        btnOk.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        btnOk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnOk.setBackground(new Color(0, 102, 51));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnOk.setBackground(new Color(0, 153, 76));
+            }
+        });
+
+        contentPane.setBackground(new Color(240, 240, 240));
+    }
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    UsuarioControlador controlador = new UsuarioControlador();
+                    Usuario usuario = controlador.getUserById(1);
+                    new Bienvenido(usuario, controlador);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

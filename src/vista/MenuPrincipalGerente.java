@@ -1,24 +1,24 @@
 package vista;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import Modelos.Usuario;
-import controladores.UsuarioControlador;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import controladores.UsuarioControlador;
+import Modelos.Usuario;
 import java.net.URL;
 
-public class menuUsuario extends JFrame {
+public class MenuPrincipalGerente extends JFrame {
 
-    private JButton verUsuariosButton;
-    private JButton agregarUsuarioButton;
-    private JButton actualizarUsuarioButton;
-    private JButton eliminarUsuarioButton;
-    private JButton atrasButton;
+    private JButton pedidosButton;
+    private JButton stockButton;
+    private JButton reportesButton;
+    private JButton depositosButton;
+    private JButton usuariosButton;
+    private JButton salirButton;
 
-    public menuUsuario(Usuario usuario, UsuarioControlador controlador) {
-        setTitle("Menú de Usuarios");
+    public MenuPrincipalGerente(Usuario usuario, UsuarioControlador controlador) {
+        setTitle("Menú Principal - Gerente");
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -26,20 +26,23 @@ public class menuUsuario extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
-        verUsuariosButton = createButton("Ver usuarios", "/img/verUsuario.png", 43, 50, usuario, controlador);
-        panel.add(verUsuariosButton);
+        pedidosButton = createButton("Pedidos", "/img/pedido.png", 43, 33, usuario, controlador);
+        panel.add(pedidosButton);
 
-        agregarUsuarioButton = createButton("Agregar usuario", "/img/agregarUsuario.png", 43, 100, usuario, controlador);
-        panel.add(agregarUsuarioButton);
+        stockButton = createButton("Stock", "/img/productos.png", 43, 84, usuario, controlador);
+        panel.add(stockButton);
 
-        actualizarUsuarioButton = createButton("Actualizar usuario", "/img/actualizarUsuario.png", 43, 150, usuario, controlador);
-        panel.add(actualizarUsuarioButton);
+        reportesButton = createButton("Reportes", "/img/reporte.png", 43, 135, usuario, controlador);
+        panel.add(reportesButton);
 
-        eliminarUsuarioButton = createButton("Eliminar usuario", "/img/eliminarUsuario.png", 43, 200, usuario, controlador);
-        panel.add(eliminarUsuarioButton);
+        depositosButton = createButton("Depositos", "/img/pedido.png", 43, 186, usuario, controlador);
+        panel.add(depositosButton);
 
-        atrasButton = createButton("Atrás", "/img/salir.png", 43, 250, usuario, controlador);
-        panel.add(atrasButton);
+        usuariosButton = createButton("Usuarios", "/img/usuarios.png", 43, 237, usuario, controlador);
+        panel.add(usuariosButton);
+
+        salirButton = createButton("Salir", "/img/salir.png", 43, 288, usuario, controlador);
+        panel.add(salirButton);
 
         getContentPane().add(panel);
         setVisible(true);
@@ -86,40 +89,36 @@ public class menuUsuario extends JFrame {
             Image resizedImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
             return new ImageIcon(resizedImg);
         } else {
-            System.err.println("No se encontró el archivo: " + imagePath);
+            System.err.println("No se encontro el archivo: " + imagePath);
             return null;
         }
     }
 
-    private void addButtonActions(JButton button, String option, Usuario usuario, UsuarioControlador controlador) {
+    private void addButtonActions(JButton button, String opcion, Usuario usuario, UsuarioControlador controlador) {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                switch (option) {
-                    case "Ver usuarios":
-                        verUsuario verUsuario = new verUsuario();
-                        verUsuario.setVisible(true);
-                        dispose();
+                switch (opcion) {
+                    case "Pedidos":
+                        JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Pedidos seleccionada");
                         break;
-                    case "Agregar usuario":
-                        agregarUsuario agregarUsuario = new agregarUsuario();
-                        agregarUsuario.setVisible(true);
-                        dispose();
+                    case "Stock":
+                        JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Stock seleccionada");
                         break;
-                    case "Actualizar usuario":
-                        actualizarUsuario actualizarUsuario = new actualizarUsuario();
-                        actualizarUsuario.setVisible(true);
-                        dispose();
+                    case "Reportes":
+                        JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Reportes seleccionada");
                         break;
-                    case "Eliminar usuario":
-                        eliminarUsuario eliminarUsuario = new eliminarUsuario();
-                        eliminarUsuario.setVisible(true);
-                        dispose();
+                    case "Depositos":
+                        JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Depositos seleccionada");
                         break;
-                    case "Atrás":
+                    case "Usuarios":
                         dispose();
-                        MenuPrincipalGerente menuPrincipalGerente = new MenuPrincipalGerente(usuario, controlador);
-                        menuPrincipalGerente.setVisible(true);
+                        menuUsuario menuUsuarioFrame = new menuUsuario(usuario, controlador);
+                        menuUsuarioFrame.setVisible(true);
+                        break;
+                    case "Salir":
+                        button.setEnabled(false);
+                        System.exit(0);
                         break;
                 }
             }
@@ -141,8 +140,8 @@ public class menuUsuario extends JFrame {
             public void run() {
                 try {
                     UsuarioControlador controlador = new UsuarioControlador();
-                    Usuario usuario = controlador.getUserById(1);
-                    new menuUsuario(usuario, controlador);
+                    Usuario usuario = controlador.getUserById(1); 
+                    new MenuPrincipalGerente(usuario, controlador);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
