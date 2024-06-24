@@ -65,7 +65,7 @@ public class ProductoTabla extends JFrame {
         contentPane.add(searchField);
 
         JButton searchButton = new JButton("Buscar");
-        searchButton.setBounds(425, 353, 80, 25);
+        searchButton.setBounds(10, 353, 80, 25);
         contentPane.add(searchButton);
         searchButton.addActionListener(new ActionListener() {
             @Override
@@ -144,7 +144,7 @@ public class ProductoTabla extends JFrame {
         });
 
         JButton btnAtras = new JButton("Atrás");
-        btnAtras.setBounds(10, 10, 100, 30);
+        btnAtras.setBounds(511, 353, 100, 30);
         contentPane.add(btnAtras);
         btnAtras.addActionListener(new ActionListener() {
             @Override
