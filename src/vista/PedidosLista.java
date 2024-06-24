@@ -23,6 +23,14 @@ import Modelos.Cliente;
 import java.util.LinkedList;
 import java.time.LocalDate;
 
+import Modelos.Pedido;
+
+//import java.util.List;
+//import controladores.PedidoControlador;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+
 public class PedidosLista extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -31,6 +39,7 @@ public class PedidosLista extends JFrame {
 	private JTextField textField_1;
 	private JTextField textFieldFecha;	
 	private PedidosTabla pedidosTabla;
+	private int contadorId = 1;
 
 
 	/**
@@ -56,6 +65,7 @@ public class PedidosLista extends JFrame {
 	 * @param pedidosTabla2 
 	 */
 	public PedidosLista(PedidosTabla pedidosTabla) {
+		this.setVisible(true);
 		this.pedidosTabla = pedidosTabla;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -114,13 +124,17 @@ public class PedidosLista extends JFrame {
 
 			private void agregarPedido() {
 				// TODO Auto-generated method stub
+				int id_pedido = obtenerId_Pedido();
 				String producto = obtenerProductoUsuario();
 		        String cantidad = obtenerCantidadUsuario();
 		        String fecha = obtenerFechaUsuario();
-		        pedidosTabla.addPedidoToTable(producto, cantidad, fecha);
+		        pedidosTabla.addPedidoToTable(id_pedido, producto, cantidad, fecha);
 		        pedidosTabla.setVisible(true);
 		        dispose(); // Cierra la ventana actual
 			}
+
+
+			
         });
 		btnNewButton.setBounds(219, 217, 164, 32);
 		contentPane.add(btnNewButton);
@@ -143,6 +157,11 @@ public class PedidosLista extends JFrame {
 //	}
 
 //	}
+	
+	private int obtenerId_Pedido() {
+		// TODO Auto-generated method stub
+		return contadorId++;
+	}
 
 	private String obtenerProductoUsuario() {
 		// TODO Auto-generated method stub
@@ -157,4 +176,8 @@ public class PedidosLista extends JFrame {
 	private String obtenerFechaUsuario() {
         return textFieldFecha.getText();
     }
+
 }
+
+
+

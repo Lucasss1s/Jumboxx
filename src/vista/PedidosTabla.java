@@ -30,6 +30,7 @@ public class PedidosTabla extends JFrame {
     private DefaultTableModel tableModel;
     private JTextField textFieldBuscar;
     private PedidoControlador controlador;
+    private int contadorId = 1;
 
 	/**
 	 * Launch the application.
@@ -66,7 +67,7 @@ public class PedidosTabla extends JFrame {
         contentPane.add(scrollPane);
 		
         
-        tableModel = new DefaultTableModel(new Object[]{"Productos", "Cantidad" , "Fecha"}, 0);
+        tableModel = new DefaultTableModel(new Object[]{"ID", "Producto", "Cantidad" , "Fecha"}, 0);
         table = new JTable(tableModel);
         scrollPane.setViewportView(table);
         
@@ -106,7 +107,7 @@ public class PedidosTabla extends JFrame {
         btnEliminar.setBounds(340, 10, 100, 30);
         contentPane.add(btnEliminar);
 
-        JLabel lblBuscar = new JLabel("Buscar:");
+        JLabel lblBuscar = new JLabel("Buscar por ID:");
         lblBuscar.setBounds(10, 260, 50, 30);
         contentPane.add(lblBuscar);
 
@@ -125,31 +126,41 @@ public class PedidosTabla extends JFrame {
         contentPane.add(btnBuscar);
     }
 	
-	public void addPedidoToTable(String producto, String cantidad, String fecha) {
-        tableModel.addRow(new Object[]{producto, cantidad, fecha});
+	public void addPedidoToTable(int id, String producto, String cantidad, String fecha) {
+        tableModel.addRow(new Object[]{id, producto, cantidad, fecha});
     }
 
     private void mostrarPedidos() {
         List<Pedido> pedidos = controlador.getAllOrders();
+        JOptionPane.showMessageDialog(null, "Pedido: " + pedidos);
         tableModel.setRowCount(0); // Limpiar tabla
         for (Pedido pedido : pedidos) {
-            tableModel.addRow(new Object[]{pedido.getProductos(), pedido.getCantidad(), pedido.getFechaPedido().toString()});
+//        	String productosStr = String.join(", ", pedido.getProductos());	
+            tableModel.addRow(new Object[]{pedido.getId_Pedido(), pedido.getProductos(), pedido.getCantidad(), pedido.getFechaPedido().toString()});
         }
     }
 
     private void guardarPedido() {
         // Implementar lógica para guardar pedido
+    	try {
         String nombreCliente = JOptionPane.showInputDialog("Ingrese el nombre del cliente:");
         Cliente cliente = new Cliente(0, nombreCliente, null, null, 0); // Aquí deberías implementar lógica para crear o buscar el cliente.
-        String productosStr = JOptionPane.showInputDialog("Ingrese los productos separados por comas:");
+        String productosStr = JOptionPane.showInputDialog("Ingrese su producto:");
         LinkedList<String> productos = new LinkedList<>();
         for (String producto : productosStr.split(",")) {
             productos.add(producto);
         }
-        double total = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el total:"));
-        Pedido nuevoPedido = new Pedido(0, cliente, productos, LocalDate.now(), total, true, "", "");
+        String cantidad = JOptionPane.showInputDialog("Ingrese la cantidad:");
+//        Pedido nuevoPedido = new Pedido(contadorId++, cliente, productos, LocalDate.now(), cantidad, true, "", "");
+        Pedido nuevoPedido = new Pedido(contadorId++, cliente, productos, LocalDate.now(), 0, true, "", "");
         controlador.updatePedido(nuevoPedido);
+        JOptionPane.showMessageDialog(null, "Pedido guardado: " + nuevoPedido);
         mostrarPedidos();
+    
+    } catch (Exception e) {
+   	e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al guardar el pedido: " + e.getMessage());
+        }
     }
 
     private void editarPedido() {
@@ -157,21 +168,27 @@ public class PedidosTabla extends JFrame {
         if (selectedRow != -1) {
             int id = (int) tableModel.getValueAt(selectedRow, 0);
             Pedido pedido = controlador.getPedidoById(id);
-            String nombreCliente = JOptionPane.showInputDialog("Ingrese el nombre del cliente:", pedido.getCliente().getNombre());
-            Cliente cliente = new Cliente(pedido.getCliente().getId_cliente(), nombreCliente, null, null, 0); // Aquí deberías implementar lógica para actualizar el cliente.
-            String productosStr = JOptionPane.showInputDialog("Ingrese los productos separados por comas:", pedido.getProductos().toString());
-            LinkedList<String> productos = new LinkedList<>();
-            for (String producto : productosStr.split(",")) {
-                productos.add(producto);
-            }
-            double total = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el total:", pedido.getTotal()));
-            LocalDate fechaPedido = LocalDate.parse(JOptionPane.showInputDialog("Ingrese la fecha (año-mes-dia):", pedido.getFechaPedido().toString()));
-            pedido.setCliente(cliente);
-            pedido.setProductos(productos);
-            pedido.setTotal(total);
-            pedido.setFechaPedido(fechaPedido);
-            controlador.updatePedido(pedido);
-            mostrarPedidos();
+            if (pedido != null) {
+            	String nombreCliente = JOptionPane.showInputDialog("Ingrese el nombre del cliente:", pedido.getCliente().getNombre());
+                Cliente cliente = new Cliente(pedido.getCliente().getId_cliente(), nombreCliente, null, null, 0); // Aquí deberías implementar lógica para actualizar el cliente.
+                String productosStr = JOptionPane.showInputDialog("Ingrese los productos separados por comas:", pedido.getProductos());
+                LinkedList<String> productos = new LinkedList<>();
+                for (String producto : productosStr.split(",")) {
+                    productos.add(producto);
+                }
+                String cantidad = JOptionPane.showInputDialog("Ingrese la cantidad:", pedido.getCantidad());
+                LocalDate fechaPedido = LocalDate.parse(JOptionPane.showInputDialog("Ingrese la fecha (año-mes-dia):", pedido.getFechaPedido().toString()));
+                pedido.setCliente(cliente);
+                pedido.setProductos(productos);
+                pedido.setCantidad(cantidad);
+                pedido.setFechaPedido(fechaPedido);
+                controlador.updatePedido(pedido);
+                JOptionPane.showMessageDialog(null, "Pedido editado: " + pedido);
+                mostrarPedidos();
+			} else {
+				JOptionPane.showMessageDialog(this, "No se encontró el pedido con el ID proporcionado.");
+			}
+           
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un pedido para editar.");
         }
@@ -189,13 +206,30 @@ public class PedidosTabla extends JFrame {
     }
 
     private void buscarPedido() {
-        String keyword = textFieldBuscar.getText();
-        List<Pedido> pedidos = controlador.searchPedidos(keyword);
+    	try {
+    	int id = Integer.parseInt(textFieldBuscar.getText());
+    	Pedido pedido = controlador.getPedidoById(id);
+//    	String keyword = textFieldBuscar.getText();
+//        JOptionPane.showMessageDialog(null, "Buscar pedidos con id: " + keyword);
+//        List<Pedido> pedidos = controlador.searchPedidos(keyword);
         tableModel.setRowCount(0); // Limpiar tabla
-        for (Pedido pedido : pedidos) {
-            tableModel.addRow(new Object[]{pedido.getProductos(), pedido.getCantidad(), pedido.getFechaPedido().toString()});
-        }
+//        for (Pedido pedido : pedidos) {
+//        	String productosStr = String.join(", ", pedido.getProductos());
+//            tableModel.addRow(new Object[]{pedido.getId_Pedido(), pedido.getCliente().getNombre(), pedido.getProductos(), pedido.getCantidad(), pedido.getFechaPedido().toString()});
+//        }
+        if (pedido != null) {
+        	tableModel.addRow(new Object[]{pedido.getId_Pedido(), pedido.getCliente().getNombre(), pedido.getProductos(), pedido.getCantidad(), pedido.getFechaPedido().toString()});
+		} else {
+			JOptionPane.showMessageDialog(this, "No se encontró un pedido con el ID proporcionado.");
+		}
+    } catch (NumberFormatException e) {
+//NumberFormat
+//    		e.printStackTrace();
+//            JOptionPane.showMessageDialog(this, "Error al buscar el pedido: " + e.getMessage());
+    	JOptionPane.showMessageDialog(this, "Ingrese un ID válido.");
+		}
     }
+    
     
     
 }
@@ -220,4 +254,8 @@ public class PedidosTabla extends JFrame {
 //	}
 	
 
+
 //}
+
+//}
+

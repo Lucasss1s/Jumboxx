@@ -123,7 +123,7 @@ public class Pedido {
                 continuar = false;
             }
         }
-        Pedido nuevoPedido = new Pedido(0, cliente, productos, LocalDate.now(), total, true); 
+        Pedido nuevoPedido = new Pedido(0, cliente, productos, LocalDate.now(), total, true, "", ""); 
         JOptionPane.showMessageDialog(null, "Pedido generado: " + nuevoPedido.toString());
         return nuevoPedido;
 	}
