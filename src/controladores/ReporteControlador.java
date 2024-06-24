@@ -67,7 +67,7 @@ public class ReporteControlador implements ReportRepository{
 	            
 	            int rowsInserted = statement.executeUpdate();
 	            if (rowsInserted > 0) {
-	            	JOptionPane.showMessageDialog(null, "Reporte agregado exitosamente");
+	            	
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
@@ -127,7 +127,7 @@ public class ReporteControlador implements ReportRepository{
 	            
 	            int rowsDeleted = statement.executeUpdate();
 	            if (rowsDeleted > 0) {
-	               JOptionPane.showMessageDialog(null, "Reporte eliminado exitosamente");
+	               
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
