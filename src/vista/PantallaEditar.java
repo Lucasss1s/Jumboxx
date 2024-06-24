@@ -43,7 +43,7 @@ public class PantallaEditar extends JFrame {
         imagenLabel.setBounds(73, 112, 191, 164);
 
         JButton seleccionarImagenBtn = new JButton("Seleccionar Imagen");
-        seleccionarImagenBtn.setBounds(33, 338, 185, 50);
+        seleccionarImagenBtn.setBounds(33, 338, 125, 50);
         seleccionarImagenBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -52,7 +52,7 @@ public class PantallaEditar extends JFrame {
         });
 
         JButton guardarBtn = new JButton("Guardar Cambios");
-        guardarBtn.setBounds(248, 338, 185, 50);
+        guardarBtn.setBounds(168, 338, 137, 50);
         guardarBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -144,5 +144,20 @@ public class PantallaEditar extends JFrame {
         } else {
             imagenLabel.setIcon(null);
         }
+        JButton btnAtras = new JButton("Atrás");
+        btnAtras.setBounds(331, 351, 102, 37);
+        getContentPane().add(btnAtras);
+        btnAtras.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Cierra la ventana actual
+                dispose();
+                // Vuelve a mostrar la ventana de ProductoTabla si existe una instancia válida
+                if (productoTabla != null) {
+                    productoTabla.setVisible(true);
+                }
+            }
+        });
+
     }
 }
