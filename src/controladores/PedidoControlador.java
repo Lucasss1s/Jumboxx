@@ -128,29 +128,76 @@ public class PedidoControlador {
 		
 	}
 
-	public List<Pedido> obtenerPedidosDesdeBD() {
-		List<Pedido> orders = new ArrayList<>();
-		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tu_base_de_datos", "usuario", "contraseña")) {
+//	public List<Pedido> obtenerPedidosDesdeBD() {
+//		List<Pedido> orders = new ArrayList<>();
+//		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tu_base_de_datos", "usuario", "contraseña")) {
             // Preparar la consulta SQL
-            String sql = "SELECT * FROM tabla_de_pedidos";
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+//            String sql = "SELECT * FROM tabla_de_pedidos";
+//            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 // Ejecutar la consulta y obtener los resultados
-                try (ResultSet rs = stmt.executeQuery()) {
+//                try (ResultSet rs = stmt.executeQuery()) {
                     // Recorrer los resultados y crear objetos Pedido
-                    while (rs.next()) {
-                        Pedido pedido = new Pedido(0, null, null, null, 0, true, "", "");
-                        pedido.setNombre(rs.getString("nombre"));
-                        pedido.setCantidad(rs.getString("cantidad"));
-                        orders.add(pedido);
-                    }
-                }
-            }
-        } catch (SQLException e) {
+//                    while (rs.next()) {
+//                        Pedido pedido = new Pedido(0, null, null, null, 0, true, "", "");
+//                       pedido.setNombre(rs.getString("nombre"));
+//                        pedido.setCantidad(rs.getString("cantidad"));
+//                        orders.add(pedido);
+//                    }
+//                }
+//            }
+//       } catch (SQLException e) {
             // Manejar cualquier error de base de datos
-            e.printStackTrace();
-        }
+//            e.printStackTrace();
+//        }
 
-        return orders;
+//        return orders;
+		
+	 public List<Pedido> searchPedidos(String keyword) {
+	        List<Pedido> result = new ArrayList<>();
+	        try {
+	            PreparedStatement statement = connection.prepareStatement(
+	                "SELECT * FROM pedido WHERE " +
+	                "id_cliente IN (SELECT id_cliente FROM cliente WHERE LOWER(nombre) LIKE ?) OR " +
+	                "LOWER(productos) LIKE ? OR " +
+	                "fechaPedido LIKE ? OR " +
+	                "CAST(total AS VARCHAR) LIKE ? OR " +
+	                "CAST(estado AS VARCHAR) LIKE ?"
+	            );
+	            String keywordPattern = "%" + keyword.toLowerCase() + "%";
+	            statement.setString(1, keywordPattern);
+	            statement.setString(2, keywordPattern);
+	            statement.setString(3, keywordPattern);
+	            statement.setString(4, keywordPattern);
+	            statement.setString(5, keywordPattern);
+
+	            ResultSet resultSet = statement.executeQuery();
+	            while (resultSet.next()) {
+	                int clienteId = resultSet.getInt("id_cliente");
+	                Cliente cliente = getClienteById(clienteId);
+
+	                String productosStr = resultSet.getString("Productos");
+	                LinkedList<String> productos = new LinkedList<>();
+	                for (String producto : productosStr.split(",")) {
+	                    productos.add(producto);
+	                }
+
+	                Pedido pedido = new Pedido(
+	                    resultSet.getInt("id_pedido"),
+	                    cliente,
+	                    productos,
+	                    resultSet.getDate("fechaPedido").toLocalDate(),
+	                    resultSet.getDouble("total"),
+	                    resultSet.getBoolean("estado"),
+	                    resultSet.getString("nombre"),
+	                    resultSet.getString("cantidad")
+	                );
+
+	                result.add(pedido);
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return result;
 	}
 
 	

@@ -61,7 +61,9 @@ public class PedidosMenu extends JFrame {
 		JButton btnNewButton = new JButton("Realizar pedido");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PedidosLista nuevo = new PedidosLista();
+				PedidosTabla pedidosTabla = new PedidosTabla();
+				PedidosLista nuevo = new PedidosLista(pedidosTabla);
+				nuevo.setVisible(true);
 				dispose();
 			}
 		});
