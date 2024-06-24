@@ -1,20 +1,10 @@
 package vista;
 
 import java.awt.EventQueue;
-
-import javax.swing.Icon;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import Modelos.Producto;
 import controladores.ProductoControlador;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -151,11 +141,12 @@ public class PantallaEditar extends JFrame {
 
                     // Cerrar la ventana de edición y abrir ProductoTabla
                     dispose();
-                    new ProductoTabla().setVisible(true); // Asumiendo que ProductoTabla tiene un constructor sin parámetros
                 } catch (IOException | NumberFormatException ex) {
                     JOptionPane.showMessageDialog(btnGuardar, "Error al actualizar el producto: " + ex.getMessage());
                 }
+                
             }
         });
+        
     }
 }

@@ -129,19 +129,10 @@ public class ProductoTabla extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado != null && seleccionado.getId_producto() != 0) {
-                    int selectedRow = table.getSelectedRow();
-                    if (selectedRow != -1) {
-                        int id = (int) table.getValueAt(selectedRow, 0);
-                        String nuevoNombre = (String) table.getValueAt(selectedRow, 1);
-                        double nuevoPrecio = (double) table.getValueAt(selectedRow, 2);
-                        int nuevaCantidad = (int) table.getValueAt(selectedRow, 3);
-
-                        seleccionado.setNombre(nuevoNombre);
-                        seleccionado.setPrecio(nuevoPrecio);
-                        seleccionado.setCantidad(nuevaCantidad);
-                        controlador.actualizarProducto(seleccionado);
-                        actualizarTabla();
-                    }
+                    // Abrir PantallaEditar con el producto seleccionado
+                    PantallaEditar pantallaEditar = new PantallaEditar(seleccionado);
+                    pantallaEditar.setVisible(true);
+                    // No es necesario actualizar la tabla aquí, ya que se hace al cerrar la ventana de edición
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione un producto");
                 }
