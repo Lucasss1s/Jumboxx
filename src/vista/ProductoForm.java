@@ -12,19 +12,22 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class ProductoForm extends JFrame {
-	
+    
     private JTextField nombreField;
     private JTextField precioField;
     private JLabel imagenLabel;
     private byte[] imagenData;
     private JLabel label_3;
     private JTextField inpCantidad;
+    private ProductoTabla productoTabla;  // Referencia a ProductoTabla
 
-    public ProductoForm() {
-    	setIconImage(Toolkit.getDefaultToolkit().getImage(ProductoForm.class.getResource("/img/Logo 2.png")));
-    	getContentPane().setBackground(new Color(0, 128, 192));
+    public ProductoForm(ProductoTabla productoTabla) {  // Modificar el constructor
+        this.productoTabla = productoTabla;  // Asignar la referencia
+
+        setIconImage(Toolkit.getDefaultToolkit().getImage(ProductoForm.class.getResource("/img/Logo 2.png")));
+        getContentPane().setBackground(new Color(0, 128, 192));
         setTitle("Agregar Producto");
-        setSize(481, 358);
+        setSize(483, 440);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -35,10 +38,10 @@ public class ProductoForm extends JFrame {
         imagenLabel = new JLabel();
         imagenLabel.setForeground(new Color(255, 255, 255));
         imagenLabel.setBackground(new Color(255, 255, 255));
-        imagenLabel.setBounds(73, 112, 191, 40);
+        imagenLabel.setBounds(73, 114, 191, 137);
 
         JButton seleccionarImagenBtn = new JButton("Seleccionar Imagen");
-        seleccionarImagenBtn.setBounds(32, 247, 185, 50);
+        seleccionarImagenBtn.setBounds(33, 340, 185, 50);
         seleccionarImagenBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -47,7 +50,7 @@ public class ProductoForm extends JFrame {
         });
 
         JButton guardarBtn = new JButton("Guardar Producto");
-        guardarBtn.setBounds(246, 247, 185, 50);
+        guardarBtn.setBounds(248, 340, 185, 50);
         guardarBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,11 +85,11 @@ public class ProductoForm extends JFrame {
         label_3.setForeground(new Color(255, 255, 255));
         label_3.setFont(new Font("Impact", Font.ITALIC, 11));
         label_3.setBackground(new Color(0, 128, 192));
-        label_3.setBounds(10, 177, 185, 40);
+        label_3.setBounds(10, 277, 185, 40);
         getContentPane().add(label_3);
         
         inpCantidad = new JTextField();
-        inpCantidad.setBounds(73, 177, 191, 40);
+        inpCantidad.setBounds(73, 278, 191, 40);
         getContentPane().add(inpCantidad);
     }
 
@@ -119,13 +122,19 @@ public class ProductoForm extends JFrame {
         controlador.agregarProducto(producto);
 
         JOptionPane.showMessageDialog(this, "Producto guardado exitosamente");
+
+        // Actualizar la tabla
+        productoTabla.actualizarTabla();
+        
+        // Cerrar la ventana de agregar producto
+        dispose();
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new ProductoForm().setVisible(true);
+                new ProductoForm(null).setVisible(true);  // Pasa null si no hay instancia de ProductoTabla
             }
         });
     }

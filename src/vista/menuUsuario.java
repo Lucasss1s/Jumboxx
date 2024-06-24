@@ -18,12 +18,14 @@ public class menuUsuario extends JFrame {
     private JButton atrasButton;
 
     public menuUsuario(Usuario usuario, UsuarioControlador controlador) {
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(menuUsuario.class.getResource("/img/Logo 2.png")));
         setTitle("Menú de Usuarios");
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
+        panel.setBackground(new Color(0, 128, 192));
         panel.setLayout(null);
 
         verUsuariosButton = createButton("Ver usuarios", "/img/verUsuario.png", 43, 50, usuario, controlador);
