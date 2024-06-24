@@ -18,7 +18,7 @@ public class MenuPrincipalGerente extends JFrame {
     private JButton salirButton;
 
     public MenuPrincipalGerente(Usuario usuario, UsuarioControlador controlador) {
-    	setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipalGerente.class.getResource("/img/Logo 2.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipalGerente.class.getResource("/img/Logo 2.png")));
         setTitle("Menú Principal - Gerente");
         setSize(616, 428);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

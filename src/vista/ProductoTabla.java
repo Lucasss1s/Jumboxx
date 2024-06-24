@@ -12,7 +12,6 @@ import controladores.ProductoControlador;
 import Modelos.Producto;
 
 public class ProductoTabla extends JFrame {
-    private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTable table;
     private DefaultTableModel model;
@@ -20,6 +19,7 @@ public class ProductoTabla extends JFrame {
     private JLabel imagenLabel;
     private Producto seleccionado;
     private JTextField searchField;
+    private JFrame menuPrincipal; // Instancia de la ventana principal
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -63,7 +63,7 @@ public class ProductoTabla extends JFrame {
         searchField = new JTextField();
         searchField.setBounds(110, 353, 305, 25);
         contentPane.add(searchField);
-      
+
         JButton searchButton = new JButton("Buscar");
         searchButton.setBounds(425, 353, 80, 25);
         contentPane.add(searchButton);
@@ -143,6 +143,19 @@ public class ProductoTabla extends JFrame {
             }
         });
 
+        JButton btnAtras = new JButton("Atrás");
+        btnAtras.setBounds(10, 10, 100, 30);
+        contentPane.add(btnAtras);
+        btnAtras.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Cierra la ventana actual
+                dispose();
+                // Mostrar la ventana principal
+                menuPrincipal.setVisible(true);
+            }
+        });
+
         JLabel lblNewLabel = new JLabel("Productos");
         lblNewLabel.setFont(new Font("Impact", Font.ITALIC, 15));
         lblNewLabel.setForeground(new Color(255, 255, 255));
@@ -150,6 +163,12 @@ public class ProductoTabla extends JFrame {
         contentPane.add(lblNewLabel);
     }
 
+    // Método para establecer la ventana principal
+    public void setMenuPrincipal(JFrame menuPrincipal) {
+        this.menuPrincipal = menuPrincipal;
+    }
+
+    // Método para actualizar la tabla de productos
     public void actualizarTabla() {
         model.setRowCount(0);
         List<Producto> productos = controlador.getAllProducts();
@@ -158,6 +177,7 @@ public class ProductoTabla extends JFrame {
         }
     }
 
+    // Método para mostrar la imagen del producto seleccionado
     private void mostrarImagen(byte[] imagen) {
         if (imagen != null) {
             ImageIcon icon = new ImageIcon(imagen);
@@ -169,6 +189,7 @@ public class ProductoTabla extends JFrame {
         }
     }
 
+    // Método para buscar productos por nombre
     private void buscarProducto(String nombre) {
         model.setRowCount(0);
         List<Producto> productos = controlador.buscarProductosPorNombre(nombre);
