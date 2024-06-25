@@ -1,7 +1,6 @@
 package vista;
 
 import javax.swing.*;
-
 import controladores.ProductoControlador;
 import Modelos.Producto;
 import java.awt.*;
@@ -12,7 +11,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class PantallaEditar extends JFrame {
-    
+
     private JTextField nombreField;
     private JTextField precioField;
     private JLabel imagenLabel;
@@ -20,16 +19,16 @@ public class PantallaEditar extends JFrame {
     private JLabel label_3;
     private JTextField inpCantidad;
     private Producto seleccionado;
-    private ProductoTabla productoTabla;  // Referencia a ProductoTabla
+    private ProductoTabla productoTabla;
 
-    public PantallaEditar(Producto seleccionado, ProductoTabla productoTabla) {  // Modificar el constructor
+    public PantallaEditar(Producto seleccionado, ProductoTabla productoTabla) {
         this.seleccionado = seleccionado;
-        this.productoTabla = productoTabla;  // Asignar la referencia
+        this.productoTabla = productoTabla;
 
         setIconImage(Toolkit.getDefaultToolkit().getImage(PantallaEditar.class.getResource("/img/Logo 2.png")));
         getContentPane().setBackground(new Color(0, 128, 192));
         setTitle("Editar Producto");
-        setSize(479, 438);
+        setSize(479, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -94,6 +93,36 @@ public class PantallaEditar extends JFrame {
         inpCantidad.setBounds(73, 287, 191, 40);
         getContentPane().add(inpCantidad);
 
+        JButton btnDescuento15 = new JButton("15% Descuento");
+        btnDescuento15.setBounds(280, 61, 150, 40);
+        btnDescuento15.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                aplicarDescuento(0.15);
+            }
+        });
+        getContentPane().add(btnDescuento15);
+
+        JButton btnDescuento30 = new JButton("30% Descuento");
+        btnDescuento30.setBounds(280, 112, 150, 40);
+        btnDescuento30.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                aplicarDescuento(0.30);
+            }
+        });
+        getContentPane().add(btnDescuento30);
+
+        JButton btnDescuento50 = new JButton("50% Descuento");
+        btnDescuento50.setBounds(280, 163, 150, 40);
+        btnDescuento50.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                aplicarDescuento(0.50);
+            }
+        });
+        getContentPane().add(btnDescuento50);
+
         // Mostrar la imagen actual del producto si existe
         mostrarImagen(seleccionado.getImagen());
     }
@@ -135,6 +164,12 @@ public class PantallaEditar extends JFrame {
         dispose();
     }
 
+    private void aplicarDescuento(double porcentaje) {
+        double precioActual = Double.parseDouble(precioField.getText());
+        double nuevoPrecio = precioActual - (precioActual * porcentaje);
+        precioField.setText(String.format("%.2f", nuevoPrecio));
+    }
+
     private void mostrarImagen(byte[] imagen) {
         if (imagen != null) {
             ImageIcon icon = new ImageIcon(imagen);
@@ -150,14 +185,11 @@ public class PantallaEditar extends JFrame {
         btnAtras.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Cierra la ventana actual
                 dispose();
-                // Vuelve a mostrar la ventana de ProductoTabla si existe una instancia válida
                 if (productoTabla != null) {
                     productoTabla.setVisible(true);
                 }
             }
         });
-
     }
 }
