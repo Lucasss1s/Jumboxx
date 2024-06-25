@@ -34,7 +34,7 @@ public class PantallaEditar extends JFrame {
 
         nombreField = new JTextField(seleccionado.getNombre());
         nombreField.setBounds(73, 6, 191, 40);
-        precioField = new JTextField(String.valueOf(seleccionado.getPrecio()));
+        precioField = new JTextField(String.valueOf(seleccionado.getPrecio()).replace('.', ','));
         precioField.setBounds(73, 61, 191, 40);
         imagenLabel = new JLabel();
         imagenLabel.setForeground(new Color(255, 255, 255));
@@ -148,26 +148,34 @@ public class PantallaEditar extends JFrame {
     }
 
     private void editarProducto() {
-        String nombre = nombreField.getText();
-        double precio = Double.parseDouble(precioField.getText());
-        int cantidad = Integer.parseInt(inpCantidad.getText());
-        Producto producto = new Producto(seleccionado.getId_producto(), nombre, cantidad, imagenData, precio);
-        ProductoControlador controlador = new ProductoControlador();
-        controlador.actualizarProducto(producto);
+        try {
+            String nombre = nombreField.getText();
+            double precio = Double.parseDouble(precioField.getText().replace(",", "."));
+            int cantidad = Integer.parseInt(inpCantidad.getText());
+            Producto producto = new Producto(seleccionado.getId_producto(), nombre, cantidad, imagenData, precio);
+            ProductoControlador controlador = new ProductoControlador();
+            controlador.actualizarProducto(producto);
 
-        JOptionPane.showMessageDialog(this, "Producto editado exitosamente");
+            JOptionPane.showMessageDialog(this, "Producto editado exitosamente", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
 
-        // Actualizar la tabla
-        productoTabla.actualizarTabla();
-        
-        // Cerrar la ventana de editar producto
-        dispose();
+            // Actualizar la tabla y cerrar la ventana después de confirmar
+            productoTabla.actualizarTabla();
+            dispose();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error en el formato de los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void aplicarDescuento(double porcentaje) {
-        double precioActual = Double.parseDouble(precioField.getText());
-        double nuevoPrecio = precioActual - (precioActual * porcentaje);
-        precioField.setText(String.format("%.2f", nuevoPrecio));
+        try {
+            double precioActual = Double.parseDouble(precioField.getText().replace(",", "."));
+            double nuevoPrecio = precioActual - (precioActual * porcentaje);
+            precioField.setText(String.format("%.2f", nuevoPrecio).replace('.', ','));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error en el formato del precio: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void mostrarImagen(byte[] imagen) {
