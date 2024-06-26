@@ -16,7 +16,6 @@ public class PantallaEditar extends JFrame {
     private JTextField precioField;
     private JLabel imagenLabel;
     private byte[] imagenData;
-    private JLabel label_3;
     private JTextField inpCantidad;
     private Producto seleccionado;
     private ProductoTabla productoTabla;
@@ -83,7 +82,7 @@ public class PantallaEditar extends JFrame {
         getContentPane().add(seleccionarImagenBtn);
         getContentPane().add(guardarBtn);
         
-        label_3 = new JLabel("Cantidad:");
+        JLabel label_3 = new JLabel("Cantidad:");
         label_3.setForeground(new Color(255, 255, 255));
         label_3.setFont(new Font("Impact", Font.ITALIC, 11));
         label_3.setBackground(new Color(0, 128, 192));
@@ -153,7 +152,22 @@ public class PantallaEditar extends JFrame {
             String nombre = nombreField.getText();
             double precio = Double.parseDouble(precioField.getText().replace(",", "."));
             int cantidad = Integer.parseInt(inpCantidad.getText());
+
+            // Calcular precio con descuento
+            double precioConDescuento = precio; // Por defecto, sin descuento aplicado
+
+            // Si se ha aplicado algún descuento, actualizar precio con descuento
+            if (precioField.getText().contains(",")) {
+                precioConDescuento = Double.parseDouble(precioField.getText().replace(",", "."));
+            }
+
+            // Si no se seleccionó una nueva imagen, usar la imagen existente
+            if (imagenData == null) {
+                imagenData = seleccionado.getImagen();
+            }
+
             Producto producto = new Producto(seleccionado.getId_producto(), nombre, cantidad, imagenData, precio);
+            producto.setPrecioConDescuento(precioConDescuento); // Guardar precio con descuento
             ProductoControlador controlador = new ProductoControlador();
             controlador.actualizarProducto(producto);
 
@@ -188,17 +202,5 @@ public class PantallaEditar extends JFrame {
         } else {
             imagenLabel.setIcon(null);
         }
-        JButton btnAtras = new JButton("Atrás");
-        btnAtras.setBounds(331, 351, 102, 37);
-        getContentPane().add(btnAtras);
-        btnAtras.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                if (productoTabla != null) {
-                    productoTabla.setVisible(true);
-                }
-            }
-        });
     }
 }

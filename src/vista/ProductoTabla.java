@@ -46,7 +46,7 @@ public class ProductoTabla extends JFrame {
         controlador = new ProductoControlador();
         seleccionado = null;
 
-        String[] columnNames = {"ID", "Nombre", "Precio", "Cantidad"};
+        String[] columnNames = {"ID", "Nombre", "Precio", "porcentaje_descuento", "Cantidad"}; // Añadido "Descuento"
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
         actualizarTabla();
@@ -149,9 +149,9 @@ public class ProductoTabla extends JFrame {
         btnAtras.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              	 dispose();
-                 MenuPrincipalGerente menuGerente = new MenuPrincipalGerente(null, null);
-                 menuGerente.setVisible(true);
+                dispose();
+                MenuPrincipalGerente menuGerente = new MenuPrincipalGerente(null, null);
+                menuGerente.setVisible(true);
             }
         });
 
@@ -172,7 +172,12 @@ public class ProductoTabla extends JFrame {
         model.setRowCount(0);
         List<Producto> productos = controlador.getAllProducts();
         for (Producto producto : productos) {
-            model.addRow(new Object[]{producto.getId_producto(), producto.getNombre(), producto.getPrecio(), producto.getCantidad()});
+            model.addRow(new Object[]{
+                producto.getId_producto(),
+                producto.getNombre(),
+                producto.getPrecio(),
+                producto.getPorcentajeDescuento() + "%", // Mostrar el porcentaje de descuento
+                producto.getCantidad()});
         }
     }
 
@@ -193,7 +198,12 @@ public class ProductoTabla extends JFrame {
         model.setRowCount(0);
         List<Producto> productos = controlador.buscarProductosPorNombre(nombre);
         for (Producto producto : productos) {
-            model.addRow(new Object[]{producto.getId_producto(), producto.getNombre(), producto.getPrecio(), producto.getCantidad()});
+            model.addRow(new Object[]{
+                producto.getId_producto(),
+                producto.getNombre(),
+                producto.getPrecio(),
+                producto.getPorcentajeDescuento() + "%", // Mostrar el porcentaje de descuento
+                producto.getCantidad()});
         }
     }
 }

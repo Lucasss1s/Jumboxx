@@ -6,6 +6,8 @@ public class Producto {
     private int cantidad;
     private byte[] imagen;
     private double precio;
+    private double precioConDescuento;
+    private double porcentajeDescuento; // Nuevo campo para el porcentaje de descuento
 
     public Producto(int id_producto, String nombre, int cantidad, byte[] imagen, double precio) {
         this.id_producto = id_producto;
@@ -13,14 +15,20 @@ public class Producto {
         this.cantidad = cantidad;
         this.imagen = imagen;
         this.precio = precio;
+        this.precioConDescuento = precio; // Inicialmente igual al precio normal
+        this.porcentajeDescuento = 0; // Inicialmente sin descuento
     }
+
+    // Constructor alternativo sin imagen
     public Producto(int id_producto, String nombre, int cantidad, double precio) {
         this.id_producto = id_producto;
         this.nombre = nombre;
         this.cantidad = cantidad;
-   
         this.precio = precio;
+        this.precioConDescuento = precio; // Inicialmente igual al precio normal
+        this.porcentajeDescuento = 0; // Inicialmente sin descuento
     }
+
     // Getters y setters
     public int getId_producto() {
         return id_producto;
@@ -62,9 +70,25 @@ public class Producto {
         this.precio = precio;
     }
 
+    public double getPrecioConDescuento() {
+        return precioConDescuento;
+    }
+
+    public void setPrecioConDescuento(double precioConDescuento) {
+        this.precioConDescuento = precioConDescuento;
+    }
+
+    public double getPorcentajeDescuento() {
+        return porcentajeDescuento;
+    }
+
+    public void setPorcentajeDescuento(double porcentajeDescuento) {
+        this.porcentajeDescuento = porcentajeDescuento;
+    }
+
     @Override
     public String toString() {
         return "Producto [id_producto=" + id_producto + ", nombre=" + nombre + ", cantidad=" + cantidad + ", precio=" + precio
-                + "]";
+                + ", precioConDescuento=" + precioConDescuento + ", porcentajeDescuento=" + porcentajeDescuento + "]";
     }
 }
