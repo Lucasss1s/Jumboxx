@@ -24,6 +24,7 @@ public class PantallaEditar extends JFrame {
     public PantallaEditar(Producto seleccionado, ProductoTabla productoTabla) {
         this.seleccionado = seleccionado;
         this.productoTabla = productoTabla;
+        this.imagenData = seleccionado.getImagen(); // Inicializar imagenData con la imagen actual
 
         setIconImage(Toolkit.getDefaultToolkit().getImage(PantallaEditar.class.getResource("/img/Logo 2.png")));
         getContentPane().setBackground(new Color(0, 128, 192));
