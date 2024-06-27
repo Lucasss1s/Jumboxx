@@ -46,7 +46,7 @@ public class ProductoTabla extends JFrame {
         controlador = new ProductoControlador();
         seleccionado = null;
 
-        String[] columnNames = {"ID", "Nombre", "Precio", "porcentaje_descuento", "Cantidad"}; // Añadido "Descuento"
+        String[] columnNames = {"ID", "Nombre", "Precio", "Cantidad"};
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
         actualizarTabla();
@@ -176,7 +176,6 @@ public class ProductoTabla extends JFrame {
                 producto.getId_producto(),
                 producto.getNombre(),
                 producto.getPrecio(),
-                producto.getPorcentajeDescuento() + "%", // Mostrar el porcentaje de descuento
                 producto.getCantidad()});
         }
     }
@@ -202,7 +201,6 @@ public class ProductoTabla extends JFrame {
                 producto.getId_producto(),
                 producto.getNombre(),
                 producto.getPrecio(),
-                producto.getPorcentajeDescuento() + "%", // Mostrar el porcentaje de descuento
                 producto.getCantidad()});
         }
     }
