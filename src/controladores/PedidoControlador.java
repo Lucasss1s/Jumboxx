@@ -52,11 +52,31 @@ public class PedidoControlador {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("Pedidos obtenidos: " + orders.size());
         return orders;
     }
 	
 	private Cliente getClienteById(int clienteId) {
-		return null;
+		  Cliente cliente = null;
+	        try {
+	            PreparedStatement statement = connection.prepareStatement("SELECT * FROM cliente WHERE id_cliente = ?");
+	            statement.setInt(1, clienteId);
+	            ResultSet resultSet = statement.executeQuery();
+
+	            if (resultSet.next()) {
+	                cliente = new Cliente(
+	                    resultSet.getInt("id_cliente"),
+	                    resultSet.getString("nombre"),
+	                    resultSet.getString("apellido"),
+	                    resultSet.getString("direccion"),
+	                    resultSet.getInt("telefono")
+	                );
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return cliente;
+//		return null;
 	}
 
 	 public void updatePedido(Pedido pedido) {
@@ -114,6 +134,7 @@ public class PedidoControlador {
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
+	    System.out.println("Pedido obtenido: " + pedido);
 		return pedido;
 	}
 
@@ -171,7 +192,7 @@ public class PedidoControlador {
 	            statement.setString(5, keywordPattern);
 
 	            ResultSet resultSet = statement.executeQuery();
-	            while (resultSet.next()) {	
+	            while (resultSet.next()) {
 	                int clienteId = resultSet.getInt("id_cliente");
 	                Cliente cliente = getClienteById(clienteId);
 

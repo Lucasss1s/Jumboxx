@@ -18,37 +18,33 @@ public class MenuPrincipalGerente extends JFrame {
     private JButton salirButton;
 
     public MenuPrincipalGerente(Usuario usuario, UsuarioControlador controlador) {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipalGerente.class.getResource("/img/Logo 2.png")));
         setTitle("Menú Principal - Gerente");
-        setSize(616, 428);
+        setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(0, 128, 192));
         panel.setLayout(null);
 
-        pedidosButton = createButton("Pedidos", "/img/pedido.png", 43, 50, usuario, controlador);
+        pedidosButton = createButton("Pedidos", "/img/pedido.png", 43, 33, usuario, controlador);
         panel.add(pedidosButton);
 
-        stockButton = createButton("Stock", "/img/productos.png", 43, 100, usuario, controlador);
+        stockButton = createButton("Stock", "/img/productos.png", 43, 84, usuario, controlador);
         panel.add(stockButton);
 
-        reportesButton = createButton("Reportes", "/img/reporte.png", 43, 150, usuario, controlador);
+        reportesButton = createButton("Reportes", "/img/reporte.png", 43, 135, usuario, controlador);
         panel.add(reportesButton);
 
-        usuariosButton = createButton("Usuarios", "/img/usuarios.png", 43, 200, usuario, controlador);
+        depositosButton = createButton("Depositos", "/img/pedido.png", 43, 186, usuario, controlador);
+        panel.add(depositosButton);
+
+        usuariosButton = createButton("Usuarios", "/img/usuarios.png", 43, 237, usuario, controlador);
         panel.add(usuariosButton);
 
-        salirButton = createButton("Salir", "/img/salir.png", 43, 250, usuario, controlador);
+        salirButton = createButton("Salir", "/img/salir.png", 43, 288, usuario, controlador);
         panel.add(salirButton);
 
         getContentPane().add(panel);
-        
-        JLabel lblNewLabel = new JLabel("New label");
-        lblNewLabel.setIcon(new ImageIcon(MenuPrincipalGerente.class.getResource("/img/Logo 2.png")));
-        lblNewLabel.setBounds(386, 52, 181, 127);
-        panel.add(lblNewLabel);
         setVisible(true);
     }
 
@@ -107,14 +103,13 @@ public class MenuPrincipalGerente extends JFrame {
                         JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Pedidos seleccionada");
                         break;
                     case "Stock":
-                        dispose();
-                        ProductoTabla productoTablaFrame = new ProductoTabla();
-                        productoTablaFrame.setVisible(true);
+                        JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Stock seleccionada");
                         break;
                     case "Reportes":
-                    	 dispose();
-                         TablaReporte tablaReporte = new TablaReporte();
-                         tablaReporte.setVisible(true);
+                        JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Reportes seleccionada");
+                        break;
+                    case "Depositos":
+                        JOptionPane.showMessageDialog(MenuPrincipalGerente.this, "Opción Depositos seleccionada");
                         break;
                     case "Usuarios":
                         dispose();

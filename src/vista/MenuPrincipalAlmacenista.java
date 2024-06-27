@@ -19,12 +19,11 @@ public class MenuPrincipalAlmacenista extends JFrame {
     public MenuPrincipalAlmacenista(Usuario usuario, UsuarioControlador controlador) {
 
         setTitle("Menú Principal - Almacenista");
-        setSize(616, 428);
+        setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(0, 128, 192));
         panel.setLayout(null);
 
         pedidosButton = createButton("Pedidos", "/img/pedido.png", 43, 50, usuario, controlador);
@@ -43,11 +42,6 @@ public class MenuPrincipalAlmacenista extends JFrame {
         panel.add(salirButton);
 
         getContentPane().add(panel);
-        
-        JLabel lblNewLabel = new JLabel("New label");
-        lblNewLabel.setIcon(new ImageIcon(MenuPrincipalAlmacenista.class.getResource("/img/Logo 2.png")));
-        lblNewLabel.setBounds(375, 50, 181, 127);
-        panel.add(lblNewLabel);
         setVisible(true);
     }
 
@@ -106,14 +100,10 @@ public class MenuPrincipalAlmacenista extends JFrame {
                         JOptionPane.showMessageDialog(MenuPrincipalAlmacenista.this, "Opción Pedidos seleccionada");
                         break;
                     case "Stock":
-                        dispose();
-                        ProductoTabla productoTablaFrame = new ProductoTabla();
-                        productoTablaFrame.setVisible(true);
+                        JOptionPane.showMessageDialog(MenuPrincipalAlmacenista.this, "Opción Stock seleccionada");
                         break;
                     case "Reportes":
-                    	dispose();
-                        TablaReporte tablaReporte = new TablaReporte();
-                        tablaReporte.setVisible(true);
+                        JOptionPane.showMessageDialog(MenuPrincipalAlmacenista.this, "Opción Reportes seleccionada");
                         break;
                     case "Perfil":
                         perfilUsuario perfilUsuarioFrame = new perfilUsuario(controlador, usuario);

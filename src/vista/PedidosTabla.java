@@ -134,7 +134,9 @@ public class PedidosTabla extends JFrame {
         List<Pedido> pedidos = controlador.getAllOrders();
         JOptionPane.showMessageDialog(null, "Pedido: " + pedidos);
         tableModel.setRowCount(0); // Limpiar tabla
+        System.out.println("Mostrando pedidos: " + pedidos.size());
         for (Pedido pedido : pedidos) {
+//        	String productosStr = String.join(", ", pedido.getProductos());	
             tableModel.addRow(new Object[]{pedido.getId_Pedido(), pedido.getProductos(), pedido.getCantidad(), pedido.getFechaPedido().toString()});
         }
     }
@@ -221,6 +223,7 @@ public class PedidosTabla extends JFrame {
 		} else {
 			JOptionPane.showMessageDialog(this, "No se encontró un pedido con el ID proporcionado.");
 		}
+        System.out.println("Pedido buscado: " + pedido);
     } catch (NumberFormatException e) {
 //NumberFormat
 //    		e.printStackTrace();

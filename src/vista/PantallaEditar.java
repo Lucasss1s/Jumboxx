@@ -1,201 +1,158 @@
 package vista;
 
-import javax.swing.*;
-import controladores.ProductoControlador;
+import java.awt.EventQueue;
+import javax.swing.Icon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
 import Modelos.Producto;
-import java.awt.*;
+import controladores.ProductoControlador;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.awt.Color;
+import java.awt.Toolkit;
 
 public class PantallaEditar extends JFrame {
 
-    private JTextField nombreField;
-    private JTextField precioField;
-    private JLabel imagenLabel;
-    private byte[] imagenData;
-    private JLabel label_3;
-    private JTextField inpCantidad;
-    private Producto seleccionado;
-    private ProductoTabla productoTabla;
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private JTextField textField;
+    private JTextField textField3;
+    private JTextField textField2;
+    private JTextField textField1;
+    private Producto producto;
 
-    public PantallaEditar(Producto seleccionado, ProductoTabla productoTabla) {
-        this.seleccionado = seleccionado;
-        this.productoTabla = productoTabla;
-
+    public PantallaEditar(Producto producto) {
         setIconImage(Toolkit.getDefaultToolkit().getImage(PantallaEditar.class.getResource("/img/Logo 2.png")));
-        getContentPane().setBackground(new Color(0, 128, 192));
-        setTitle("Editar Producto");
-        setSize(479, 500);
+        this.producto = producto;
+
+        this.setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setBounds(100, 100, 449, 337);
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(0, 128, 192));
+        contentPane.setForeground(new Color(0, 0, 0));
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        nombreField = new JTextField(seleccionado.getNombre());
-        nombreField.setBounds(73, 6, 191, 40);
-        precioField = new JTextField(String.valueOf(seleccionado.getPrecio()).replace('.', ','));
-        precioField.setBounds(73, 61, 191, 40);
-        imagenLabel = new JLabel();
-        imagenLabel.setForeground(new Color(255, 255, 255));
-        imagenLabel.setBackground(new Color(255, 255, 255));
-        imagenLabel.setBounds(73, 112, 191, 164);
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
 
-        JButton seleccionarImagenBtn = new JButton("Seleccionar Imagen");
-        seleccionarImagenBtn.setBounds(33, 338, 125, 50);
-        seleccionarImagenBtn.addActionListener(new ActionListener() {
-            @Override
+        JLabel lblNewLabel = new JLabel("Descripción Producto");
+        lblNewLabel.setForeground(new Color(255, 255, 255));
+        lblNewLabel.setFont(new Font("Impact", Font.ITALIC, 16));
+        lblNewLabel.setBounds(146, 0, 149, 27);
+        contentPane.add(lblNewLabel);
+
+        textField = new JTextField();
+        textField.setBounds(165, 49, 209, 20);
+        textField.setText(producto.getNombre());
+        contentPane.add(textField);
+        textField.setColumns(10);
+
+        JLabel lblNombre = new JLabel("Nombre");
+        lblNombre.setForeground(new Color(255, 255, 255));
+        lblNombre.setFont(new Font("Impact", Font.ITALIC, 16));
+        lblNombre.setBounds(33, 52, 86, 17);
+        contentPane.add(lblNombre);
+
+        JLabel lblCantidad = new JLabel("Cantidad");
+        lblCantidad.setForeground(Color.WHITE);
+        lblCantidad.setFont(new Font("Impact", Font.ITALIC, 16));
+        lblCantidad.setBounds(33, 99, 86, 17);
+        contentPane.add(lblCantidad);
+
+        JLabel lblPrecio = new JLabel("Precio");
+        lblPrecio.setForeground(Color.WHITE);
+        lblPrecio.setFont(new Font("Impact", Font.ITALIC, 16));
+        lblPrecio.setBounds(33, 146, 86, 17);
+        contentPane.add(lblPrecio);
+
+        JLabel lblImagen = new JLabel("Imagen");
+        lblImagen.setForeground(Color.WHITE);
+        lblImagen.setFont(new Font("Impact", Font.ITALIC, 16));
+        lblImagen.setBounds(33, 198, 86, 17);
+        contentPane.add(lblImagen);
+
+        textField1 = new JTextField();
+        textField1.setText(String.valueOf(producto.getCantidad()));
+        textField1.setColumns(10);
+        textField1.setBounds(165, 96, 209, 20);
+        contentPane.add(textField1);
+
+        textField2 = new JTextField();
+        textField2.setText(String.valueOf(producto.getPrecio()));
+        textField2.setColumns(10);
+        textField2.setBounds(165, 143, 209, 20);
+        contentPane.add(textField2);
+
+        textField3 = new JTextField();
+        textField3.setColumns(10);
+        textField3.setBounds(165, 195, 140, 20);
+        contentPane.add(textField3);
+
+        JButton btnSeleccionarImagen = new JButton("Seleccionar");
+        btnSeleccionarImagen.setBounds(315, 195, 105, 20);
+        btnSeleccionarImagen.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                seleccionarImagen();
+                JFileChooser chooser = new JFileChooser();
+                int result = chooser.showOpenDialog(null);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File file = chooser.getSelectedFile();
+                    String filename = file.getAbsolutePath();
+                    textField3.setText(filename);
+                }
             }
         });
+        contentPane.add(btnSeleccionarImagen);
 
-        JButton guardarBtn = new JButton("Guardar Cambios");
-        guardarBtn.setBounds(168, 338, 137, 50);
-        guardarBtn.addActionListener(new ActionListener() {
+        JButton btnGuardar = new JButton("Guardar");
+        btnGuardar.setBounds(166, 249, 89, 23);
+        contentPane.add(btnGuardar);
+        btnGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                editarProducto();
-            }
-        });
-        getContentPane().setLayout(null);
+                try {
+                    // Obtener los valores actualizados de los campos
+                    String nombre = textField.getText();
+                    int cantidad = Integer.parseInt(textField1.getText());
+                    double precio = Double.parseDouble(textField2.getText());
+                    byte[] imagen = null;
+                    String imagenPath = textField3.getText();
+                    
+                    if (!imagenPath.isEmpty()) {
+                        imagen = Files.readAllBytes(new File(imagenPath).toPath());
+                    } else {
+                        imagen = producto.getImagen();
+                    }
 
-        JLabel label = new JLabel("Nombre:");
-        label.setFont(new Font("Impact", Font.ITALIC, 11));
-        label.setForeground(new Color(255, 255, 255));
-        label.setBounds(10, 1, 185, 50);
-        getContentPane().add(label);
-        getContentPane().add(nombreField);
-        JLabel label_1 = new JLabel("Precio:");
-        label_1.setFont(new Font("Impact", Font.ITALIC, 11));
-        label_1.setForeground(new Color(255, 255, 255));
-        label_1.setBackground(new Color(0, 128, 192));
-        label_1.setBounds(10, 61, 185, 40);
-        getContentPane().add(label_1);
-        getContentPane().add(precioField);
-        JLabel label_2 = new JLabel("Imagen:");
-        label_2.setForeground(new Color(255, 255, 255));
-        label_2.setFont(new Font("Impact", Font.ITALIC, 11));
-        label_2.setBounds(10, 112, 185, 40);
-        getContentPane().add(label_2);
-        getContentPane().add(imagenLabel);
-        getContentPane().add(seleccionarImagenBtn);
-        getContentPane().add(guardarBtn);
-        
-        label_3 = new JLabel("Cantidad:");
-        label_3.setForeground(new Color(255, 255, 255));
-        label_3.setFont(new Font("Impact", Font.ITALIC, 11));
-        label_3.setBackground(new Color(0, 128, 192));
-        label_3.setBounds(10, 287, 185, 40);
-        getContentPane().add(label_3);
-        
-        inpCantidad = new JTextField(String.valueOf(seleccionado.getCantidad()));
-        inpCantidad.setBounds(73, 287, 191, 40);
-        getContentPane().add(inpCantidad);
+                    // Actualizar el producto
+                    producto.setNombre(nombre);
+                    producto.setCantidad(cantidad);
+                    producto.setPrecio(precio);
+                    producto.setImagen(imagen);
 
-        JButton btnDescuento15 = new JButton("15% Descuento");
-        btnDescuento15.setBounds(280, 61, 150, 40);
-        btnDescuento15.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                aplicarDescuento(0.15);
-            }
-        });
-        getContentPane().add(btnDescuento15);
+                    // Llamar al método para actualizar en el controlador
+                    ProductoControlador controlador = new ProductoControlador();
+                    controlador.actualizarProducto(producto);
 
-        JButton btnDescuento30 = new JButton("30% Descuento");
-        btnDescuento30.setBounds(280, 112, 150, 40);
-        btnDescuento30.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                aplicarDescuento(0.30);
-            }
-        });
-        getContentPane().add(btnDescuento30);
+                    JOptionPane.showMessageDialog(btnGuardar, "Producto actualizado con éxito");
 
-        JButton btnDescuento50 = new JButton("50% Descuento");
-        btnDescuento50.setBounds(280, 163, 150, 40);
-        btnDescuento50.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                aplicarDescuento(0.50);
-            }
-        });
-        getContentPane().add(btnDescuento50);
-
-        // Mostrar la imagen actual del producto si existe
-        mostrarImagen(seleccionado.getImagen());
-    }
-
-    private void seleccionarImagen() {
-        JFileChooser fileChooser = new JFileChooser();
-        int result = fileChooser.showOpenDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-            imagenLabel.setText(file.getName());
-            imagenData = leerImagen(file);
-        }
-    }
-
-    private byte[] leerImagen(File file) {
-        byte[] bFile = new byte[(int) file.length()];
-        try (FileInputStream fileInputStream = new FileInputStream(file)) {
-            fileInputStream.read(bFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return bFile;
-    }
-
-    private void editarProducto() {
-        try {
-            String nombre = nombreField.getText();
-            double precio = Double.parseDouble(precioField.getText().replace(",", "."));
-            int cantidad = Integer.parseInt(inpCantidad.getText());
-            Producto producto = new Producto(seleccionado.getId_producto(), nombre, cantidad, imagenData, precio);
-            ProductoControlador controlador = new ProductoControlador();
-            controlador.actualizarProducto(producto);
-
-            JOptionPane.showMessageDialog(this, "Producto editado exitosamente", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
-
-            // Actualizar la tabla y cerrar la ventana después de confirmar
-            productoTabla.actualizarTabla();
-            dispose();
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Error en el formato de los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private void aplicarDescuento(double porcentaje) {
-        try {
-            double precioActual = Double.parseDouble(precioField.getText().replace(",", "."));
-            double nuevoPrecio = precioActual - (precioActual * porcentaje);
-            precioField.setText(String.format("%.2f", nuevoPrecio).replace('.', ','));
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Error en el formato del precio: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private void mostrarImagen(byte[] imagen) {
-        if (imagen != null) {
-            ImageIcon icon = new ImageIcon(imagen);
-            Image img = icon.getImage();
-            Image scaledImg = img.getScaledInstance(imagenLabel.getWidth(), imagenLabel.getHeight(), Image.SCALE_SMOOTH);
-            imagenLabel.setIcon(new ImageIcon(scaledImg));
-        } else {
-            imagenLabel.setIcon(null);
-        }
-        JButton btnAtras = new JButton("Atrás");
-        btnAtras.setBounds(331, 351, 102, 37);
-        getContentPane().add(btnAtras);
-        btnAtras.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                if (productoTabla != null) {
-                    productoTabla.setVisible(true);
+                    // Cerrar la ventana de edición y abrir ProductoTabla
+                    dispose();
+                    new ProductoTabla().setVisible(true); // Asumiendo que ProductoTabla tiene un constructor sin parámetros
+                } catch (IOException | NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(btnGuardar, "Error al actualizar el producto: " + ex.getMessage());
                 }
             }
         });
