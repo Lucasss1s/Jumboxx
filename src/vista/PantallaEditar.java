@@ -1,6 +1,7 @@
 package vista;
 
 import javax.swing.*;
+
 import controladores.ProductoControlador;
 import Modelos.Producto;
 import java.awt.*;
@@ -28,7 +29,7 @@ public class PantallaEditar extends JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(PantallaEditar.class.getResource("/img/Logo 2.png")));
         getContentPane().setBackground(new Color(0, 128, 192));
         setTitle("Editar Producto");
-        setSize(479, 500);
+        setSize(492, 460);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -42,7 +43,7 @@ public class PantallaEditar extends JFrame {
         imagenLabel.setBounds(73, 112, 191, 164);
 
         JButton seleccionarImagenBtn = new JButton("Seleccionar Imagen");
-        seleccionarImagenBtn.setBounds(33, 338, 125, 50);
+        seleccionarImagenBtn.setBounds(73, 353, 150, 40);
         seleccionarImagenBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -51,7 +52,7 @@ public class PantallaEditar extends JFrame {
         });
 
         JButton guardarBtn = new JButton("Guardar Cambios");
-        guardarBtn.setBounds(168, 338, 137, 50);
+        guardarBtn.setBounds(280, 353, 150, 40);
         guardarBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

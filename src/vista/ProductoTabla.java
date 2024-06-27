@@ -37,7 +37,7 @@ public class ProductoTabla extends JFrame {
     public ProductoTabla() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(ProductoTabla.class.getResource("/img/Logo 2.png")));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 909, 452);
+        setBounds(100, 100, 934, 452);
         contentPane = new JPanel();
         contentPane.setBackground(new Color(0, 128, 192));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -53,19 +53,19 @@ public class ProductoTabla extends JFrame {
         contentPane.setLayout(null);
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(10, 42, 600, 300);
+        scrollPane.setBounds(10, 42, 611, 300);
         contentPane.add(scrollPane);
 
         imagenLabel = new JLabel();
-        imagenLabel.setBounds(620, 42, 250, 250);
+        imagenLabel.setBounds(642, 42, 250, 250);
         contentPane.add(imagenLabel);
 
         searchField = new JTextField();
-        searchField.setBounds(110, 353, 305, 25);
+        searchField.setBounds(115, 356, 305, 25);
         contentPane.add(searchField);
 
         JButton searchButton = new JButton("Buscar");
-        searchButton.setBounds(10, 353, 80, 25);
+        searchButton.setBounds(10, 356, 80, 25);
         contentPane.add(searchButton);
         searchButton.addActionListener(new ActionListener() {
             @Override
@@ -99,7 +99,7 @@ public class ProductoTabla extends JFrame {
         });
 
         JButton btnEliminar = new JButton("Eliminar");
-        btnEliminar.setBounds(620, 312, 120, 30);
+        btnEliminar.setBounds(642, 312, 120, 30);
         contentPane.add(btnEliminar);
         btnEliminar.addActionListener(new ActionListener() {
             @Override
@@ -117,7 +117,7 @@ public class ProductoTabla extends JFrame {
         });
 
         JButton btnEditar = new JButton("Editar");
-        btnEditar.setBounds(750, 312, 120, 30);
+        btnEditar.setBounds(772, 312, 120, 30);
         contentPane.add(btnEditar);
         btnEditar.addActionListener(new ActionListener() {
             @Override
@@ -133,7 +133,7 @@ public class ProductoTabla extends JFrame {
         });
 
         JButton btnAgregar = new JButton("Agregar Producto");
-        btnAgregar.setBounds(620, 353, 250, 30);
+        btnAgregar.setBounds(642, 353, 250, 30);
         contentPane.add(btnAgregar);
         btnAgregar.addActionListener(new ActionListener() {
             @Override
@@ -144,7 +144,7 @@ public class ProductoTabla extends JFrame {
         });
 
         JButton btnAtras = new JButton("Atrás");
-        btnAtras.setBounds(511, 353, 100, 30);
+        btnAtras.setBounds(521, 353, 100, 30);
         contentPane.add(btnAtras);
         btnAtras.addActionListener(new ActionListener() {
             @Override
